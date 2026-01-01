@@ -60,7 +60,7 @@ function updateUserPill() {
 
   if (profile.name) {
     const tag = profile.class ? ` • ${profile.class}` : "";
-    const t = profile.role === "teacher" ? " 👩‍🏫" : "";
+    const t = profile.role === "teacher" ? "👨‍🏫" : "";
     pill.textContent = `${profile.name}${tag}${t}`;
   } else {
     pill.textContent = "Ingelogd";
