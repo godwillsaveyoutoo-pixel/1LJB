@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <!-- bag body -->
+  <path d="M50 40
+           Q40 120 55 185
+           Q100 210 145 185
+           Q160 120 150 40
+           Z" fill="#d9d9d9" stroke="#8a8a8a" stroke-width="4" stroke-linejoin="round"></path>
+
+  <!-- top fold -->
+  <path d="M50 40
+           Q100 60 150 40" fill="none" stroke="#8a8a8a" stroke-width="4" stroke-linecap="round"></path>
+
+  <!-- side seams -->
+  <path d="M75 55 Q65 120 75 175" fill="none" stroke="#b0b0b0" stroke-width="3" stroke-linecap="round"></path>
+
+  <path d="M125 55 Q135 120 125 175" fill="none" stroke="#b0b0b0" stroke-width="3" stroke-linecap="round"></path>
+
+  <!-- subtle texture dots -->
+  <circle cx="90" cy="95" r="1.5" fill="#a0a0a0"></circle>
+  <circle cx="110" cy="120" r="1.5" fill="#a0a0a0"></circle>
+  <circle cx="95" cy="145" r="1.5" fill="#a0a0a0"></circle>
+</svg>

@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Wiskunde Quest v1.6.2</title>
+<meta name="x-game-id" content="Wiskunde Quest (Outline)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+</head>
+
+<body>
+<script src="js/core.js"></script>
+<script src="js/topics.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/questions.helpers.js"></script>
+  <script src="js/visuals.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/mrraes-shared.js"></script>
+<script src="js/game.js"></script>
+
+
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/stats.js"></script>
+
+<script src="js/map.js"></script>
+
+
+
+
+<div class="app">
+  <div class="shell">
+
+    <div class="top">
+      <div class="brand">
+        <span class="dot"></span>
+        <span class="brandTitle">Wiskunde Quest</span>
+        <span class="pill muted" id="pillUser">Geen naam</span>
+      </div>
+      <div class="row" style="gap:8px; flex-wrap:nowrap">
+        <span class="pill" id="pillMode" style="display:none"></span>
+        <span class="pill muted" id="pillHud" style="display:none"></span>
+        
+        <button class="iconBtn" id="btnCalc" title="Rekentoestel">🧮</button>
+        <button class="iconBtn" id="btnFullscreen" title="Volledig scherm">⛶</button>
+        <button class="iconBtn" id="btnMenu"  title="Menu">☰</button>
+      </div>
+    </div>
+
+
+    <div class="hudLine" id="hudLine" style="display:none">
+      <div class="hudRow">
+        <div class="hudLeft"><span id="hudCount">Vraag 0/0</span></div>
+        <div class="hudRight"><span id="hudTime">⏱ —</span></div>
+      </div>
+      <div class="hudBar"><div class="hudFill" id="hudFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="stage">
+      <!-- START -->
+      <section class="screen" id="scrStart">
+      <div class="card" style="text-align:left">
+        <div class="h1">Wiskunde Quest</div>
+        <div class="sub">Log in om je voortgang, medailles en het live scoreboard te bewaren (ook op een andere PC).</div>
+
+        <div class="seg" style="margin-top:12px">
+          <button class="segBtn on" id="tabLogin">Inloggen</button>
+          <button class="segBtn" id="tabSignup">Account maken</button>
+        </div>
+
+        <div id="paneLogin" style="margin-top:12px">
+          <div class="stack">
+            <label class="mini">Gebruikersnaam</label>
+            <input id="loginUser" class="input" placeholder="bv. adam" autocomplete="username"/>
+            <label class="mini">Wachtwoord</label>
+            <input id="loginPass" class="input" type="password" placeholder="••••••••" autocomplete="current-password"/>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn primary" id="btnLogin">Inloggen</button>
+          </div>
+        </div>
+
+        <div id="paneSignup" hidden style="margin-top:12px">
+          <div class="stack">
+            <label class="mini">Gebruikersnaam</label>
+            <input id="signupUser" class="input" placeholder="bv. adam" autocomplete="username"/>
+            <label class="mini">Wachtwoord</label>
+            <input id="signupPass" class="input" type="password" placeholder="min. 6 tekens" autocomplete="new-password"/>
+            <label class="mini">Naam die op het scoreboard komt</label>
+            <input id="signupName" class="input" placeholder="Adam" autocomplete="name"/>
+            <div class="mini" style="margin-top:6px;color:var(--mut)">Klas: <strong>1B</strong></div>
+            <input id="signupClass" class="input" value="1B" hidden />
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn primary" id="btnSignup">Account maken</button>
+          </div>
+          <div class="mini" style="margin-top:8px; color:var(--mut)">
+            Tip: gebruik je echte voornaam als scoreboard-naam (je klas staat vast op 1B).
+          </div>
+        </div>
+
+        <div id="authMsg" class="mini" style="margin-top:10px; color:var(--mut)"></div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="btnStartLeader">🏆 Scoreboard</button>
+          <button class="btn ghost" id="btnStartSettings">⚙ Settings</button>
+        </div>
+
+        <div class="mini" style="margin-top:10px; color:var(--mut)">
+          Als je al ingelogd bent, stuurt het spel je vanzelf door naar de kaart.
+        </div>
+      </div>
+    </section>
+
+      <!-- MAP -->
+      <section class="screen" id="scrMap">
+        <div class="map">
+          <div class="mapHeader">
+            <div>
+              <div class="mapTitle">Kies een topic</div>
+              <div class="tiny" id="mapSub">Oefenen, Run (5 min) of Toets.</div>
+            </div>
+            <div class="row">
+              <button class="btn" id="btnOpenBoard">🏆 Ranglijsten</button>
+            </div>
+          </div>
+          <div class="mapGrid" id="mapGrid"></div>
+        </div>
+      </section>
+
+      <!-- GAME -->
+      <section class="screen" id="scrGame">
+        <div class="game" id="gameGrid">
+          <div class="panel">
+            <div class="panelHead">
+              <div class="headLeft">
+                <div class="crumb" id="crumbTop">Topic</div>
+                <div class="headTitle" id="headTitle">Oefenen</div>
+                <div class="headQ" id="headQ" style="display:none"></div>
+              </div>
+              <div class="headRight">
+                <button id="btnHelp" class="miniBtn" title="Hulpkaart">🛈 Hulpkaart</button>
+
+                <span class="miniPill" id="pillTimer" style="display:none">⏱ 05:00</span>
+                <button class="miniBtn" id="btnStop">Stop</button>
+              </div>
+            </div>
+
+            <div class="panelBody">
+              <div class="promptBig" id="qPrompt">Vraag</div>
+              <div class="promptSub" id="qSub" style="display:none"></div>
+              <div class="visualWrap" id="visualWrap" style="display:none"></div>
+              <div class="status" id="status"></div>
+            </div>
+
+            <div class="answer">
+              <div class="choices" id="choices"></div>
+
+              <div class="aRow" id="inputRow" style="display:none">
+                <input class="input" id="mainInput" placeholder="antwoord" inputmode="decimal" autocomplete="off" spellcheck="false" style="max-width:320px">
+                <span class="unitChip" id="unitChip" style="display:none"></span>
+                <button class="btn primary okInline" id="btnOkInline">OK</button>
+              </div>
+
+              <div class="row" id="mcRow" style="justify-content:center; display:none">
+                <button class="btn primary" id="btnOkMc">OK</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rightPanel" id="rightPanel" style="display:none">
+            <div class="rpHead">
+              <span>Keypad</span>
+              <div class="rpRight">
+                <span class="tiny" id="rpHint"></span>
+                <button class="rpToggle" id="btnPadToggle" title="Keypad inklappen">▾</button>
+              </div>
+            </div>
+            <div class="keypad" id="keypad">
+              <button class="key">7</button><button class="key">8</button><button class="key">9</button><button class="key" data-k="back">⌫</button>
+              <button class="key">4</button><button class="key">5</button><button class="key">6</button><button class="key" data-k="clear">C</button>
+              <button class="key">1</button><button class="key">2</button><button class="key">3</button><button class="key" data-k="comma">,</button>
+              <button class="key">0</button><button class="key" data-k="slash">/</button><button class="key" data-k="colon">:</button><button class="key" data-k="minus">−</button>
+              <button class="key ok wide" data-k="ok">✅ OK</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="screen" id="scrSettings">
+        <div class="center">
+          <div class="card">
+            <h2>Settings</h2>
+            <div class="sub" id="settingsUser">Niet ingelogd</div>
+
+
+            <div class="stack" style="margin-top:10px">
+              <button class="btn" id="togAutoOk" title="Automatisch antwoorden indienen in Test-modus">Auto submit: <span id="autoOkState">off</span></button>
+              <button class="btn" id="togSound">Sound: <span id="soundState">off</span></button>
+              <button class="btn" id="togGateRun" title="Als dit aan staat moeten leerlingen eerst oefenen voordat ze een Run mogen starten">Eerst oefenen vóór Run: <span id="gateRunState">on</span></button>
+              <button class="btn ghost" id="btnLogout">Uitloggen</button>
+            </div>
+
+            <div class="row" style="margin-top:12px">
+              <button class="btn" id="btnCloseSettings">Sluiten</button>
+            </div>
+
+            <div class="mini" style="margin-top:10px;color:var(--mut)">
+              Scoreboard: automatisch verbonden met jouw Supabase-project (geen URL/Key invullen voor leerlingen).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARDS -->
+      <section class="screen" id="scrBoard">
+        <div class="board">
+          <div class="boardTop">
+            <div>
+              <div class="mapTitle">Ranglijsten (vandaag)</div>
+              <div class="tiny" id="boardNote">Overall en per topic.</div>
+            </div>
+            <div class="row">
+              <button class="btn" id="btnRefreshBoard">🔄 Refresh</button>
+              <button class="btn" id="btnBackFromBoard">Terug</button>
+            </div>
+          </div>
+
+          <div class="card" style="width:100%; padding: 14px; border-radius: 18px;">
+            <div class="row" style="justify-content:space-between; align-items:flex-end">
+              <div>
+                <div style="font-weight:900">Overall (Quest Run)</div>
+                <div class="tiny">Top 20 van vandaag</div>
+              </div>
+            </div>
+            <div class="tableWrap" style="margin-top:10px">
+              <table>
+                <thead><tr><th>#</th><th>Naam</th><th>Klas</th><th>Score</th><th>%</th></tr></thead>
+                <tbody id="boardOverall"></tbody>
+              </table>
+            </div>
+
+            <div class="row" style="margin-top:14px; justify-content:space-between; align-items:flex-end">
+              <div>
+                <div style="font-weight:900">Per topic</div>
+                <div class="tiny">Kies een topic</div>
+              </div>
+              <select class="input" id="boardTopicSel" style="height:44px; max-width:260px; font-weight:900"></select>
+            </div>
+
+            <div class="tableWrap" style="margin-top:10px">
+              <table>
+                <thead><tr><th>#</th><th>Naam</th><th>Klas</th><th>Topic</th><th>Score</th><th>%</th></tr></thead>
+                <tbody id="boardTopic"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEST SETUP -->
+      <section class="screen" id="scrTestSetup">
+        <div class="center">
+          <div class="card">
+            <h2>Toetsmodus</h2>
+            <p>Niet gekoppeld aan ranglijsten of medailles.</p>
+
+            <div class="tiny" style="margin-bottom:6px">Aantal vragen</div>
+            <div class="seg" id="testCountSeg">
+              <button class="segBtn on" data-n="20">20</button>
+              <button class="segBtn" data-n="25">25</button>
+              <button class="segBtn" data-n="30">30</button>
+            </div>
+
+            <div class="tiny" style="margin:14px 0 6px">Tijdslimiet (optioneel)</div>
+            <div class="seg" id="testTimeSeg">
+              <button class="segBtn on" data-t="0">Geen</button>
+              <button class="segBtn" data-t="600">10 min</button>
+              <button class="segBtn" data-t="900">15 min</button>
+            </div>
+
+            <div class="row" style="margin-top:14px">
+              <button class="btn primary grow" id="btnStartTest">Start Toets</button>
+              <button class="btn" id="btnBackFromTestSetup">Terug</button>
+            </div>
+
+            <p class="tiny" style="margin-top:12px">Tip: voor toetsen kan je desnoods “Auto-OK” uit laten, zodat leerlingen bewust indienen.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEST RESULT -->
+      <section class="screen" id="scrResult">
+        <div class="center">
+          <div class="card">
+            <h2 id="resTitle">Resultaat</h2>
+            <p id="resLine">Score</p>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="btnResBack">Terug naar map</button>
+              <button class="btn primary" id="btnResAgain">Nog eens</button>
+            </div>
+            <div style="margin-top:14px">
+              <div class="tiny" style="margin-bottom:8px">Fouttypes (compact)</div>
+              <div class="tiny" id="resWrong"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Topic modal -->
+  <div class="modalBack" id="topicModalBack">
+    <div class="modal">
+      <div class="modalHead">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0">
+          <div style="width:12px; height:12px; border-radius:999px; background: var(--accent); flex:0 0 auto"></div>
+          <div style="min-width:0">
+            <div class="crumb">Topic</div>
+            <div style="font-weight:900; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" id="topicModalTitle">Topic</div>
+          </div>
+        </div>
+        <button class="xBtn" id="btnCloseTopic">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="modeGrid">
+          <div class="modeCard">
+            <h3>🎯 Oefenen</h3>
+            <p class="tiny">Rustig oefenen. Geen ranglijst.</p>
+            <button class="btn primary" id="btnTopicPractice">Start</button>
+          </div>
+          <div class="modeCard">
+            <h3>🏁 Run (5 min)</h3>
+            <p class="tiny">Voor ranglijst + medaille.</p>
+            <button class="btn primary" id="btnTopicRun">Start</button>
+          </div>
+          <div class="modeCard">
+            <h3>🧪 Toets</h3>
+            <p class="tiny">Niet gekoppeld aan ranglijst.</p>
+            <button class="btn primary" id="btnTopicTest">Start</button>
+          </div>
+        </div>
+        <div id="topicModalContent" class="topicModalContent"></div>
+        <div class="tiny" id="topicModalBadges"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- STATS (LEERLING) -->
+  <section class="screen" id="scrStats" style="display:none">
+    <div class="card" style="text-align:left">
+      <div class="row" style="justify-content:space-between; align-items:center">
+        <div>
+          <div class="h1">Mijn stats</div>
+          <div class="sub" id="statsSub">Je ziet hier enkel jouw eigen resultaten.</div>
+        </div>
+        <button class="btn" id="btnBackFromStats">← Terug</button>
+      </div>
+
+      <div class="row" style="gap:10px; margin-top:12px; flex-wrap:wrap">
+        <div class="stack" style="min-width:160px">
+          <label class="mini">Periode</label>
+          <select class="input" id="statsRange">
+            <option value="30">laatste 30 dagen</option>
+            <option value="90">laatste 90 dagen</option>
+            <option value="365">laatste 365 dagen</option>
+            <option value="all">alles</option>
+          </select>
+        </div>
+        <div class="stack" style="min-width:160px">
+          <label class="mini">Modus</label>
+          <select class="input" id="statsMode">
+            <option value="all">alles</option>
+            <option value="toets">toets</option>
+            <option value="run">run</option>
+          </select>
+        </div>
+        <div class="stack" style="min-width:180px">
+          <label class="mini">Topic</label>
+          <select class="input" id="statsTopic">
+            <option value="all">alles</option>
+          </select>
+        </div>
+
+        <button class="btn primary" id="btnRefreshStats" style="align-self:flex-end">Vernieuwen</button>
+      </div>
+
+      <div class="row" style="gap:12px; margin-top:14px; flex-wrap:wrap">
+        <div class="card" style="padding:12px; flex:1; min-width:300px">
+          <div class="mini" style="margin-bottom:6px;color:var(--mut)">Evolutie (percentage)</div>
+          <div id="statsLine"></div>
+        </div>
+        <div class="card" style="padding:12px; flex:1; min-width:300px">
+          <div class="mini" style="margin-bottom:6px;color:var(--mut)">Gemiddelde per topic</div>
+          <div id="statsBars"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px; padding:12px">
+        <div class="row" style="justify-content:space-between; align-items:center">
+          <div class="mini" style="color:var(--mut)">Laatste resultaten</div>
+          <div class="mini" id="statsKpis" style="color:var(--mut)"></div>
+        </div>
+        <div style="overflow:auto; max-height:320px; margin-top:8px">
+          <table class="table" id="statsTable" style="width:100%">
+            <thead>
+              <tr>
+                <th>Datum</th><th>Topic</th><th>Modus</th><th>Score</th><th>%</th><th>Tijd</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tiny" style="margin-top:10px;color:var(--mut)">
+        Opmerking: stats tonen de toetsen en runs die bewaard werden via Supabase. Oefenvragen zelf worden niet per vraag gelogd.
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHER VIEW -->
+  <section class="screen" id="scrTeacher" style="display:none">
+    <div class="card" style="text-align:left">
+      <div class="row" style="justify-content:space-between; align-items:center">
+        <div>
+          <div class="h1">Teacher view</div>
+          <div class="sub">Overzicht van resultaten (alle leerlingen).</div>
+        </div>
+        <button class="btn" id="btnBackFromTeacher">← Terug</button>
+      </div>
+
+      <div class="row" style="gap:10px; margin-top:12px; flex-wrap:wrap">
+        <div class="stack" style="min-width:160px">
+          <label class="mini">Periode</label>
+          <select class="input" id="teachRange">
+            <option value="7">laatste 7 dagen</option>
+            <option value="30" selected>laatste 30 dagen</option>
+            <option value="90">laatste 90 dagen</option>
+            <option value="365">laatste 365 dagen</option>
+            <option value="all">alles</option>
+          </select>
+        </div>
+        <div class="stack" style="min-width:160px">
+          <label class="mini">Modus</label>
+          <select class="input" id="teachMode">
+            <option value="toets" selected>toets</option>
+            <option value="run">run</option>
+            <option value="all">alles</option>
+          </select>
+        </div>
+        <div class="stack" style="min-width:180px">
+          <label class="mini">Topic</label>
+          <select class="input" id="teachTopic">
+            <option value="all">alles</option>
+          </select>
+        </div>
+        <div class="stack" style="min-width:200px; flex:1">
+          <label class="mini">Zoek leerling</label>
+          <input class="input" id="teachSearch" placeholder="naam..." />
+        </div>
+        <button class="btn primary" id="btnRefreshTeacher" style="align-self:flex-end">Vernieuwen</button>
+      </div>
+
+      <div class="row" style="gap:12px; margin-top:14px; flex-wrap:wrap">
+        <div class="card" style="padding:12px; flex:1; min-width:300px">
+          <div class="mini" style="margin-bottom:6px;color:var(--mut)">Gemiddelde per topic</div>
+          <div id="teachBars"></div>
+        </div>
+        <div class="card" style="padding:12px; flex:1; min-width:300px">
+          <div class="mini" style="margin-bottom:6px;color:var(--mut)">Gemiddelde per dag</div>
+          <div id="teachLine"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px; padding:12px">
+        <div class="row" style="justify-content:space-between; align-items:center">
+          <div class="mini" style="color:var(--mut)">Laatste resultaten</div>
+          <div class="mini" id="teachKpis" style="color:var(--mut)"></div>
+        </div>
+        <div style="overflow:auto; max-height:360px; margin-top:8px">
+          <table class="table" id="teachTable" style="width:100%">
+            <thead>
+              <tr>
+                <th>Datum</th><th>Leerling</th><th>Topic</th><th>Modus</th><th>Score</th><th>%</th><th>Tijd</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tiny" style="margin-top:10px;color:var(--mut)">
+        Tip: zet jouw account in Supabase op <strong>role = teacher</strong> in de tabel <code>profiles</code> om deze pagina te gebruiken.
+      </div>
+    </div>
+  </section>
+
+  <!-- Drawer -->
+  <div class="drawerBackdrop" id="drawer">
+    <div class="drawer">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <h3>Menu</h3>
+        <button class="iconBtn" id="btnCloseDrawer">✕</button>
+      </div>
+
+      <div>
+        <div class="item" data-nav="map">🗺️ Map <span>›</span></div>
+        <div class="item" data-nav="board">🏆 Ranglijsten <span>›</span></div>
+        <div class="item" data-nav="stats" id="navStats">📈 Mijn stats <span>›</span></div>
+        <div class="item" data-nav="teacher" id="navTeacher" style="display:none">📊 Teacher view <span>›</span></div>
+        <div class="item" data-nav="settings">⚙️ Settings <span>›</span></div>
+      </div>
+
+      <div class="tiny">
+        Tip: Toetsmodus is zonder ranglijst. Run is met ranglijst.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="calcOverlay" class="overlay hidden">
+  <div id="calcCard" class="helpCard calcCard">
+    <div class="helpHeader" data-drag-handle>
+      <span>Rekentoestel</span>
+      <button id="btnCloseCalc" class="iconBtn" style="height:32px;width:40px">✕</button>
+    </div>
+
+    <div class="calcLCD" id="calcLCD">0</div>
+
+    <div class="calcGrid" id="calcKeys">
+      <button class="calcKey" data-k="C">C</button>
+      <button class="calcKey" data-k="⌫">⌫</button>
+      <button class="calcKey" data-k="(">(</button>
+      <button class="calcKey op" data-k=")">)</button>
+
+      <button class="calcKey" data-k="7">7</button>
+      <button class="calcKey" data-k="8">8</button>
+      <button class="calcKey" data-k="9">9</button>
+      <button class="calcKey op" data-k="/">÷</button>
+
+      <button class="calcKey" data-k="4">4</button>
+      <button class="calcKey" data-k="5">5</button>
+      <button class="calcKey" data-k="6">6</button>
+      <button class="calcKey op" data-k="*">×</button>
+
+      <button class="calcKey" data-k="1">1</button>
+      <button class="calcKey" data-k="2">2</button>
+      <button class="calcKey" data-k="3">3</button>
+      <button class="calcKey op" data-k="-">−</button>
+
+      <button class="calcKey" data-k="0">0</button>
+      <button class="calcKey" data-k=".">.</button>
+      <button class="calcKey eq" data-k="=">=</button>
+      <button class="calcKey op" data-k="+">+</button>
+    </div>
+
+    <div class="tiny" style="margin-top:10px; color:var(--mut)">
+      Tip: dit rekentoestel is bedoeld als hulplijn, niet als auto-antwoordmachine 😉
+    </div>
+  </div>
+</div>
+
+
+<div id="helpOverlay" class="overlay hidden">
+  <div class="helpCard">
+    <div class="helpHeader">
+      <span id="helpTitle">Hulpkaart</span>
+      <button id="btnCloseHelp">✕</button>
+    </div>
+    <div id="helpContent"></div>
+  </div>
+</div>
+
+</body>
+</html>

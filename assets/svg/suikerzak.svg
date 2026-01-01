@@ -1,0 +1,39 @@
+<svg viewBox="0 0 160 220" width="160" xmlns="http://www.w3.org/2000/svg" aria-label="cassonade graeffe">
+  <!-- schaduw -->
+  <ellipse cx="85" cy="210" rx="55" ry="8" fill="#000" opacity="0.08"></ellipse>
+
+  <!-- verpakking -->
+  <rect x="30" y="20" width="100" height="180" rx="12" fill="#facc15" stroke="#92400e" stroke-width="3"></rect>
+
+  <!-- zijrand -->
+  <path d="M130 20
+           C138 28 138 192 130 200" fill="#fde047"></path>
+
+  <!-- bovenrand -->
+  <rect x="30" y="20" width="100" height="28" fill="#fde047" stroke="#92400e" stroke-width="3"></rect>
+
+  <!-- merkvlak -->
+  <rect x="45" y="60" width="70" height="40" rx="8" fill="#1e3a8a"></rect>
+
+  <!-- T-logo -->
+  <text x="80" y="92" text-anchor="middle" font-size="34" font-weight="900" fill="white" font-family="Baloo 2, Arial">
+    T
+  </text>
+
+  <!-- productnaam -->
+  <text x="80" y="122" text-anchor="middle" font-size="11" font-weight="900" fill="#78350f" font-family="Baloo 2, Arial">
+    CASSONADE
+  </text>
+
+  <text x="80" y="138" text-anchor="middle" font-size="10" font-weight="800" fill="#92400e" font-family="Baloo 2, Arial">
+    GRAEFFE
+  </text>
+
+  <!-- schaaltje suiker -->
+  <ellipse cx="80" cy="162" rx="26" ry="6" fill="#e5e7eb"></ellipse>
+
+  <ellipse cx="80" cy="156" rx="24" ry="8" fill="#fde68a" stroke="#92400e" stroke-width="2"></ellipse>
+
+  <!-- suikerstructuur -->
+  <path d="M62 154 q6 -4 12 0 q6 4 12 0" stroke="#d97706" stroke-width="1.5" fill="none"></path>
+</svg>

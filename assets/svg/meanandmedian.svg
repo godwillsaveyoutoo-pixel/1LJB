@@ -1,0 +1,12 @@
+<svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="180" width="200" height="16" rx="8" fill="#475569" stroke="#0f172a" stroke-width="4"></rect>
+
+  <path d="M45 180 Q75 120 105 180 Z" fill="#fbbf24" stroke="#0f172a" stroke-width="4"></path>
+
+  <path d="M80 180 Q120 55 160 180 Z" fill="#22c55e" stroke="#0f172a" stroke-width="4"></path>
+
+  <path d="M135 180 Q165 115 195 180 Z" fill="#f87171" stroke="#0f172a" stroke-width="4"></path>
+
+  <!-- MEDIAAN -->
+  <circle cx="120" cy="95" r="12" fill="#ffffff" stroke="#0f172a" stroke-width="4"></circle>
+</svg>
