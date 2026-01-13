@@ -2721,27 +2721,9 @@ function svgInhoudHulpkaart() {
       <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
       <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
       <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
-
-      <input inputmode="decimal" placeholder="..." data-unit="l" class="convInput" />
-      <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
-      <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
-      <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
     </div>
 
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />
-
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />
-
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
-      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />    <div class="tiny" style="color:var(--mut);margin-top:10px">
+    <div class="tiny" style="color:var(--mut);margin-top:10px">
       Tip: 1 l = 10 dl = 100 cl = 1000 ml
     </div>
     <div class="tiny" style="color:var(--mut)">
