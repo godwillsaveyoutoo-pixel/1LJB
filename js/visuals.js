@@ -1,4 +1,4 @@
-/* =========================
+﻿/* =========================
    INLINE GEODRIEHOEK
 ========================= */
 const CM = 36;   // testwaarde (later bv. 40)
@@ -1755,7 +1755,7 @@ function svgLijnenMeten(lengteCm, labelA = "A", labelB = "B", angleDeg = 0) {
   const L = lengteCm * CM;
   const rad = (angleDeg * Math.PI) / 180;
 
-  // startpunt (iets boven de onderrand) – groter werkvlak op laptops
+  // startpunt (iets boven de onderrand) â€“ groter werkvlak op laptops
   const x0 = 160;
   const y0 = 310;
   const x1 = x0 + L * Math.cos(rad);
@@ -1882,7 +1882,7 @@ function svgLinesABCD(scene = {}) {
         other1: { x1: 70, y1: 260, x2: 560, y2: 230 },
         other2: { x1: 70, y1: 110, x2: 560, y2: 50 },
       },
-      // diagonaal perpendicular (45° en 135°)
+      // diagonaal perpendicular (45Â° en 135Â°)
       {
         main1: { x1: 110, y1: 60, x2: 520, y2: 300 },
         main2: { x1: 520, y1: 60, x2: 110, y2: 300 },
@@ -2041,7 +2041,7 @@ function svgShopDiscount(item = "item", price = 0, discount = 0, iconFile = "sho
           font-weight="900"
           fill="#dc2626"
           text-decoration="line-through">
-      €${price}
+      â‚¬${price}
     </text>
 
     <!-- te betalen (groen, maar met ?) -->
@@ -2050,7 +2050,7 @@ function svgShopDiscount(item = "item", price = 0, discount = 0, iconFile = "sho
           font-size="22"
           font-weight="900"
           fill="#16a34a">
-      € ?
+      â‚¬ ?
     </text>
 
     <text x="330" y="160"
@@ -2319,7 +2319,7 @@ function svgFractionPie(parts, filled, label = "") {
 }
 
 /* =====================================================
-   BREUKEN – INVULBARE (2) BREUKEN IN HTML
+   BREUKEN â€“ INVULBARE (2) BREUKEN IN HTML
    Inputvakken zitten IN de breukvakjes.
    Klassen voor checks:
      .f.l.t  (left top)   .f.l.b  (left bottom)
@@ -2338,7 +2338,7 @@ function fractionOverlay({
   showArrow = false,
   symbol = "="
 } = {}) {
-  const sym = showArrow ? "→" : symbol;
+  const sym = showArrow ? "â†’" : symbol;
 
   const cell = (side, pos, value, editable) => {
     const cls = `f ${side} ${pos}`;
@@ -2380,9 +2380,9 @@ function visualSimplifyTwoFractions({
   b = null,          // linker noemer
   simpTop = null,    // rechter teller
   simpBottom = null, // rechter noemer
-  symbol = "="       // "=" of "→"
+  symbol = "="       // "=" of "â†’"
 }) {
-  // 🔒 veiligheid: "" bestaat niet, enkel null of getal
+  // ðŸ”’ veiligheid: "" bestaat niet, enkel null of getal
   if (a === "") a = null;
   if (b === "") b = null;
   if (simpTop === "") simpTop = null;
@@ -2447,15 +2447,15 @@ function svgGemiddeldeMediaanHulpkaart() {
       </text>
 
       <text x="30" y="115" font-size="15" fill="#334155">
-        Getallen: 3 – 7 – 5
+        Getallen: 3 â€“ 7 â€“ 5
       </text>
 
       <text x="30" y="140" font-size="15" fill="#334155">
-        Gesorteerd: 3 – 5 – 7
+        Gesorteerd: 3 â€“ 5 â€“ 7
       </text>
 
       <text x="30" y="165" font-size="15" fill="#334155">
-        👉 Mediaan = <tspan font-weight="700">5</tspan>
+        ðŸ‘‰ Mediaan = <tspan font-weight="700">5</tspan>
       </text>
 
       <!-- even voorbeeld -->
@@ -2464,11 +2464,11 @@ function svgGemiddeldeMediaanHulpkaart() {
       </text>
 
       <text x="30" y="230" font-size="15" fill="#334155">
-        Getallen: 4 – 6 – 8 – 10
+        Getallen: 4 â€“ 6 â€“ 8 â€“ 10
       </text>
 
       <text x="30" y="255" font-size="15" fill="#334155">
-        👉 Mediaan = (6 + 8) ÷ 2 = <tspan font-weight="700">7</tspan>
+        ðŸ‘‰ Mediaan = (6 + 8) Ã· 2 = <tspan font-weight="700">7</tspan>
       </text>
     </g>
 
@@ -2488,7 +2488,7 @@ function svgGemiddeldeMediaanHulpkaart() {
       </text>
 
       <text x="30" y="95" font-size="15" fill="#334155">
-        Getallen: 4 – 6 – 10
+        Getallen: 4 â€“ 6 â€“ 10
       </text>
 
       <text x="30" y="120" font-size="15" fill="#334155">
@@ -2500,7 +2500,7 @@ function svgGemiddeldeMediaanHulpkaart() {
       </text>
 
       <text x="30" y="170" font-size="15" fill="#334155">
-        👉 Gemiddelde = 20 ÷ 3 = <tspan font-weight="700">6,7</tspan>
+        ðŸ‘‰ Gemiddelde = 20 Ã· 3 = <tspan font-weight="700">6,7</tspan>
       </text>
     </g>
 
@@ -2512,7 +2512,7 @@ function svgHoekenHulpkaart() {
   const items = [
     {
       title: "een rechte hoek",
-      desc: "90°",
+      desc: "90Â°",
       scale: 0.45,
       draw: `
           <svg viewBox="0 0 320 220" width="320" height="220"
@@ -2541,7 +2541,7 @@ function svgHoekenHulpkaart() {
     },
     {
       title: "een scherpe hoek",
-      desc: "kleiner dan 90°",
+      desc: "kleiner dan 90Â°",
       scale: 0.45,
       draw: `
           <svg viewBox="0 0 320 220" width="320" height="220"
@@ -2573,7 +2573,7 @@ function svgHoekenHulpkaart() {
     },
     {
       title: "een stompe hoek",
-      desc: "groter dan 90°, kleiner dan 180°",
+      desc: "groter dan 90Â°, kleiner dan 180Â°",
       scale: 0.45,
       draw: `
           <svg viewBox="0 0 300 200" width="300" height="200"
@@ -2608,7 +2608,7 @@ function svgHoekenHulpkaart() {
     },
     {
       title: "een gestrekte hoek",
-      desc: "180°",
+      desc: "180Â°",
       scale: 0.7,
       draw: `
           <svg viewBox="0 0 320 120" width="320" height="120"
@@ -2618,7 +2618,7 @@ function svgHoekenHulpkaart() {
   <line x1="20" y1="60" x2="300" y2="60"
         stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>
 
-  <!-- magenta boog (kleiner, 180°) -->
+  <!-- magenta boog (kleiner, 180Â°) -->
   <path d="
     M 115 60
     A 45 45 0 0 1 205 60
@@ -2637,13 +2637,13 @@ function svgHoekenHulpkaart() {
     },
     {
       title: "een volle hoek",
-      desc: "360°",
+      desc: "360Â°",
       scale: 0.7,
       draw: `
           <svg viewBox="0 0 320 120" width="320" height="120"
      xmlns="http://www.w3.org/2000/svg">
 
-  <!-- magenta volledige cirkel (360°) -->
+  <!-- magenta volledige cirkel (360Â°) -->
   <circle cx="200" cy="60" r="38"
           fill="none"
           stroke="#c026d3"
@@ -2728,7 +2728,20 @@ function svgInhoudHulpkaart() {
       <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
     </div>
 
-    <div class="tiny" style="color:var(--mut);margin-top:10px">
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />
+
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />
+
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""l"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""dl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""cl"" class=""convInput"" />
+      <input inputmode=""decimal"" placeholder=""..."" data-unit=""ml"" class=""convInput"" />    <div class="tiny" style="color:var(--mut);margin-top:10px">
       Tip: 1 l = 10 dl = 100 cl = 1000 ml
     </div>
     <div class="tiny" style="color:var(--mut)">
@@ -2768,16 +2781,16 @@ window.initInhoudUnitTable = initInhoudUnitTable;
 
 
 function svgMassaHulpkaart() {
-  // Massa: ton – 100 kg – 10 kg – kg – 100 g – 10 g – g – dg – cg – mg
+  // Massa: ton â€“ 100 kg â€“ 10 kg â€“ kg â€“ 100 g â€“ 10 g â€“ g â€“ dg â€“ cg â€“ mg
   return `
   <svg viewBox="0 0 1100 260" width="100%" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="1100" height="260" rx="18" fill="#f8fafc"/>
 
     <text x="550" y="34" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">
-      Massa – omrekenen
+      Massa â€“ omrekenen
     </text>
     <text x="550" y="58" text-anchor="middle" font-size="15" font-weight="800" fill="#475569">
-      Naar rechts: ×10 • Naar links: ÷10
+      Naar rechts: Ã—10 â€¢ Naar links: Ã·10
     </text>
 
     <g transform="translate(30,92)">
@@ -2804,36 +2817,36 @@ function svgMassaHulpkaart() {
       <text x="887" y="50" text-anchor="middle" font-size="20" font-weight="900" fill="#0b1220">cg</text>
       <text x="992" y="50" text-anchor="middle" font-size="20" font-weight="900" fill="#0b1220">mg</text>
 
-      <!-- ×10 labels -->
+      <!-- Ã—10 labels -->
       <g font-size="12" font-weight="900" fill="#2563eb">
-        <text x="100" y="72" text-anchor="middle">×10</text>
-        <text x="205" y="72" text-anchor="middle">×10</text>
-        <text x="310" y="72" text-anchor="middle">×10</text>
-        <text x="415" y="72" text-anchor="middle">×10</text>
-        <text x="520" y="72" text-anchor="middle">×10</text>
-        <text x="625" y="72" text-anchor="middle">×10</text>
-        <text x="730" y="72" text-anchor="middle">×10</text>
-        <text x="835" y="72" text-anchor="middle">×10</text>
-        <text x="940" y="72" text-anchor="middle">×10</text>
+        <text x="100" y="72" text-anchor="middle">Ã—10</text>
+        <text x="205" y="72" text-anchor="middle">Ã—10</text>
+        <text x="310" y="72" text-anchor="middle">Ã—10</text>
+        <text x="415" y="72" text-anchor="middle">Ã—10</text>
+        <text x="520" y="72" text-anchor="middle">Ã—10</text>
+        <text x="625" y="72" text-anchor="middle">Ã—10</text>
+        <text x="730" y="72" text-anchor="middle">Ã—10</text>
+        <text x="835" y="72" text-anchor="middle">Ã—10</text>
+        <text x="940" y="72" text-anchor="middle">Ã—10</text>
       </g>
 
       <!-- arrows -->
       <g font-size="18" font-weight="900" fill="#0f172a">
-        <text x="100" y="42" text-anchor="middle">→</text>
-        <text x="205" y="42" text-anchor="middle">→</text>
-        <text x="310" y="42" text-anchor="middle">→</text>
-        <text x="415" y="42" text-anchor="middle">→</text>
-        <text x="520" y="42" text-anchor="middle">→</text>
-        <text x="625" y="42" text-anchor="middle">→</text>
-        <text x="730" y="42" text-anchor="middle">→</text>
-        <text x="835" y="42" text-anchor="middle">→</text>
-        <text x="940" y="42" text-anchor="middle">→</text>
+        <text x="100" y="42" text-anchor="middle">â†’</text>
+        <text x="205" y="42" text-anchor="middle">â†’</text>
+        <text x="310" y="42" text-anchor="middle">â†’</text>
+        <text x="415" y="42" text-anchor="middle">â†’</text>
+        <text x="520" y="42" text-anchor="middle">â†’</text>
+        <text x="625" y="42" text-anchor="middle">â†’</text>
+        <text x="730" y="42" text-anchor="middle">â†’</text>
+        <text x="835" y="42" text-anchor="middle">â†’</text>
+        <text x="940" y="42" text-anchor="middle">â†’</text>
       </g>
 
     </g>
 
     <text x="550" y="212" text-anchor="middle" font-size="14" font-weight="800" fill="#334155">
-      Tip: van kg naar g is ook ×1000 (drie stappen naar rechts)
+      Tip: van kg naar g is ook Ã—1000 (drie stappen naar rechts)
     </text>
   </svg>
   `;
@@ -2842,7 +2855,7 @@ function svgMassaHulpkaart() {
 
 
 /* =========================
-   Wiskunde Quest – visuals.js
+   Wiskunde Quest â€“ visuals.js
    Heldere SVG helpers (didactisch)
 ========================= */
 
@@ -2872,7 +2885,7 @@ function svgCan(label = "") {
 }
 window.svgCan = svgCan;
 
-/* --- extra’s voor betere match met je inhoudsvragen --- */
+/* --- extraâ€™s voor betere match met je inhoudsvragen --- */
 function svgVial(label = "") {
   return svgImgSafe("medicijnsiroop.svg", label || "Siroop", 220);
 }
@@ -2894,7 +2907,7 @@ function svgWineBottle(label = "") {
 window.svgWineBottle = svgWineBottle;
 
 /* =====================================================
-   INHOUD – DOOSJE/BAK (AFMETINGEN)
+   INHOUD â€“ DOOSJE/BAK (AFMETINGEN)
    svgBoxDims(l, b, h, unit, label)
 ===================================================== */
 function svgBoxDims(l, b, h, unit = "cm", label = "Doosje") {
@@ -2941,9 +2954,9 @@ function svgBoxDims(l, b, h, unit = "cm", label = "Doosje") {
 window.svgBoxDims = svgBoxDims;
 
 /* =====================================================
-   INHOUD – KUBUS (VOOR cm³, dm³, m³)
+   INHOUD â€“ KUBUS (VOOR cmÂ³, dmÂ³, mÂ³)
 ===================================================== */
-function svgCubeLabel(label = "1 cm³") {
+function svgCubeLabel(label = "1 cmÂ³") {
   return `
   <svg viewBox="0 0 240 200" width="240" aria-label="kubus">
     <polygon points="80,90 120,60 170,60 130,90"
@@ -2962,7 +2975,7 @@ window.svgCubeLabel = svgCubeLabel;
 
 
 /* =====================================================
-   BREUKEN – RASTER
+   BREUKEN â€“ RASTER
 ===================================================== */
 function svgFractionGrid(num, den) {
   const size = 120;
@@ -2982,10 +2995,10 @@ function svgFractionGrid(num, den) {
 window.svgFractionGrid = svgFractionGrid;
 
 /* =====================================================
-   HOEKEN – MET BOOG
+   HOEKEN â€“ MET BOOG
 ===================================================== */
 /* =====================================================
-   HOEK – DUIDELIJK, DIDACTISCH, ROBUUST
+   HOEK â€“ DUIDELIJK, DIDACTISCH, ROBUUST
    svgAngle(deg, { showValue })
 ===================================================== */
 
@@ -3066,7 +3079,7 @@ function svgAngle(deg = 45, { showValue = false } = {}) {
   const largeArc = deg > 180 ? 1 : 0;
   const col = "#0f172a";
 
-  // speciale case: volle hoek (360°) teken je als (bijna) volledige cirkelboog
+  // speciale case: volle hoek (360Â°) teken je als (bijna) volledige cirkelboog
   if (deg >= 360) {
     const endDeg = 320;
     const eRad = (endDeg * Math.PI) / 180;
@@ -3088,7 +3101,7 @@ function svgAngle(deg = 45, { showValue = false } = {}) {
     <path d="M ${cx + rArc} ${cy} A ${rArc} ${rArc} 0 1 1 ${ex} ${ey}"
           fill="none" stroke="${col}" stroke-width="3.5" stroke-linecap="round" marker-end="url(#a360)"/>
 
-    <text x="60" y="112" text-anchor="middle" font-size="14" font-weight="900" fill="${col}">360°</text>
+    <text x="60" y="112" text-anchor="middle" font-size="14" font-weight="900" fill="${col}">360Â°</text>
   </svg>`;
   }
 
@@ -3130,7 +3143,7 @@ function svgAngle(deg = 45, { showValue = false } = {}) {
                  text-anchor="middle"
                  font-size="14"
                  font-weight="900"
-                 fill="${col}">${deg}°</text>`
+                 fill="${col}">${deg}Â°</text>`
         : ""
     }
 
@@ -3221,7 +3234,7 @@ window.svgAngleMeten = svgAngleMeten;
 
 
 /* =====================================================
-   KLOK – ZEER DUIDELIJK
+   KLOK â€“ ZEER DUIDELIJK
 ===================================================== */
 function svgClock(h, m) {
   const angH = (h % 12 + m / 60) * 30;
@@ -3300,14 +3313,14 @@ function iconForUnit(unit) {
     case "cl": return "wijnglas.svg";
     case "dl": return "thermos.svg";
     case "l":  return "petfles_1l.svg";
-    case "cm³":
-    case "dm³": return "maatbeker_1000ml.svg";
-    case "m³":  return "aquarium.svg";
+    case "cmÂ³":
+    case "dmÂ³": return "maatbeker_1000ml.svg";
+    case "mÂ³":  return "aquarium.svg";
     default:    return "maatbeker_500ml.svg";
   }
 }
 
-function svgPairIcons(fileA, capA, fileB, capB, mid = "→", title = "") {
+function svgPairIcons(fileA, capA, fileB, capB, mid = "â†’", title = "") {
   const t = escHtml(title);
   return `
     <div style="display:grid; gap:10px; justify-items:center; width:100%;">
@@ -3359,10 +3372,10 @@ function pickCompareIcon(labels) {
 
   // didactische ranges voor "drank/huishoud" context
   if (avg < 0.05) return "spuit_10ml.svg";     // < 50 ml
-  if (avg < 0.30) return "glas_water.svg";     // 50–300 ml
-  if (avg < 0.65) return "blikje_50cl.svg";    // 300–650 ml
-  if (avg < 1.30) return "thermos.svg";        // 0.65–1.3 l
-  if (avg < 3.00) return "petfles_1_5l.svg";   // 1.3–3 l
+  if (avg < 0.30) return "glas_water.svg";     // 50â€“300 ml
+  if (avg < 0.65) return "blikje_50cl.svg";    // 300â€“650 ml
+  if (avg < 1.30) return "thermos.svg";        // 0.65â€“1.3 l
+  if (avg < 3.00) return "petfles_1_5l.svg";   // 1.3â€“3 l
   if (avg < 12.0) return "emmer.svg";          // emmer
   if (avg < 40.0) return "jerrycan_10l.svg";   // jerrycan
   return "badkuip.svg";                        // heel groot
@@ -3371,7 +3384,7 @@ function pickCompareIcon(labels) {
 window.pickCompareIcon = pickCompareIcon;
 
 /* =====================================================
-   INHOUD – slimme SVG keuze (hoeveelheid → passend object)
+   INHOUD â€“ slimme SVG keuze (hoeveelheid â†’ passend object)
    Vereist: assets/svg/*.svg (uit jouw zip)
 ===================================================== */
 
@@ -3400,16 +3413,16 @@ function toLiters(valueTxt, unit) {
     cl: 0.01,
     dl: 0.1,
     l: 1,
-    "cm³": 0.001, // 1 cm³ = 1 ml
-    "dm³": 1,     // 1 dm³ = 1 l
-    "m³": 1000,   // 1 m³ = 1000 l
+    "cmÂ³": 0.001, // 1 cmÂ³ = 1 ml
+    "dmÂ³": 1,     // 1 dmÂ³ = 1 l
+    "mÂ³": 1000,   // 1 mÂ³ = 1000 l
   }[u];
 
   return factor == null ? NaN : num * factor;
 }
 
 function toLitersFromLabel(label) {
-  const m = String(label).trim().match(/^([0-9.,]+)\s*(ml|cl|dl|l|cm³|dm³|m³)$/i);
+  const m = String(label).trim().match(/^([0-9.,]+)\s*(ml|cl|dl|l|cmÂ³|dmÂ³|mÂ³)$/i);
   if (!m) return NaN;
   return toLiters(m[1], m[2]);
 }
@@ -3417,7 +3430,7 @@ function toLitersFromLabel(label) {
 /* ---------- icon keuze op basis van grootte ---------- */
 /*
   Doel: visuals moeten "kloppen" met de context.
-  350 ml → blikje, 0,75 l → thermos/kleine fles, 7 l → emmer/pot, 0,4 m³ → bad/aquarium, ...
+  350 ml â†’ blikje, 0,75 l â†’ thermos/kleine fles, 7 l â†’ emmer/pot, 0,4 mÂ³ â†’ bad/aquarium, ...
 */
 function pickIconByLiters(L) {
   if (!Number.isFinite(L)) return "petfles_1l.svg";
@@ -3427,7 +3440,7 @@ function pickIconByLiters(L) {
   if (L < 0.08)  return "spuit_20ml.svg";        // klein
   if (L < 0.15)  return "koffie_tas.svg";        // mini-kopje
   if (L < 0.30)  return "glas_water.svg";        // glas
-  if (L < 0.65)  return "blikje_50cl.svg";       // blikje / 350–500 ml
+  if (L < 0.65)  return "blikje_50cl.svg";       // blikje / 350â€“500 ml
   if (L < 1.30)  return "drinkbus.svg";          // drinkbus
   if (L < 3.00)  return "petfles_1_5l.svg";      // fles
   if (L < 6.00)  return "gieter.svg";            // gieter
@@ -3441,7 +3454,7 @@ function pickIconByLiters(L) {
 function pickIconForQty(valueTxt, unit, { preferCube = false } = {}) {
   const u = String(unit).trim().toLowerCase();
   // In dit spel willen we voor "inhoud" liever geen kubus-icoontjes.
-  if (preferCube && (u === "cm³" || u === "dm³")) return "maatbeker_1000ml.svg";
+  if (preferCube && (u === "cmÂ³" || u === "dmÂ³")) return "maatbeker_1000ml.svg";
   const L = toLiters(valueTxt, unit);
   return pickIconByLiters(L);
 }
@@ -3455,10 +3468,10 @@ function pickIconForLabels(labels) {
 /* ---------- visuals: CONVERT (1 icoon, geen swap) ---------- */
 function svgConvertUnits(valueTxt, fromUnit, toUnit, title = "Herleid") {
   const t = escHtml(title);
-  const preferCube = String(fromUnit).includes("m³") || String(fromUnit).includes("dm³") || String(fromUnit).includes("cm³");
-  const file = pickIconForQty(valueTxt, fromUnit, { preferCube: preferCube && String(fromUnit).trim() !== "m³" });
+  const preferCube = String(fromUnit).includes("mÂ³") || String(fromUnit).includes("dmÂ³") || String(fromUnit).includes("cmÂ³");
+  const file = pickIconForQty(valueTxt, fromUnit, { preferCube: preferCube && String(fromUnit).trim() !== "mÂ³" });
 
-  const line = `${valueTxt} ${fromUnit} → ____ ${toUnit}`;
+  const line = `${valueTxt} ${fromUnit} â†’ ____ ${toUnit}`;
 
   return `
     <div style="display:grid; gap:8px; justify-items:center; width:100%;">
@@ -3544,7 +3557,7 @@ function svgOpUnits(aTxt, aUnit, bTxt, bUnit, op = "+", title = "") {
   const right = `${bTxt} ${bUnit}`;
   const file = pickIconForLabels([left, right]);
 
-  const opTxt = (op === "vs") ? "↔" : op;
+  const opTxt = (op === "vs") ? "â†”" : op;
 
   return `
     <div style="display:grid; gap:10px; justify-items:center; width:100%;">
@@ -3630,7 +3643,7 @@ function enableGeoTriangle(svg) {
   }
 
   // --- 2) Init via data-attributes op de <svg> (optioneel)
-  // pos = translate van de wrapper in SVG-coördinaten
+  // pos = translate van de wrapper in SVG-coÃ¶rdinaten
   let pos = {
     x: parseFloat(svg.dataset.geoX ?? 200),
     y: parseFloat(svg.dataset.geoY ?? 80),
@@ -3645,7 +3658,7 @@ function enableGeoTriangle(svg) {
   // rotatie-snelheid (lager = trager)
   const ROT_SPEED = parseFloat(svg.dataset.geoRotSpeed ?? 0.45);
 
-  // --- 3) Bepaal een stabiel draaipunt (pivot) in LOKALE coördinaten van #geoTriangle
+  // --- 3) Bepaal een stabiel draaipunt (pivot) in LOKALE coÃ¶rdinaten van #geoTriangle
   // Default: centrum van de inner SVG viewBox (als die bestaat), anders bbox-center.
   let pivot = { x: 0, y: 0 };
 
@@ -3707,7 +3720,7 @@ function enableGeoTriangle(svg) {
   function update() {
     wrap.setAttribute("transform", `translate(${pos.x} ${pos.y})`);
 
-    // rotate+scale rond pivot in lokale tri-coördinaten
+    // rotate+scale rond pivot in lokale tri-coÃ¶rdinaten
     tri.setAttribute(
       "transform",
       `translate(${pivot.x} ${pivot.y}) rotate(${angle}) scale(${SCALE}) translate(${-pivot.x} ${-pivot.y})`
@@ -3732,7 +3745,7 @@ function enableGeoTriangle(svg) {
       mode = "rot";
       baseAngle = angle;
 
-      // rotatiecentrum in SVG-coördinaten = pivot + wrapper-translate
+      // rotatiecentrum in SVG-coÃ¶rdinaten = pivot + wrapper-translate
       const rotCenter = { x: pos.x + pivot.x, y: pos.y + pivot.y };
       startAngle = pointerAngle(p, rotCenter);
     } else {
@@ -3760,7 +3773,7 @@ function enableGeoTriangle(svg) {
       const aNow = pointerAngle(p, rotCenter);
 
       let d = aNow - startAngle;
-      // normaliseer naar [-pi, pi] (geen “sprongen”)
+      // normaliseer naar [-pi, pi] (geen â€œsprongenâ€)
       if (d > Math.PI) d -= 2 * Math.PI;
       if (d < -Math.PI) d += 2 * Math.PI;
 
@@ -3819,7 +3832,7 @@ window.svgEqUnits = svgEqUnits;
 window.svgBoxDimsRepo = svgBoxDimsRepo;
 
 /* =====================================================
-   CLOCK – SETTABLE (sleep wijzers)
+   CLOCK â€“ SETTABLE (sleep wijzers)
    - Klik/sleep: minutenwijzer
    - Shift + klik/sleep: uurwijzer
 ===================================================== */
@@ -3941,7 +3954,7 @@ function initInteractiveTimeWidgets(root = document) {
     const angleFromPoint = (x, y) => {
       const dx = x - 60;
       const dy = y - 60;
-      const rad = Math.atan2(dx, -dy); // 12u = 0°, 3u = 90°
+      const rad = Math.atan2(dx, -dy); // 12u = 0Â°, 3u = 90Â°
       let deg = (rad * 180) / Math.PI;
       if (deg < 0) deg += 360;
       return deg;
@@ -3997,7 +4010,7 @@ function initInteractiveTimeWidgets(root = document) {
       svg.addEventListener("pointerup", end);
       svg.addEventListener("pointercancel", end);
 
-      // meteen ook één update doen
+      // meteen ook Ã©Ã©n update doen
       move(e);
     };
 
@@ -4131,13 +4144,13 @@ function svgBreukenHulpkaart() {
   <svg viewBox="0 0 740 360" width="100%" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="740" height="360" rx="18" fill="#f8fafc"/>
 
-    <text x="370" y="36" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">Breuken – quick tips</text>
+    <text x="370" y="36" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">Breuken â€“ quick tips</text>
 
     <g transform="translate(40,72)">
       <rect x="0" y="0" width="660" height="86" rx="16" fill="white" stroke="#0f172a" stroke-width="2"/>
       <text x="20" y="32" font-size="16" font-weight="900" fill="#0f172a">Vereenvoudigen</text>
-      <text x="20" y="60" font-size="15" font-weight="800" fill="#334155">deel teller én noemer door hetzelfde getal (GGD)</text>
-      <text x="520" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#0f172a">12/18 → 2/3</text>
+      <text x="20" y="60" font-size="15" font-weight="800" fill="#334155">deel teller Ã©n noemer door hetzelfde getal (GGD)</text>
+      <text x="520" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#0f172a">12/18 â†’ 2/3</text>
     </g>
 
     <g transform="translate(40,176)">
@@ -4161,12 +4174,12 @@ function svgProcentHulpkaart() {
   return `
   <svg viewBox="0 0 780 380" width="100%" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="780" height="380" rx="18" fill="#f8fafc"/>
-    <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">Procenten – quick tips</text>
+    <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">Procenten â€“ quick tips</text>
 
     <g transform="translate(40,72)">
       <rect x="0" y="0" width="700" height="88" rx="16" fill="white" stroke="#0f172a" stroke-width="2"/>
       <text x="20" y="34" font-size="16" font-weight="900" fill="#0f172a">Handige basis</text>
-      <text x="20" y="60" font-size="15" font-weight="800" fill="#334155">10% = ÷10 • 5% = helft van 10% • 1% = ÷100</text>
+      <text x="20" y="60" font-size="15" font-weight="800" fill="#334155">10% = Ã·10 â€¢ 5% = helft van 10% â€¢ 1% = Ã·100</text>
       <text x="560" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#0f172a">15% van 80 = 12</text>
     </g>
 
@@ -4183,8 +4196,8 @@ function svgProcentHulpkaart() {
       <rect x="518" y="54" width="210" height="60" rx="14" fill="#fff7ed" stroke="#f97316"/>
       <text x="623" y="88" text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a">DEEL</text>
 
-      <text x="20" y="140" font-size="15" font-weight="900" fill="#0f172a">deel = ( % ÷ 100 ) × geheel</text>
-      <text x="420" y="140" font-size="15" font-weight="900" fill="#0f172a">% = ( deel ÷ geheel ) × 100</text>
+      <text x="20" y="140" font-size="15" font-weight="900" fill="#0f172a">deel = ( % Ã· 100 ) Ã— geheel</text>
+      <text x="420" y="140" font-size="15" font-weight="900" fill="#0f172a">% = ( deel Ã· geheel ) Ã— 100</text>
     </g>
   </svg>
   `;
@@ -4217,7 +4230,7 @@ window.initHelpOverlay = initHelpOverlay;
 
 
 /* =========================
-   Inhoud – maatbeker (inline SVG)
+   Inhoud â€“ maatbeker (inline SVG)
    Altijd op een ijkstreepje
 ========================= */
 function svgMaatbekerLees(opts = {}) {
@@ -4446,3 +4459,4 @@ window.svgTank = svgTank;
 window.svgLinesParallel = svgLinesParallel;
 window.svgLinesPerpendicular = svgLinesPerpendicular;
 window.svgLinesSnijdend = svgLinesSnijdend;
+
