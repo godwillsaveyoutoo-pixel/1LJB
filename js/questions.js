@@ -339,7 +339,7 @@ const BANK = {
       normal: [
         () => qInput("inhoud", "maatbeker_normal",
           "Lees af: ____ ml", 450, "number", "ml",
-          svgMaatbekerLees({ value: 450, max: 1000, unit: "ml", majorStep: 100, minorStep: 20, title: "Maatbeker 1000 ml" }), 0.01),
+          svgMaatbekerLees({ value: 450, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_normal",
           "Lees af en zet om: ____ ml", 600, "number", "ml",
           svgMaatbekerLees({ value: 6, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.01),
@@ -353,7 +353,7 @@ const BANK = {
            </div>`, 0.01),
         () => qInput("inhoud","maatbeker_normal",
           "Lees af op de maatbeker:\n____ ml.",
-          650, "number", "ml", svgMaatbekerLees({ value: 650, max: 1000, unit: "ml", majorStep: 100, minorStep: 20, title: "Maatbeker 1000 ml" })),
+          650, "number", "ml", svgMaatbekerLees({ value: 650, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
         () => qInput("inhoud","maatbeker_normal",
           "Lees af op de maatbeker:\n____ dl.",
           8.5, "number", "dl", svgMaatbekerLees({ value: 8.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
@@ -365,7 +365,7 @@ const BANK = {
       hard: [
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 850, "number", "ml",
-          svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" }), 0.01),
+          svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 350, "number", "ml",
           svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 500 ml" }), 0.01),
@@ -381,10 +381,10 @@ const BANK = {
            </div>`, 0.01),
         () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ ml.",
-          950, "number", "ml", svgMaatbekerLees({ value: 950, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" })),
+          950, "number", "ml", svgMaatbekerLees({ value: 950, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
         () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ ml.",
-          850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" })),
+          850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
         () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ dl.",
           6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.1, title: "Maatbeker in dl" }), 0.02),
@@ -8698,9 +8698,10 @@ function pickFromTopic(topic) {
     function makeMaatbekerTier1() {
       // Niveau 1: antwoord altijd in dezelfde eenheid als de schaal
       const choice = pick(["ml", "ml", "ml", "dl", "cl"]); // vooral ml
-      const scaleFor = (unit) => {
+      const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minor = pick([50, 20, 10]);
+          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          const minor = pick(minorPool);
           return { major: 100, minor };
         }
         if (unit === "dl") {
@@ -8717,7 +8718,7 @@ function pickFromTopic(topic) {
 
       if (choice === "ml") {
         const max = pick([500, 1000, 1000]);
-        const sc = scaleFor("ml");
+        const sc = scaleFor("ml", max);
         const v = pickValue(max, sc.minor);
         return qInput({
           topic: "inhoud",
@@ -8766,9 +8767,10 @@ function pickFromTopic(topic) {
     function makeMaatbekerTier2() {
       // Niveau 2: nog steeds aflezen, maar soms kleinere stapjes (meer nauwkeurig)
       const choice = pick(["ml", "ml", "dl", "cl"]);
-      const scaleFor = (unit) => {
+      const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minor = pick([50, 20, 10]);
+          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          const minor = pick(minorPool);
           return { major: 100, minor };
         }
         if (unit === "dl") {
@@ -8785,7 +8787,7 @@ function pickFromTopic(topic) {
 
       if (choice === "ml") {
         const max = pick([500, 1000]);
-        const sc = scaleFor("ml");
+        const sc = scaleFor("ml", max);
         const v = pickValue(max, sc.minor);
         return qInput({
           topic: "inhoud",
