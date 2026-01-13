@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mr Raes - Wiskunde 1LJB</title>
+<title>Wiskunde Quest v1.6.2</title>
 <meta name="x-game-id" content="Wiskunde Quest (Outline)">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,16 +47,24 @@
         <span class="brandTitle">Wiskunde Quest</span>
         <span class="pill muted" id="pillUser">Geen naam</span>
       </div>
+      <div class="topCenter">
+        <div class="lvlTop" id="lvlTop" style="display:none" aria-hidden="true">
+          <div class="lvlBadge" id="lvlBadge">1</div>
+          <div class="lvlTrack">
+            <div class="lvlFill" id="lvlFill"></div>
+          </div>
+        </div>
+      </div>
       <div class="row" style="gap:8px; flex-wrap:nowrap">
         <span class="pill" id="pillMode" style="display:none"></span>
         <span class="pill muted" id="pillHud" style="display:none"></span>
+        <span class="pill" id="pillBadges" style="display:none; cursor:pointer" title="Badges">🎖️ 0</span>
         
         <button class="iconBtn" id="btnCalc" title="Rekentoestel">🧮</button>
         <button class="iconBtn" id="btnFullscreen" title="Volledig scherm">⛶</button>
         <button class="iconBtn" id="btnMenu"  title="Menu">☰</button>
       </div>
     </div>
-
 
     <div class="hudLine" id="hudLine" style="display:none">
       <div class="hudRow">
@@ -142,25 +150,14 @@
       <section class="screen" id="scrGame">
         <div class="game" id="gameGrid">
           <div class="panel">
-            <div class="panelHead">
-              <div class="headLeft">
-                <div class="crumb" id="crumbTop">Topic</div>
-                <div class="headTitle" id="headTitle">Oefenen</div>
-                <div class="headQ" id="headQ" style="display:none"></div>
-              </div>
-              <div class="headRight">
-                <button id="btnHelp" class="miniBtn" title="Hulpkaart">🛈 Hulpkaart</button>
-
-                <span class="miniPill" id="pillTimer" style="display:none">⏱ 05:00</span>
-                <button class="miniBtn" id="btnStop">Stop</button>
-              </div>
-            </div>
 
             <div class="panelBody">
-              <div class="promptBig" id="qPrompt">Vraag</div>
-              <div class="promptSub" id="qSub" style="display:none"></div>
-              <div class="visualWrap" id="visualWrap" style="display:none"></div>
-              <div class="status" id="status"></div>
+              <div class="panelBodyInner" id="panelBodyInner">
+                <div class="promptBig" id="qPrompt">Vraag</div>
+                <div class="promptSub" id="qSub" style="display:none"></div>
+                <div class="visualWrap" id="visualWrap" style="display:none"></div>
+                <div class="status" id="status"></div>
+              </div>
             </div>
 
             <div class="answer">
@@ -174,6 +171,13 @@
 
               <div class="row" id="mcRow" style="justify-content:center; display:none">
                 <button class="btn primary" id="btnOkMc">OK</button>
+              </div>
+            </div>
+
+            <div class="gcSlot" id="gcSlotBottom">
+              <div class="gameControls" id="gameControls">
+                <button id="btnHelp" class="gcBtn" title="Hulpkaart">🛈</button>
+                <button id="btnStop" class="gcBtn" title="Stop">⏹</button>
               </div>
             </div>
           </div>
@@ -193,6 +197,7 @@
               <button class="key">0</button><button class="key" data-k="slash">/</button><button class="key" data-k="colon">:</button><button class="key" data-k="minus">−</button>
               <button class="key ok wide" data-k="ok">✅ OK</button>
             </div>
+            <div class="gcSlot hidden" id="gcSlotRight"></div>
           </div>
 
         </div>
@@ -229,7 +234,7 @@
         <div class="board">
           <div class="boardTop">
             <div>
-              <div class="mapTitle">Ranglijsten (vandaag)</div>
+              <div class="mapTitle">Ranglijsten (altijd)</div>
               <div class="tiny" id="boardNote">Overall en per topic.</div>
             </div>
             <div class="row">
@@ -242,7 +247,7 @@
             <div class="row" style="justify-content:space-between; align-items:flex-end">
               <div>
                 <div style="font-weight:900">Overall (Quest Run)</div>
-                <div class="tiny">Top 20 van vandaag</div>
+                <div class="tiny">Top 20 aller tijden</div>
               </div>
             </div>
             <div class="tableWrap" style="margin-top:10px">
@@ -319,57 +324,43 @@
         </div>
       </section>
 
-    </div>
-  </div>
-
-  <!-- Topic modal -->
-  <div class="modalBack" id="topicModalBack">
-    <div class="modal">
-      <div class="modalHead">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0">
-          <div style="width:12px; height:12px; border-radius:999px; background: var(--accent); flex:0 0 auto"></div>
-          <div style="min-width:0">
-            <div class="crumb">Topic</div>
-            <div style="font-weight:900; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" id="topicModalTitle">Topic</div>
-          </div>
+      <!-- BADGES -->
+      <section class="screen badgeScreen" id="scrBadges" style="display:none">
+    <div class="card">
+      <div class="row" style="justify-content:space-between; align-items:center">
+        <div>
+          <div class="h1">Mijn badges</div>
+          <div class="sub" id="badgesSub">Behaald: 0/0</div>
         </div>
-        <button class="xBtn" id="btnCloseTopic">✕</button>
+        <button class="btn" id="btnBackFromBadges">Terug</button>
       </div>
-      <div class="modalBody">
-        <div class="modeGrid">
-          <div class="modeCard">
-            <h3>🎯 Oefenen</h3>
-            <p class="tiny">Rustig oefenen. Geen ranglijst.</p>
-            <button class="btn primary" id="btnTopicPractice">Start</button>
-          </div>
-          <div class="modeCard">
-            <h3>🏁 Run (5 min)</h3>
-            <p class="tiny">Voor ranglijst + medaille.</p>
-            <button class="btn primary" id="btnTopicRun">Start</button>
-          </div>
-          <div class="modeCard">
-            <h3>🧪 Toets</h3>
-            <p class="tiny">Niet gekoppeld aan ranglijst.</p>
-            <button class="btn primary" id="btnTopicTest">Start</button>
-          </div>
+
+      <div class="row" style="gap:10px; margin-top:12px; flex-wrap:wrap">
+        <div class="stack" style="min-width:180px">
+          <label class="mini">Topic</label>
+          <select class="input" id="badgesTopic">
+            <option value="all">alle topics</option>
+          </select>
         </div>
-        <div id="topicModalContent" class="topicModalContent"></div>
-        <div class="tiny" id="topicModalBadges"></div>
+      </div>
+
+      <div class="badgeGrid" id="badgesGrid" style="margin-top:12px"></div>
+
+      <div class="tiny" style="margin-top:10px;color:var(--mut)">
+        Badges zijn kleine extra doelen om oefenen leuker te maken.
       </div>
     </div>
-  </div>
-
-
+  </section>
 
   <!-- STATS (LEERLING) -->
-  <section class="screen" id="scrStats" style="display:none">
+  <section class="screen wideScreen" id="scrStats" style="display:none">
     <div class="card" style="text-align:left">
       <div class="row" style="justify-content:space-between; align-items:center">
         <div>
           <div class="h1">Mijn stats</div>
           <div class="sub" id="statsSub">Je ziet hier enkel jouw eigen resultaten.</div>
         </div>
-        <button class="btn" id="btnBackFromStats">← Terug</button>
+        <button class="btn" id="btnBackFromStats">Terug</button>
       </div>
 
       <div class="row" style="gap:10px; margin-top:12px; flex-wrap:wrap">
@@ -435,14 +426,14 @@
   </section>
 
   <!-- TEACHER VIEW -->
-  <section class="screen" id="scrTeacher" style="display:none">
+  <section class="screen wideScreen" id="scrTeacher" style="display:none">
     <div class="card" style="text-align:left">
       <div class="row" style="justify-content:space-between; align-items:center">
         <div>
           <div class="h1">Teacher view</div>
           <div class="sub">Overzicht van resultaten (alle leerlingen).</div>
         </div>
-        <button class="btn" id="btnBackFromTeacher">← Terug</button>
+        <button class="btn" id="btnBackFromTeacher">Terug</button>
       </div>
 
       <div class="row" style="gap:10px; margin-top:12px; flex-wrap:wrap">
@@ -470,10 +461,12 @@
             <option value="all">alles</option>
           </select>
         </div>
-        <div class="stack" style="min-width:200px; flex:1">
-          <label class="mini">Zoek leerling</label>
-          <input class="input" id="teachSearch" placeholder="naam..." />
-        </div>
+            <div class="stack" style="min-width:220px; flex:1">
+              <label class="mini">Leerling</label>
+              <select class="input" id="teachSearch">
+                <option value="all">alle leerlingen</option>
+              </select>
+            </div>
         <button class="btn primary" id="btnRefreshTeacher" style="align-self:flex-end">Vernieuwen</button>
       </div>
 
@@ -511,6 +504,48 @@
     </div>
   </section>
 
+
+
+    </div>
+  </div>
+
+  <!-- Topic modal -->
+  <div class="modalBack" id="topicModalBack">
+    <div class="modal">
+      <div class="modalHead">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0">
+          <div style="width:12px; height:12px; border-radius:999px; background: var(--accent); flex:0 0 auto"></div>
+          <div style="min-width:0">
+            <div class="crumb">Topic</div>
+            <div style="font-weight:900; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" id="topicModalTitle">Topic</div>
+          </div>
+        </div>
+        <button class="xBtn" id="btnCloseTopic">X</button>
+      </div>
+      <div class="modalBody">
+        <div class="modeGrid">
+          <div class="modeCard">
+            <h3>Oefenen</h3>
+            <p class="tiny">Rustig oefenen. Geen ranglijst.</p>
+            <button class="btn primary" id="btnTopicPractice">Start</button>
+          </div>
+          <div class="modeCard">
+            <h3>Run (5 min)</h3>
+            <p class="tiny">Voor ranglijst + medaille.</p>
+            <button class="btn primary" id="btnTopicRun">Start</button>
+          </div>
+          <div class="modeCard">
+            <h3>Toets</h3>
+            <p class="tiny">Niet gekoppeld aan ranglijst.</p>
+            <button class="btn primary" id="btnTopicTest">Start</button>
+          </div>
+        </div>
+        <div id="topicModalContent" class="topicModalContent"></div>
+        <div class="tiny" id="topicModalBadges"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Drawer -->
   <div class="drawerBackdrop" id="drawer">
     <div class="drawer">
@@ -523,6 +558,7 @@
         <div class="item" data-nav="map">🗺️ Map <span>›</span></div>
         <div class="item" data-nav="board">🏆 Ranglijsten <span>›</span></div>
         <div class="item" data-nav="stats" id="navStats">📈 Mijn stats <span>›</span></div>
+        <div class="item" data-nav="badges" id="navBadges">🎖️ Badges <span>›</span></div>
         <div class="item" data-nav="teacher" id="navTeacher" style="display:none">📊 Teacher view <span>›</span></div>
         <div class="item" data-nav="settings">⚙️ Settings <span>›</span></div>
       </div>
@@ -535,9 +571,11 @@
 
 </div>
 
+<div id="badgeToast" class="badgeToast"></div>
+
 <div id="calcOverlay" class="overlay hidden">
-  <div id="calcCard" class="helpCard calcCard">
-    <div class="helpHeader" data-drag-handle>
+  <div class="helpCard calcCard">
+    <div class="helpHeader">
       <span>Rekentoestel</span>
       <button id="btnCloseCalc" class="iconBtn" style="height:32px;width:40px">✕</button>
     </div>
@@ -576,7 +614,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="helpOverlay" class="overlay hidden">
   <div class="helpCard">

@@ -1,6 +1,6 @@
 /* =========================
    Wiskunde Quest – leaderboard.js
-   Supabase leaderboards (ALL-TIME)
+   Supabase leaderboards
 ========================= */
 
 /* ---------- Guards ---------- */
@@ -25,47 +25,58 @@ function populateBoardTopicSel() {
       .join("");
 }
 
-/* =========================
-   FETCH (ALL-TIME)
-   -> geen .eq("day", todayKey())
-========================= */
+/* ---------- Fetch overall ---------- */
+function pickBestRows(rows = []) {
+  const best = new Map();
+  const isBetter = (a, b) => {
+    if (!b) return true;
+    if ((a.score ?? -1) !== (b.score ?? -1)) return (a.score ?? -1) > (b.score ?? -1);
+    if ((a.acc ?? -1) !== (b.acc ?? -1)) return (a.acc ?? -1) > (b.acc ?? -1);
+    return (a.duration_ms ?? 9e15) < (b.duration_ms ?? 9e15);
+  };
 
-/* ---------- Fetch overall (all days) ---------- */
+  rows.forEach((row) => {
+    const key = row.user_id || row.name;
+    const prev = best.get(key);
+    if (isBetter(row, prev)) best.set(key, row);
+  });
+
+  return Array.from(best.values());
+}
+
 async function fetchOverallBoard() {
   if (!leaderboardReady()) return [];
 
   const { data, error } = await sb
     .from("scores_best")
-    .select("day,name,class,score,acc,duration_ms")
+    .select("user_id,name,class,score,acc,duration_ms")
     .eq("mode", "global")
     .eq("topic", "global")
     .order("score", { ascending: false })
     .order("acc", { ascending: false })
     .order("duration_ms", { ascending: true })
-    .order("day", { ascending: false }) // tie-break: recenter boven
-    .limit(50);
+    .limit(20);
 
   if (error) throw error;
-  return data || [];
+  return pickBestRows(data || []);
 }
 
-/* ---------- Fetch per topic (all days) ---------- */
+/* ---------- Fetch per topic ---------- */
 async function fetchTopicBoard(topicId) {
   if (!leaderboardReady() || !topicId) return [];
 
   const { data, error } = await sb
     .from("scores_best")
-    .select("day,name,class,topic,score,acc,duration_ms")
+    .select("user_id,name,class,topic,score,acc,duration_ms")
     .eq("mode", "topic")
     .eq("topic", topicId)
     .order("score", { ascending: false })
     .order("acc", { ascending: false })
     .order("duration_ms", { ascending: true })
-    .order("day", { ascending: false }) // tie-break: recenter boven
-    .limit(50);
+    .limit(20);
 
   if (error) throw error;
-  return data || [];
+  return pickBestRows(data || []);
 }
 
 /* ---------- Render ---------- */
@@ -76,8 +87,6 @@ function renderOverallBoard(rows = []) {
 
   rows.forEach((r, i) => {
     const tr = document.createElement("tr");
-    // dag als tooltip (kolommen blijven identiek)
-    tr.title = r.day ? `Dag: ${r.day}` : "";
     tr.innerHTML = `
       <td>${i + 1}</td>
       <td>${r.name}</td>
@@ -96,7 +105,6 @@ function renderTopicBoard(rows = []) {
 
   rows.forEach((r, i) => {
     const tr = document.createElement("tr");
-    tr.title = r.day ? `Dag: ${r.day}` : "";
     tr.innerHTML = `
       <td>${i + 1}</td>
       <td>${r.name}</td>
@@ -129,7 +137,7 @@ async function postScore({ mode, topic, score, acc, duration_ms }) {
 
   const payload = {
     user_id: authUser.id,
-    day: todayKey(), // blijft nuttig voor historiek/analyses
+    day: todayKey(),
     mode,
     topic,
     name: profile.name,
@@ -139,8 +147,46 @@ async function postScore({ mode, topic, score, acc, duration_ms }) {
     duration_ms: duration_ms ?? null,
   };
 
-  const { error } = await sb.from("scores").insert(payload);
-  if (error) throw error;
+  // 1) altijd raw log (scores)
+  try {
+    const { error } = await sb.from("scores").insert(payload);
+    if (error) throw error;
+  } catch (e) {
+    // niet blokkeren als deze tabel/beleid ontbreekt
+    console.warn("scores insert failed", e?.message || e);
+  }
+
+  // 2) best-of (scores_best) zodat de toplijst meteen werkt
+  try {
+    const { data: cur, error: e1 } = await sb
+      .from("scores_best")
+      .select("score,acc,duration_ms")
+      .eq("user_id", payload.user_id)
+      .eq("day", payload.day)
+      .eq("mode", payload.mode)
+      .eq("topic", payload.topic)
+      .maybeSingle();
+
+    if (e1 && !String(e1.message || "").includes("0 rows")) {
+      // als er geen rijen zijn, is dat ok
+      // andere errors loggen maar proberen toch verder
+      console.warn("scores_best select failed", e1?.message || e1);
+    }
+
+    const better = (!cur)
+      || (payload.score > (cur.score ?? -1))
+      || (payload.score === (cur.score ?? -1) && payload.acc > (cur.acc ?? -1))
+      || (payload.score === (cur.score ?? -1) && payload.acc === (cur.acc ?? -1) && (payload.duration_ms ?? 9e15) < (cur.duration_ms ?? 9e15));
+
+    if (better) {
+      const { error: e2 } = await sb
+        .from("scores_best")
+        .upsert(payload, { onConflict: "user_id,day,mode,topic" });
+      if (e2) throw e2;
+    }
+  } catch (e) {
+    console.warn("scores_best upsert failed", e?.message || e);
+  }
 
   markPosted();
 }
@@ -149,20 +195,8 @@ async function postScore({ mode, topic, score, acc, duration_ms }) {
 async function refreshBoards() {
   try {
     populateBoardTopicSel();
-
-    // overall
     const overall = await fetchOverallBoard();
     renderOverallBoard(overall);
-
-    // topic (als er iets gekozen staat)
-    const topicSel = $("#boardTopicSel");
-    const topicId = topicSel?.value || "";
-    if (topicId) {
-      const rows = await fetchTopicBoard(topicId);
-      renderTopicBoard(rows);
-    } else {
-      $("#boardTopic").innerHTML = "";
-    }
   } catch (e) {
     console.warn("Leaderboard refresh failed", e);
   }
@@ -209,9 +243,17 @@ window.refreshAllLB = refreshAllLB;
 ========================= */
 
 async function logTestRun(summary) {
-  if (!authUser || !sb) return;
+  if (!authUser || !sb) {
+    window.lastTestRunError = "Geen Supabase of niet ingelogd.";
+    window.lastTestRunStatus = "geen sessie";
+    window.lastTestRunAttempted = true;
+    return;
+  }
 
   try {
+    window.lastTestRunAttempted = true;
+    window.lastTestRunStatus = "bezig";
+    window.lastTestRunError = null;
     const mode = (summary?.mode || "").toString().toLowerCase();
     const topic = summary?.topicId || summary?.topic || null;
 
@@ -247,15 +289,24 @@ async function logTestRun(summary) {
       time_limit_sec: Number.isFinite(Number(summary?.timeLimitSec)) ? Number(summary.timeLimitSec) : null,
 
       test_id: summary?.testId || null,
-      seed: Number.isFinite(Number(summary?.seed)) ? Number(summary.seed) : null,
+      seed: Number.isFinite(Number(summary?.seed)) ? (Number(summary.seed) | 0) : null,
       hash: summary?.hash || null,
 
       payload: summary || null,
     };
 
     const { error } = await sb.from("test_runs").insert(row);
-    if (error) console.warn("logTestRun failed:", error?.message || error);
+    if (error) {
+      window.lastTestRunError = error?.message || String(error);
+      window.lastTestRunStatus = "fout";
+      console.warn("logTestRun failed:", error?.message || error);
+      return;
+    }
+    window.lastTestRunError = null;
+    window.lastTestRunStatus = "ok";
   } catch (e) {
+    window.lastTestRunError = e?.message || String(e);
+    window.lastTestRunStatus = "fout";
     console.warn("logTestRun failed:", e?.message || e);
   }
 }

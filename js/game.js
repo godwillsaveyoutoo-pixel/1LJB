@@ -1,19 +1,13 @@
 /* =========================
    Wiskunde Quest – game.js
-   (gameflow + checkers + timer)
 ========================= */
-
 let activeInput = null;
-
+let panelBodyFitRaf = 0;
+window.setActiveInput = (el) => {
+  activeInput = el || null;
+};
 /* ---------- Game state ---------- */
 let state = {
-  maxQuestions: 0,
-review: [],          // rows voor bewijsje
-wrongBySkill: {},
-  triesThisQ: 0,
-    // anti-herhaling (laatste vragen)
-  recentQKeys: [],
-usedQKeys: null,
   mode: "practice",        // practice | run | test
   topic: null,             // { id, title }
   currentQ: null,
@@ -22,9 +16,6 @@ usedQKeys: null,
   attempts: 0,
   correct: 0,
 
-  // test instellingen (worden bij startGame uit UI gelezen)
-  testTotal: 0,
-
   timeLimitMs: 0,
   timeLeftMs: 0,
   timer: null,
@@ -32,127 +23,120 @@ usedQKeys: null,
   submitLocked: false,
   startedAt: 0,
 
+  // toetsmodus
+  testCount: 0,
+  testLog: [],
+  identity: null,
+  proofDone: false,
+  seed: 0,
+  testId: "",
+  _rng: null,
+
   // anti-herhaling (laatste vragen)
   recentQKeys: [],
 
-  // fouten (compact overzicht)
-  wrongs: {},
+  // Sprint 2: badges/hulp tracking
+  helpUsedThisQ: false,
+  streakQ: 0,
 
-  // opnieuw spelen
-  lastStart: null,
+  // oefenmodus progressie (5 niveaus met terugval)
+  practiceTier: 1,
+  practiceProg: 0,
 };
-  // anti-herhaling (run/test: hele sessie)
-  
 
-/* =========================
-   START / STOP
-========================= */
-
+/* ---------- Start game ---------- */
 function startGame({ topic, mode, limit = 0, count = 0, identity = null }) {
-  // ---------- Topic normaliseren ----------
-  // (soms komt topic als string binnen)
-  if (typeof topic === "string") topic = { id: topic, title: topic };
-  topic = topic || { id: "", title: "" };
-
   // ---------- Basis state ----------
   state.mode = mode;
   state.topic = topic;
 
-  // identity bewaren voor toets-bewijsje (fallback naar profile)
-  const fallbackIdentity =
-    typeof profile !== "undefined" && profile
-      ? { name: profile.name || "", class: profile.class || "", flags: {} }
-      : { name: "", class: "", flags: {} };
-
-  state.identity = identity || fallbackIdentity;
-
   // 🔁 belangrijk: automatisch gekozen logica resetten
   state.subtopic = null;
   state.level = null;
-
   state.recentQKeys = [];
-  state.usedQKeys = new Set(); // run/toets: zo weinig mogelijk herhaling (als je pickQuestion dit gebruikt)
 
   state.currentQ = null;
   state.score = 0;
   state.attempts = 0;
   state.correct = 0;
-
   state.submitLocked = false;
   state.triesThisQ = 0;
+  state.helpUsedThisQ = false;
+  state.tier = 1;
+  state.usedQScopes = {};
 
-  // fouten + logging (bewijsje)
-  state.wrongs = {};
-  state.wrongBySkill = {}; // compat met oudere code
-  state.review = [];
+  // oefenmodus: niveaus met terugval (alleen practice)
+  state.practiceTier = 1;
+  state.practiceProg = 0;
 
-  // ---------- Testconfig ----------
-  // map.js geeft count mee → gebruik dat als primair
-  state.testTotal = 0;
-  if (mode === "test") {
-    const nFromArg = Number(count) || 0;
+  // badges/session trackers
+  state.helpUsedThisQ = false;
+  state.streakQ = 0;
 
-    // fallback naar UI (als map.js niets gaf)
-    const nFromUI =
-      Number(document.querySelector("#testCountSeg .on")?.dataset?.n) || 0;
-
-    state.testTotal = nFromArg || nFromUI || 20;
-  }
-
-  // (compat met bestaande code die maxQuestions gebruikt)
-  state.maxQuestions = state.testTotal || 0;
-
+  // ---------- Timer ----------
   // ---------- Timer ----------
   state.timeLimitMs = limit;
   state.timeLeftMs = limit;
   state.startedAt = Date.now();
 
-  // ---------- Onthoud voor "Nog eens" ----------
+  // ---------- Toetsmodus ----------
+  state.testCount = Number(count) || 0;
+  state.testLog = [];
+  state.identity = identity;
+  state.proofDone = false;
+
+  // Seeded RNG + toets-ID (alleen toetsmodus)
+  if (mode === "test") {
+    state.seed = (Date.now() ^ ((Math.random() * 1e9) | 0)) >>> 0;
+    state.testId = makeTestId(state.seed);
+    state._rng = makeRng(state.seed);
+  } else {
+    state.seed = 0;
+    state.testId = "";
+    state._rng = null;
+  }
+
+  // onthoud voor "Nog eens"
   state.lastStart = {
-    topic,
+    topic: { id: topic.id, title: topic.title },
     mode,
-    limit,
-    count: state.testTotal || Number(count) || 0,
-    identity: state.identity,
+    limit: limit || 0,
+    count: Number(count) || 0,
+    identity,
+    seed: state.seed,
+    testId: state.testId,
   };
 
   // ---------- UI ----------
-  $("#crumbTop").textContent = topic.title || "";
 
-  $("#headTitle").textContent =
-    mode === "practice" ? "Oefenen" : mode === "run" ? "Run" : "Toets";
+  const modeLabel =
+    mode === "practice" ? "Oefenen"
+    : mode === "run"    ? "Run"
+    :                     "Toets";
 
-  $("#pillMode").style.display = "inline-flex";
-  $("#pillMode").textContent = $("#headTitle").textContent;
-
-  $("#pillTimer").style.display = limit ? "inline-flex" : "none";
-  if (limit) $("#pillTimer").textContent = "⏱ " + msToClock(limit);
+  const pillMode = document.getElementById('pillMode');
+  if (pillMode){
+    pillMode.style.display = 'inline-flex';
+    pillMode.textContent = modeLabel;
+  }
 
   // ---------- Start ----------
   showScreen("scrGame");
 
+  // Topbar titel: toon topic tijdens spelen
+  try{ window.setBrandTitle?.(topic?.title || "Wiskunde Quest"); }catch(_){}
+
   if (limit) startTimer();
+  updateHud();
   nextQuestion();
 }
 
 
-function stopGame() {
-  clearInterval(state.timer);
-  state.timer = null;
-  state.submitLocked = true;
-  showScreen("scrMap");
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  $("#btnStop")?.addEventListener("click", stopGame);
-});
-
-/* =========================
-   NEXT QUESTION
-========================= */
-
+/* ---------- Next question ---------- */
 function nextQuestion() {
   state.submitLocked = false;
+  state.triesThisQ = 0;
+  state.helpUsedThisQ = false;
 
   // reset UI
   $("#status").textContent = "";
@@ -167,19 +151,41 @@ function nextQuestion() {
 
   const q = pickQuestion();
   if (!q) {
-    console.warn("Geen vraag gevonden voor topic:", state.topic?.id);
+    console.warn("Geen vraag gevonden voor topic:", state.topic.id);
     return;
   }
 
   state.currentQ = q;
+  // toetslog: maak alvast een rij (zodat ook 'niet beantwoord' kan bestaan indien tijd op is)
+  if (state.mode === "test") {
+    const correctStr =
+      q.kind === "mc" ? String(q.answer ?? "") :
+      q.answer != null ? String(q.answer) : "";
 
-  // prompt
+    const idx = state.testLog.length;
+    state.testLog.push({
+      q: String(q.prompt || ""),
+      correct: correctStr,
+      given: "",
+      ok: null,
+      points: 1,
+      secs: Math.round((Date.now() - state.startedAt) / 1000),
+    });
+    q.__logIndex = idx;
+  }
+
+  updateHud();
+
+  // prompt (wordt soms naar panelhead verplaatst)
   $("#qPrompt").textContent = q.prompt;
   $("#qSub").style.display = q.sub ? "block" : "none";
   $("#qSub").textContent = q.sub || "";
 
   // visual: ondersteunt zowel oud (visualHtml) als nieuw (visual)
-  const visual = q.visual ?? q.visualHtml ?? null;
+  const visual =
+    q.visual ??
+    q.visualHtml ??
+    null;
 
   if (visual) {
     $("#visualWrap").innerHTML = visual;
@@ -188,75 +194,161 @@ function nextQuestion() {
     $("#visualWrap").innerHTML = "";
     $("#visualWrap").style.display = "none";
   }
+  if (visual) {
+    const wraps = $("#visualWrap").querySelectorAll(".svgSafeWrap");
+    if (wraps.length > 1) {
+      wraps.forEach((w, idx) => {
+        if (idx > 0) w.style.display = "none";
+      });
+    }
+  }
+  const bodyInner = document.getElementById("panelBodyInner");
+  if (bodyInner) bodyInner.classList.toggle("noVisual", !visual);
+
+  // layout hint: als er een visual is, geef die meer ruimte (compact laptop-friendly)
+  const panelEl = document.querySelector('#scrGame .panel');
+  if (panelEl) {
+    panelEl.classList.toggle('withVisual', !!visual);
+    // panelhead is verwijderd: vraag blijft altijd in body
+    panelEl.classList.remove('promptInHead');
+  }
+
 
   // render vraagtype
-  if (q.kind === "mc") renderMC(q);
-  else renderInput(q);
+  if (q.kind === "mc") {
+    renderMC(q);
+  } else {
+    renderInput(q);
+  }
 
-  // inline inputs (ratio / fraction overlay / andere visuals)
-  const inlineInputs = Array.from(
-    document.querySelectorAll("#visualWrap input:not([type=hidden])")
-  );
+  // 🔧 activeer interactieve tijd-widgets (sleepklok)
+  try {
+    window.initInteractiveTimeWidgets?.(document.getElementById("visualWrap"));
+  } catch (e) {
+    console.warn("initInteractiveTimeWidgets failed", e);
+  }
 
-  if (inlineInputs.length) {
-    inlineInputs.forEach((inp) => {
-      inp.addEventListener("focus", () => (activeInput = inp));
+
+  // 🔑 ratio-inputs registreren voor keypad
+  const ratioInputs = document.querySelectorAll("[data-ratio-input]");
+  if (ratioInputs.length) {
+    ratioInputs.forEach(inp => {
+      inp.addEventListener("focus", () => {
+        activeInput = inp;
+      });
     });
 
-    // focus eerste input zodat keypad meteen werkt
-    activeInput = inlineInputs[0];
-    inlineInputs[0].focus();
+    // automatisch eerste ratio-input focussen
+    activeInput = ratioInputs[0];
+    ratioInputs[0].focus();
+  }
+
+  schedulePanelBodyFit();
+  const inner = document.getElementById("panelBodyInner");
+  if (inner) {
+    inner.querySelectorAll("img").forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener("load", schedulePanelBodyFit, { once: true });
+    });
   }
 }
-
-document.addEventListener("click", (e) => {
+document.addEventListener("click", e => {
   const cell = e.target.closest(".percent-cell");
   if (!cell) return;
+
   cell.classList.toggle("active");
 });
 
-/* =========================
-   PICK QUESTION (MAGIE)
-========================= */
+
+/* ---------- Pick question (MAGIE ZIT HIER) ---------- */
+function tierFromCorrect(correct) {
+  const c = Math.max(0, Number(correct) || 0);
+  return Math.min(5, Math.floor(c / 10) + 1);
+}
 
 function pickQuestion() {
-  // 1) GLOBAL / QUEST RUN: kies uit alle level-arrays van alle topics
-  if (state.topic?.id === "global") {
-    const all = [];
-    Object.values(BANK || {}).forEach((topic) =>
-      Object.values(topic || {}).forEach((sub) =>
-        Object.values(sub || {}).forEach((levelArr) => {
-          if (Array.isArray(levelArr)) all.push(...levelArr);
-        })
-      )
-    );
-
-    if (!all.length) {
-      console.warn("Geen globale vragen beschikbaar");
-      return null;
-    }
-    return pickNonRepeated(all);
-  }
-
-  // 2) normaal topic: mix subtopics + level fallback
-  const topicBank = BANK?.[state.topic?.id];
+  const topicBank = BANK[state.topic.id];
   if (!topicBank) {
-    console.warn("Geen topic:", state.topic?.id);
+    console.warn("Geen topic:", state.topic.id);
     return null;
   }
 
+  const subtopicKeys = state.subtopic ? [state.subtopic] : Object.keys(topicBank);
+  const candidates = [];
+
+  // ---------- Oefenen + Run: vaste progressie (5 niveaus) ----------
+  if (state.mode === "practice" || state.mode === "run") {
+    const tier = (state.mode === "practice")
+      ? Math.max(1, Math.min(5, Number(state.practiceTier || 1)))
+      : tierFromCorrect(state.correct);
+    state.tier = tier;
+
+    const chain =
+      tier <= 2 ? ["easy"] :
+      tier === 3 ? ["normal", "easy"] :
+      ["hard", "normal", "easy"]; // tier 4-5
+
+    const wrap = (fn, lv) => {
+      const base = (lv === "easy") ? 2 : (lv === "normal") ? 3 : 4;
+      const hint = fn?._tier ?? base; // custom factories kunnen _tier zetten (1..5)
+      const w = () => {
+        const q = fn();
+        if (q && q.tier == null) q.tier = hint;
+        return q;
+      };
+      w._tierHint = hint;
+      return w;
+    };
+
+    for (const subKey of subtopicKeys) {
+      const sub = topicBank[subKey];
+      if (!sub || typeof sub !== "object") continue;
+      for (const lv of chain) {
+        if (Array.isArray(sub[lv]) && sub[lv].length) {
+          candidates.push(...sub[lv].map((fn) => wrap(fn, lv)));
+        }
+      }
+    }
+
+    if (!candidates.length) {
+      console.warn("Geen vragen:", state.topic.id);
+      return null;
+    }
+
+    // Tier-filter (zodat niveau 1 echt makkelijk blijft)
+    const by = (pred) => candidates.filter((f) => pred(f._tierHint ?? 3));
+    let filtered = candidates;
+    if (tier === 1) {
+      filtered = by((t) => t === 1);
+      if (!filtered.length) filtered = by((t) => t === 2);
+    } else if (tier === 2) {
+      filtered = by((t) => t <= 2);
+    } else if (tier === 3) {
+      filtered = by((t) => t === 3);
+      if (!filtered.length) filtered = by((t) => t <= 2);
+    } else if (tier === 4) {
+      filtered = by((t) => t === 4);
+      if (!filtered.length) filtered = by((t) => t === 3);
+    } else {
+      // tier 5
+      filtered = by((t) => t >= 5);
+      if (!filtered.length) filtered = by((t) => t === 4);
+      if (!filtered.length) filtered = candidates;
+    }
+
+    return pickNonRepeated(filtered, { scopeKey: `${state.topic.id}|${state.subtopic || "all"}` });
+  }
+
+  // ---------- Toets: accuracy-gestuurd (bestaand gedrag) ----------
   const acc = state.attempts
     ? Math.round((state.correct / state.attempts) * 100)
     : 60;
 
   const wanted = levelFromAccuracy(acc);
   const chain =
-    wanted === "hard" ? ["hard", "normal", "easy"]
-    : wanted === "normal" ? ["normal", "easy"]
-    : ["easy"];
-
-  const subtopicKeys = state.subtopic ? [state.subtopic] : Object.keys(topicBank);
-  const candidates = [];
+    wanted === "hard" ? ["hard", "normal", "easy"] :
+    wanted === "normal" ? ["normal", "easy"] :
+    ["easy"];
 
   for (const subKey of subtopicKeys) {
     const sub = topicBank[subKey];
@@ -283,44 +375,33 @@ function pickQuestion() {
   }
 
   if (!candidates.length) {
-    console.warn("Geen vragen:", state.topic?.id);
+    console.warn("Geen vragen:", state.topic.id);
     return null;
   }
 
-  return pickNonRepeated(candidates);
+  return pickNonRepeated(candidates, { scopeKey: `${state.topic.id}|${state.subtopic || "all"}` });
 }
 
-function pickNonRepeated(fns) {
+function pickNonRepeated(fns, opts = {}) {
   if (!Array.isArray(fns) || !fns.length) return null;
 
-  state.recentQKeys = state.recentQKeys || [];
-  if (!state.usedQKeys) state.usedQKeys = new Set();
+  const scopeKey = opts.scopeKey ?? "global";
+  state.usedQScopes = state.usedQScopes || {};
+  const scope = state.usedQScopes[scopeKey] || (state.usedQScopes[scopeKey] = { used: new Set(), recent: [] });
 
-  const isStrict = (state.mode === "run" || state.mode === "test"); // ✅ streng in run/toets
-  const recentLimit = isStrict ? 0 : 10;
-
-  const maxTries = Math.min(80, Math.max(30, fns.length * 6));
-
-  const keyFor = (q) => {
-    const topic  = String(q?.topic ?? "");
-    const skill  = String(q?.skill ?? q?.id ?? "");
-    const kind   = String(q?.kind ?? "");
-    const prompt = String(q?.prompt ?? "").trim();
-    const sub    = String(q?.sub ?? "").trim();
-
-    // Answer + options meenemen = veel minder "zelfde prompt" collisions
-    const ans = q?.answer != null ? String(q.answer) : "";
-    const opts = Array.isArray(q?.options) ? q.options.map(String).join("§") : "";
-
-    // Sommige factories hergebruiken ids; daarom niet enkel id gebruiken
-    return `${topic}|${skill}|${kind}|${prompt}|${sub}|${ans}|${opts}`;
+  const keyOf = (q) => {
+    const topic = q?.topic ?? "";
+    const skill = q?.skill ?? q?.id ?? "";
+    const prompt = (q?.prompt ?? "").trim();
+    const answer = q?.answer != null ? String(q.answer) : "";
+    return `${topic}|${skill}|${prompt}|${answer}`;
   };
 
-  // Probeer een "nieuwe" vraag te vinden
-  for (let i = 0; i < maxTries; i++) {
-    const r = state._rng ? state._rng() : Math.random();
-    const fn = fns[Math.floor(r * fns.length)];
+  const maxTries = Math.min(80, fns.length * 6);
 
+  for (let i = 0; i < maxTries; i++) {
+    const r = (state._rng ? state._rng() : Math.random());
+    const fn = fns[Math.floor(r * fns.length)];
     let q;
     try {
       q = fn();
@@ -330,97 +411,71 @@ function pickNonRepeated(fns) {
     }
     if (!q) continue;
 
-    const key = keyFor(q);
+    const k = keyOf(q);
 
-    // ✅ RUN/TEST: nooit herhalen binnen dezelfde sessie (tot het echt niet anders kan)
-    if (isStrict) {
-      if (state.usedQKeys.has(key)) continue;
-      state.usedQKeys.add(key);
+    if (fns.length === 1) {
+      scope.used.add(k);
+      scope.recent.push(k);
+      if (scope.recent.length > 10) scope.recent.shift();
       return q;
     }
 
-    // 🙂 PRACTICE: enkel de laatste recentLimit vermijden
-    if (!state.recentQKeys.includes(key)) {
-      state.recentQKeys.push(key);
-      if (state.recentQKeys.length > recentLimit) state.recentQKeys.shift();
+    if (!scope.used.has(k)) {
+      scope.used.add(k);
+      scope.recent.push(k);
+      if (scope.recent.length > 10) scope.recent.shift();
+      return q;
+    }
+
+    // zachte fallback: niet in de laatste 10
+    if (!scope.recent.includes(k)) {
+      scope.used.add(k);
+      scope.recent.push(k);
+      if (scope.recent.length > 10) scope.recent.shift();
       return q;
     }
   }
 
-  // Fallback: alles lijkt opgebruikt → dan toch iets teruggeven
-  const r = state._rng ? state._rng() : Math.random();
-  let q = null;
-  try {
-    q = fns[Math.floor(r * fns.length)]();
-  } catch (e) {
-    console.warn("Fallback factory crashed:", e);
-    return null;
+  // Alles lijkt opgebruikt of heel gelijkaardig: reset alleen deze scope
+  scope.used.clear();
+  scope.recent.length = 0;
+
+  const fallbackFn = fns[Math.floor(Math.random() * fns.length)];
+  const q = fallbackFn ? fallbackFn() : null;
+  if (q) {
+    const k = keyOf(q);
+    scope.used.add(k);
+    scope.recent.push(k);
+    if (scope.recent.length > 10) scope.recent.shift();
   }
-  if (!q) return null;
-
-  const key = keyFor(q);
-
-  // ook bij fallback: run/test blijven we “gebruikt” bijhouden
-  if (isStrict) state.usedQKeys.add(key);
-  else {
-    state.recentQKeys.push(key);
-    if (state.recentQKeys.length > recentLimit) state.recentQKeys.shift();
-  }
-
   return q;
-}
-
-
-/* =========================
-   RENDERING
-========================= */
-
-/* ---------- Vertical fractions (UI helper) ---------- */
-function isSimpleFractionText(s) {
-  if (s == null) return false;
-  const str = String(s).trim();
-  if (!str) return false;
-  if (str.includes("<")) return false; // HTML/SVG: niet aanraken
-  return /^-?\d+\s*\/\s*-?\d+$/.test(str);
-}
-
-function verticalFractionMiniHTML(input) {
-  const fr = parseFractionRawNL(input);
-  if (!fr) return String(input ?? "");
-  const n = fr.n;
-  const d = fr.d;
-  if (d === 1) return `<span style="font-weight:800">${n}</span>`;
-  return `
-    <span style="display:inline-grid;grid-template-rows:auto 2px auto;min-width:34px;vertical-align:middle;">
-      <span style="text-align:center;font-weight:800;line-height:1">${n}</span>
-      <span style="height:2px;background:rgba(0,0,0,0.55);border-radius:2px;margin:2px 0;"></span>
-      <span style="text-align:center;font-weight:800;line-height:1">${d}</span>
-    </span>
-  `;
 }
 
 /* ---------- Render MC ---------- */
 function renderMC(q) {
-  q.options.forEach((opt) => {
+  q.options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
-
-    // fraction → vertical, maar bewaar echte value in dataset voor checking
-    const isFrac = isSimpleFractionText(opt);
-    if (isFrac) {
-      btn.dataset.val = String(opt).trim().replace(/\s+/g, "");
-      btn.innerHTML = verticalFractionMiniHTML(btn.dataset.val);
-    } else {
-      btn.innerHTML = opt;
-    }
+    btn.dataset.key = (typeof mcKey === "function" ? mcKey(opt) : String(opt ?? ""));
+    btn.innerHTML = opt;
 
     btn.onclick = () => {
-      $$(".choice").forEach((b) => b.classList.remove("sel"));
+      $$(".choice").forEach(b => b.classList.remove("sel"));
       btn.classList.add("sel");
     };
     $("#choices").appendChild(btn);
   });
   $("#mcRow").style.display = "flex";
+
+  // MC: geen keypad, controls rechts
+  try {
+    const rp = $("#rightPanel");
+    if (rp) {
+      rp.style.display = "grid";
+      rp.classList.add("noKeypad");
+    }
+  } catch (_) {}
+  try { placeGameControls(true); } catch (_) {}
 }
 
 /* ---------- Render input ---------- */
@@ -428,147 +483,174 @@ function renderInput(q) {
   const inp = activeInput || document.getElementById("mainInput");
   if (!inp) return;
 
+  // reset
   inp.value = "";
+  inp.disabled = false;
+  inp.style.display = "";
+  inp.placeholder = "antwoord";
 
-  // preview container (vertical fraction) naast mainInput
-  let fracPrev = document.getElementById("fracPreview");
-  if (!fracPrev) {
-    fracPrev = document.createElement("div");
-    fracPrev.id = "fracPreview";
-    fracPrev.style.display = "none";
-    fracPrev.style.alignSelf = "center";
-    fracPrev.style.marginLeft = "10px";
-    document.getElementById("inputRow")?.appendChild(fracPrev);
-  }
+  // detecteer inline widgets (ratio, fraction overlay, sleepklok, ...)
+  const hasRatioInputs = !!document.querySelector("[data-ratio-input]");
+  const hasFracInputs = !!document.querySelector(".fraction-overlay input");
+  const hasClockSettable = !!document.querySelector("[data-clock-settable]");
 
-  // detecteer inline inputs (ratio / overlays)
-  const hasInlineInput =
-    !!document.querySelector("#visualWrap [data-ratio-input]") ||
-    !!document.querySelector("#visualWrap input");
+  const domInline = hasRatioInputs || hasFracInputs || hasClockSettable;
+  const inline = !!q.hasInlineInput || domInline;
 
-  // bij inline inputs: verberg main input-rij
-  $("#inputRow").style.display = hasInlineInput ? "none" : "flex";
+  // click-only: de leerling klikt in de visual en drukt enkel op OK
+  const clickOnly =
+    typeof q.check === "function" &&
+    (q.answer == null) &&
+    !hasRatioInputs &&
+    !hasFracInputs &&
+    !hasClockSettable &&
+    (q.inputKind == null);
 
-  // preview alleen als er GEEN inline-inputs zijn
-  if (q.inputKind === "fraction" && !hasInlineInput) {
-    fracPrev.style.display = "block";
-    fracPrev.innerHTML = verticalFractionHTML(inp.value);
-    inp.oninput = () => {
-      fracPrev.innerHTML = verticalFractionHTML(inp.value);
-    };
-  } else {
-    fracPrev.style.display = "none";
-    inp.oninput = null;
-  }
+  // inputRow: altijd tonen (zodat OK altijd beschikbaar is)
+  $("#inputRow").style.display = "flex";
+  $("#inputRow").classList.toggle("clickOnly", !!clickOnly);
 
-  $("#rightPanel").style.display =
-    q.inputKind === "number" || q.inputKind === "time" || q.inputKind === "fraction"
-      ? "grid"
-      : "none";
-
-  $("#unitChip").style.display = q.unit ? "inline-flex" : "none";
+  // unit (ook bij inline ratio/fraction mag de unit zichtbaar blijven)
+  $("#unitChip").style.display = (q.unit && !clickOnly) ? "inline-flex" : "none";
   $("#unitChip").textContent = q.unit || "";
 
-  inp.onkeydown = (e) => {
-    if (q.inputKind === "time") e.preventDefault();
-    if (e.key === "Enter") submitAnswer();
-  };
-}
+  // input zichtbaar?
+  if (inline || clickOnly) {
+    inp.style.display = "none";
+  } else {
+    inp.style.display = "";
 
-/* =========================
-   SUBMIT / CHECK
-========================= */
-
-function inferFractionMode(q) {
-  if (q?.fractionMode) return q.fractionMode;
-
-  const txt = `${q?.prompt ?? ""}\n${q?.sub ?? ""}`.toLowerCase();
-  // als vraag expliciet vereenvoudigen afdwingt:
-  if (txt.includes("onvereenvoudig") || txt.includes("vereenvoudigd") || txt.includes("zo eenvoudig mogelijk")) {
-    return "simplified";
-  }
-  // standaard: equivalent ok
-  return "equiv";
-}
-
-function getRawAnswerForQuestion(q) {
-  // 0) fraction grid (klikvakjes) -> log als "aan / totaal"
-  const fracGrid = document.querySelector(".fraction-grid");
-  if (fracGrid) {
-    const total = Number(fracGrid.dataset.total || fracGrid.querySelectorAll(".fraction-cell").length || 0);
-    const on = fracGrid.querySelectorAll(".fraction-cell.on").length;
-    return total ? `${on}/${total}` : String(on);
-  }
-
-  // 0b) percent grid
-  const pctWrap = document.querySelector(".percent-grid-wrap");
-  if (pctWrap) {
-    const total = Number(pctWrap.dataset.total || pctWrap.querySelectorAll(".percent-cell").length || 0);
-    const on = pctWrap.querySelectorAll(".percent-cell.active").length;
-    return total ? `${on}/${total}` : String(on);
-  }
-
-  // 1) fraction-wrap (vereenvoudigen) -> pak num/den netjes
-  const rightFrac = document.querySelector(".fraction-wrap .fraction:last-child");
-  if (rightFrac) {
-    const inps = Array.from(rightFrac.querySelectorAll("[data-ratio-input]"));
-    if (inps.length === 2 && q?.inputKind === "fraction") {
-      const top = (inps[0].value ?? "").trim();
-      const bot = (inps[1].value ?? "").trim();
-      return `${top}/${bot}`;
+    if (q.inputKind === "time") {
+      inp.inputMode = "numeric";
+      inp.placeholder = "HH:MM";
+      inp.autocomplete = "off";
+      inp.spellcheck = false;
+    } else if (q.inputKind === "fraction") {
+      inp.inputMode = "text";
+      inp.placeholder = "bv. 3/4";
+    } else {
+      inp.inputMode = "decimal";
+      inp.placeholder = "antwoord";
     }
-    if (inps.length === 1) return (inps[0].value ?? "").trim();
   }
 
-  // 2) ratio inputs (1 of meerdere) -> alles loggen
-  const ratioInps = Array.from(document.querySelectorAll("#visualWrap [data-ratio-input]"));
-  if (ratioInps.length) {
-    return ratioInps.map(i => (i.value ?? "").trim()).join(" ; ").trim();
+  // keypad: ook tonen bij inline ratio/fraction inputs (dan gaat de keypad naar activeInput)
+  const wantsKeypad =
+    !clickOnly && (
+      q.inputKind === "number" ||
+      q.inputKind === "time" ||
+      q.inputKind === "fraction" ||
+      hasRatioInputs ||
+      hasFracInputs
+    );
+
+  const rp = $("#rightPanel");
+  if (rp) rp.classList.remove("noKeypad");
+  $("#rightPanel").style.display = wantsKeypad ? "grid" : "none";
+
+  // verplaats Stop/Hulp naar onder keypad als die zichtbaar is
+  try{ placeGameControls(!!wantsKeypad); }catch(_){}
+
+  const hint = document.getElementById("rpHint");
+  if (hint) {
+    hint.textContent =
+      q.inputKind === "time" ? "HH:MM (24u)" :
+      q.inputKind === "fraction" ? "bv. 3/4" :
+      "";
   }
-
-  // 3) actieve input (inline overlay)
-  if (activeInput && typeof activeInput.value === "string") return activeInput.value;
-
-  // 4) main input
-  return $("#mainInput")?.value ?? "";
 }
 
+
+
+/* ---------- Stop game ---------- */
+function stopGame() {
+  clearInterval(state.timer);
+  state.timer = null;
+  state.submitLocked = true;
+
+  // In toets/run wil "Stop" afronden i.p.v. stil terugkeren
+  if (state.mode === "test" || state.mode === "run") {
+    endGame();
+    return;
+  }
+  showScreen("scrMap");
+}
+
+function formatCorrectAnswer(q) {
+  if (!q) return "";
+  if (q.kind === "mc") return String(q.answer ?? "");
+  const unit = q.unit ? ` ${q.unit}` : "";
+  if (q.inputKind === "time") return String(q.answer ?? "");
+  if (q.inputKind === "fraction") return String(q.answer ?? "");
+  if (typeof q.answer === "number") return formatNL(q.answer) + unit;
+  return String(q.answer ?? "") + unit;
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Waarschuwing: toetsmodus sluiten = risico
+  window.addEventListener("beforeunload", (e) => {
+    if (state.mode === "test" && !state.proofDone && (state.attempts < (state.testCount || Infinity))) {
+      e.preventDefault();
+      e.returnValue = "";
+      return "";
+    }
+  });
+
+  // Keypad collapse (handig op kleine laptops)
+  const rp = document.getElementById("rightPanel");
+  const padT = document.getElementById("btnPadToggle");
+  const setCollapsed = (on) => {
+    if (!rp) return;
+    rp.classList.toggle("collapsed", !!on);
+    if (padT) padT.textContent = on ? "▸" : "▾";
+    try{ localStorage.setItem("mr_pad_collapsed", on ? "1" : "0"); }catch(_){}
+  };
+  const autoCollapseIfNeeded = () => {
+    try{
+      const pref = localStorage.getItem("mr_pad_collapsed");
+      if (pref === "1") return setCollapsed(true);
+      if (pref === "0") return setCollapsed(false);
+    }catch(_){}
+    if (window.innerHeight < 760) setCollapsed(true);
+  };
+  padT?.addEventListener("click", () => setCollapsed(!rp.classList.contains("collapsed")));
+  window.addEventListener("resize", () => {
+    if (rp && rp.style.display !== "none") autoCollapseIfNeeded();
+  });
+  autoCollapseIfNeeded();
+
+
+  $("#btnStop")?.addEventListener("click", stopGame);
+});
 
 function submitAnswer() {
   if (state.submitLocked || !state.currentQ) return;
   state.submitLocked = true;
 
   const q = state.currentQ;
-  const isPractice = state.mode === "practice";
-
-  // ✅ in practice tel je “attempts” per vraag, niet per retry
-  if (!isPractice || state.triesThisQ === 0) state.attempts++;
 
   let ok = false;
 
-  // -------- raw answer ophalen --------
-  // ratio: meerdere inputs -> samenvoegen
-let raw = String(getRawAnswerForQuestion(q) ?? "").trim();
+  // 👉 PRIORITEIT: ratio-input indien aanwezig
+  const ratioInp = document.querySelector("[data-ratio-input]");
+  const raw =
+    ratioInp?.value ??
+    $("#mainInput")?.value ??
+    "";
 
-
-  // dit is wat we gaan loggen als "gegeven"
-  let givenForLog = raw;
-
-  // -------- check --------
   if (typeof q.check === "function") {
     ok = !!q.check(raw);
 
   } else if (q.kind === "mc") {
-    const sel = document.querySelector(".choice.sel");
+    const sel = $(".choice.sel");
     if (!sel) {
       state.submitLocked = false;
       return;
     }
-
-    const picked = sel.dataset.val ?? sel.textContent ?? "";
-    givenForLog = picked; // ✅ BELANGRIJK: anders blijft "gegeven" leeg bij MC
-
-    ok = norm(picked) === norm(q.answer);
+    const aKey = q.answerKey ?? (typeof mcKey === "function" ? mcKey(q.answer) : String(q.answer ?? ""));
+    ok = (sel.dataset.key ?? "") === aKey;
 
   } else if (q.inputKind === "time") {
     const a = parseTimeNL(raw);
@@ -576,161 +658,176 @@ let raw = String(getRawAnswerForQuestion(q) ?? "").trim();
     ok = !!a && !!b && formatTime(a.h, a.m) === formatTime(b.h, b.m);
 
   } else if (q.inputKind === "fraction") {
-    const mode = inferFractionMode(q);
-
-    if (mode === "exact") {
-      const a = parseFractionRawNL(raw);
-      const b = parseFractionRawNL(q.answer);
-      ok = !!a && !!b && a.n === b.n && a.d === b.d;
-
-    } else if (mode === "simplified") {
-      const aRaw = parseFractionRawNL(raw);
-      const bRed = parseFractionNL(q.answer);
-      ok = !!aRaw && !!bRed && fractionEqualRaw(aRaw, bRed) && fractionIsSimplified(aRaw);
-
-    } else {
-      const a = parseFractionNL(raw);
-      const b = parseFractionNL(q.answer);
-      ok = fractionEqual(a, b);
-    }
+    const a = parseFractionNL(raw);
+    const b = parseFractionNL(q.answer);
+    ok = fractionEqual(a, b);
 
   } else {
     const val = parseNumNL(raw);
-    ok = !Number.isNaN(val) && Math.abs(val - q.answer) <= (q.tol ?? 0.01);
+    ok =
+      !Number.isNaN(val) &&
+      Math.abs(val - q.answer) <= (q.tol ?? 0.01);
   }
 
-  // -------- skills/analytics --------
-  try {
-    const topicKeyForSkills = q.topic || state.topic?.id || "";
-    const skillKeyForSkills = String(q.skill ?? q.id ?? "onbekend");
-    if (typeof updateSkills === "function") updateSkills(topicKeyForSkills, [skillKeyForSkills], ok);
-  } catch (_) {}
+  // ✅ Tel poging pas wanneer er effectief gecontroleerd is
+  state.attempts++;
 
-  // -------- UI feedback + wrong counters --------
-  const skillKey = String(q.skill ?? q.id ?? "onbekend");
+  // toetslog update
+  if (state.mode === "test") {
+    let givenStr = "";
+    if (q.kind === "mc") {
+      const sel = $(".choice.sel");
+      givenStr = sel ? sel.textContent : "";
+    } else {
+      givenStr = raw;
+    }
+
+    const li = q.__logIndex;
+    if (li != null && state.testLog[li]) {
+      state.testLog[li].given = String(givenStr ?? "");
+      state.testLog[li].ok = !!ok;
+      state.testLog[li].secs = Math.round((Date.now() - state.startedAt) / 1000);
+    }
+  }
 
   if (ok) {
     state.correct++;
     state.score++;
     $("#status").textContent = "✓ Juist";
     $("#status").className = "status ok";
-  } else {
-    state.wrongs[skillKey] = (state.wrongs[skillKey] || 0) + 1;
 
+    // oefenmodus: vooruitgang binnen 5 niveaus
+    if (state.mode === 'practice') {
+      try { practiceAdvanceOnOk(); } catch (_) {}
+    }
+  } else {
     $("#status").textContent = q.sub || "✗ Fout";
     $("#status").className = "status err";
   }
 
-  // -------- bewijsje logging (MR_SHARED verwacht: { q, correct, given, ok }) --------
-// -------- bewijsje logging (MR_SHARED verwacht: { q, correct, given, ok }) --------
-const shouldLog = state.mode !== "practice" || ok || state.triesThisQ === 1;
-
-if (shouldLog) {
-  let qText = String(q.prompt ?? q.q ?? q.question ?? q.vraag ?? "").trim();
-if (!qText) {
-  const hint =
-    document.querySelector(".fraction-grid-label")?.innerText?.trim() ||
-    document.querySelector(".percent-hint")?.innerText?.trim() ||
-    "";
-  if (hint) qText = hint;
-}
-
-
-  // correct tekst
-  const correctStr =
-    typeof correctToStr === "function"
-      ? correctToStr(q)
-      : String(q.answer ?? "");
-
-  // gegeven tekst: MC = gekozen optie, anders raw (ratio inputs al samengevoegd)
-  let givenStr = "";
-
-  if (q.kind === "mc") {
-    const sel = document.querySelector(".choice.sel");
-    const picked = sel ? (sel.dataset.val ?? sel.textContent ?? "") : "";
-    givenStr = String(picked).trim();
-  } else {
-    givenStr = String(raw ?? "").trim();
-    // als je toch givenToStr wil gebruiken, alleen als het iets oplevert
-    if (!givenStr && typeof givenToStr === "function") {
-      const t = givenToStr(q, raw);
-      if (t != null) givenStr = String(t).trim();
+  // ✅ persistente skill/progress (geen toetsmodus)
+  try {
+    if (state.mode !== "test") {
+      updateSkill?.(q.topic, q.skill, ok);
     }
+    if (state.mode === "practice") {
+      const t = q.topic;
+      if (t && t !== "global") {
+        prog.practice = prog.practice || {};
+        const p = prog.practice[t] || { a: 0, c: 0 };
+        p.a++;
+        if (ok) p.c++;
+        prog.practice[t] = p;
+        saveProg?.();
+      }
+    }
+  } catch (e) {
+    console.warn("Progress update failed", e);
   }
 
-  if (!givenStr) givenStr = "—"; // ✅ zichtbaar i.p.v. leeg
+  // 🎖️ Badges (Sprint 2)
+  try {
+    if (state.mode !== "test") {
+      const topicId = state.topic?.id || "global";
+      window.ensureBadgeStores?.(topicId);
+      const bstats = window.badgeStatsFor?.(topicId) || {};
 
-  state.review.push({
-    q: qText,
-    correct: String(correctStr ?? "").trim() || "—",
-    given: givenStr,
-    ok: !!ok,
+      if (ok) {
+        const prevTotal = Number(bstats.totalOk || 0);
+        if (prevTotal === 0) window.awardBadge?.("first_ok", topicId);
+        bstats.totalOk = prevTotal + 1;
 
-    // optioneel extra info
-    skill: String(q.skill ?? q.id ?? "onbekend"),
-    topic: q.topic || state.topic?.id || ""
-  });
-}
+        state.streakQ = Number(state.streakQ || 0) + 1;
+        bstats.streakBest = Math.max(Number(bstats.streakBest || 0), state.streakQ);
+
+        if (state.streakQ === 5) window.awardBadge?.("streak_5", topicId);
+        if (state.streakQ === 10) window.awardBadge?.("streak_10", topicId);
+
+        // oefenmodus: juist op 2e poging
+        if (state.mode === "practice" && state.triesThisQ === 1) {
+          bstats.comeback = Number(bstats.comeback || 0) + 1;
+          if (bstats.comeback >= 3) window.awardBadge?.("comeback_3", topicId);
+        }
+
+        // hulp gebruikt + toch juist
+        if (state.helpUsedThisQ) {
+          bstats.helpOk = Number(bstats.helpOk || 0) + 1;
+          if (bstats.helpOk >= 5) window.awardBadge?.("help_5", topicId);
+        }
+
+        // niveau-badges (op basis van # correcte oplossingen in sessie)
+        if (state.correct === 10) window.awardBadge?.("lvl_2", topicId);
+        if (state.correct === 20) window.awardBadge?.("lvl_3", topicId);
+        if (state.correct === 30) window.awardBadge?.("lvl_4", topicId);
+        if (state.correct === 40) window.awardBadge?.("lvl_5", topicId);
+
+        saveProg?.();
+        window.updateBadgePill?.();
+      }
+    }
+  } catch (_) {}
 
 
-  // -------- einde test op basis van aantal vragen --------
-  if (state.mode === "test" && state.testTotal && state.attempts >= state.testTotal) {
-    setTimeout(endGame, 650);
+  // toetsmodus stop: na N vragen meteen naar resultaat
+  if (state.mode === "test" && state.testCount && state.attempts >= state.testCount) {
+    setTimeout(endGame, 350);
     return;
   }
 
-  // -------- PRACTICE: 2 pogingen --------
+  // Oefenmodus: 2 pogingen, en toon daarna de oplossing
   if (!ok && state.mode === "practice") {
-    if (state.triesThisQ === 0) {
-      state.triesThisQ = 1;
+    state.triesThisQ++;
 
-      $("#status").textContent = "✗ Fout. Probeer nog eens.";
+    if (state.triesThisQ < 2) {
+      // nog een poging
+      $("#status").textContent = "✗ Fout. Probeer opnieuw (poging " + (state.triesThisQ + 1) + "/2)";
       $("#status").className = "status err";
-
-      setTimeout(() => {
-        state.submitLocked = false;
-
-        const firstInline = document.querySelector("#visualWrap input:not([type=hidden])");
-        if (firstInline) {
-          activeInput = firstInline;
-          firstInline.focus();
-        } else if (mainInp) {
-          activeInput = mainInp;
-          mainInp.focus();
-        }
-      }, 350);
-
+      state.submitLocked = false;
+      try {
+        $("#mainInput")?.focus();
+        $("#mainInput")?.select();
+      } catch (_) {}
       return;
     }
 
+    // 2de fout: toon juiste oplossing
+    state.streakQ = 0;
+
+    // oefenmodus: progressie omlaag + eventueel terugval
+    try { practicePenaltyOnFail(); } catch (_) {}
+    updateHud();
+    const sol = formatCorrectAnswer(q);
+    $("#status").textContent = sol ? `✗ Fout. Juiste antwoord: ${sol}` : "✗ Fout.";
+    $("#status").className = "status err";
     setTimeout(() => {
-      state.triesThisQ = 0;
       nextQuestion();
-    }, 900);
+      updateHud();
+    }, 1600);
     return;
   }
 
-  setTimeout(() => {
-    state.triesThisQ = 0;
-    nextQuestion();
-  }, 650);
+  // run: fout verbreekt streak
+  if (!ok && state.mode === "run") {
+    state.streakQ = 0;
+  }
+
+  updateHud();
+
+  setTimeout(nextQuestion, 650);
 }
 
 
-
-/* =========================
-   TIMER + END GAME
-========================= */
-
+/* ---------- Timer ---------- *//* ---------- Timer ---------- */
 function startTimer() {
   clearInterval(state.timer);
   state.timer = setInterval(() => {
     state.timeLeftMs -= 1000;
-    $("#pillTimer").textContent = "⏱ " + msToClock(state.timeLeftMs);
+        updateHud();
     if (state.timeLeftMs <= 0) endGame();
   }, 1000);
 }
 
+/* ---------- End game ---------- */
 function endGame() {
   clearInterval(state.timer);
 
@@ -740,240 +837,464 @@ function endGame() {
 
   const duration_ms = Math.max(0, Date.now() - (state.startedAt || Date.now()));
 
-  // result header
-  $("#resTitle").textContent = state.mode === "test" ? "Toetsresultaat" : "Resultaat";
-
-  // medaille / leaderboard (alleen bij run)
-  let medal = "";
+  // 🏆 Run: medaille + best run + leaderboard post
   if (state.mode === "run") {
     try {
       const topicId = state.topic?.id || "";
-
-      medal = typeof medalForScore === "function"
-        ? (medalForScore(state.score) || "")
+      const medal = typeof medalForScore === "function"
+        ? medalForScore(state.score)
         : "";
 
-      const medalRank = (m) => (m === "gold" ? 3 : m === "silver" ? 2 : m === "bronze" ? 1 : 0);
+      const medalRank = (m) =>
+        m === "gold" ? 3 : m === "silver" ? 2 : m === "bronze" ? 1 : 0;
 
-      if (typeof prog === "object") {
-        prog.medals = prog.medals || {};
-        const prev = prog.medals[topicId] || "";
-        if (medalRank(medal) > medalRank(prev)) prog.medals[topicId] = medal;
-
-        // bestRun
-        prog.bestRun = prog.bestRun || {};
-        const prevRun = prog.bestRun[topicId];
-
-        const isBetter =
-          !prevRun ||
-          state.score > (prevRun.score ?? -1) ||
-          (state.score === (prevRun.score ?? -1) && acc > (prevRun.acc ?? -1)) ||
-          (state.score === (prevRun.score ?? -1) && acc === (prevRun.acc ?? -1) && duration_ms < (prevRun.duration_ms ?? Infinity));
-
-        if (isBetter) {
-          prog.bestRun[topicId] = { score: state.score, acc, duration_ms, at: Date.now() };
+      // 🎖️ badges: run + medaille
+      try {
+        window.ensureBadgeStores?.(topicId);
+        const bstats = window.badgeStatsFor?.(topicId) || {};
+        bstats.runs = Number(bstats.runs || 0) + 1;
+        if (bstats.runs === 1) window.awardBadge?.("runner_1", topicId);
+        if (medal === "bronze" || medal === "silver" || medal === "gold") {
+          bstats.medals = bstats.medals || { bronze: 0, silver: 0, gold: 0 };
+          bstats.medals[medal] = Number(bstats.medals[medal] || 0) + 1;
+          window.awardBadge?.("medal_" + medal, topicId);
         }
+      } catch (_) {}
 
-        if (typeof saveProg === "function") saveProg();
-      }
+      // bestRun update
+      prog.bestRun = prog.bestRun || {};
+      const prev = prog.bestRun[topicId];
+      const isBetter = !prev
+        || state.score > (prev.score ?? -1)
+        || (state.score === (prev.score ?? -1) && acc > (prev.acc ?? -1))
+        || (state.score === (prev.score ?? -1) && acc === (prev.acc ?? -1) && duration_ms < (prev.duration_ms ?? 9e15));
 
-      // leaderboard post (Supabase)
-      if (typeof postScore === "function" && typeof authUser !== "undefined") {
-        const boardMode = topicId === "global" ? "global" : "topic";
-        postScore({
-          mode: boardMode,
-          topic: topicId,
+      if (isBetter) {
+        prog.bestRun[topicId] = {
           score: state.score,
           acc,
           duration_ms,
-        }).catch(() => {});
+          at: Date.now(),
+          medal,
+        };
       }
+
+      // medaille only upgrade
+      if (topicId && topicId !== "global") {
+        prog.medals = prog.medals || {};
+        const prevMedal = prog.medals[topicId] || "";
+        if (medalRank(medal) > medalRank(prevMedal)) {
+          prog.medals[topicId] = medal;
+        }
+      }
+
+      saveProg?.();
+
+      // leaderboard
+      const mode = topicId === "global" ? "global" : "topic";
+      const topic = topicId === "global" ? "global" : topicId;
+      window.postScore?.({ mode, topic, score: state.score, acc, duration_ms });
+      window.refreshBoards?.();
     } catch (e) {
-      console.warn("Run endGame error:", e);
+      console.warn("Run finalize failed", e);
     }
   }
 
-  // 🧾 Bewijsje (toetsmodus) — NU MET VRAGENLIJST
-  if (state.mode === "test") {
-    // altijd ook lokaal bewaren (handig als fallback)
+  $("#resTitle").textContent =
+    state.mode === "test" ? "Toetsresultaat" : "Resultaat";
+
+  // resultaatregel (met medaille waar relevant)
+  let extra = "";
+  if (state.mode === "run") {
     try {
-      const payload = {
-        gameId: document.querySelector('meta[name="x-game-id"]')?.content || "Wiskunde Quest",
-        mode: "toets",
-        name: state.identity?.name || "",
-        class: state.identity?.class || "",
-        flags: state.identity?.flags || {},
-        score: state.score,
-        total: state.testTotal || state.maxQuestions || state.attempts,
-        seconds: Math.max(0, Math.round(duration_ms / 1000)),
-        topic: state.topic?.title || "",
-        topicId: state.topic?.id || "",
-        rows: (state.review || []).slice(),
-      };
-      localStorage.setItem("wq_last_result", JSON.stringify(payload));
-      window.LAST_RESULT = payload;
+      const topicId = state.topic?.id || "";
+      const medal = prog?.medals?.[topicId] || (typeof medalForScore === "function" ? medalForScore(state.score) : "");
+      const em = medalEmoji?.(medal) || "";
+      if (em) extra = ` • Medaille: ${em}`;
     } catch (_) {}
+  }
+  $("#resLine").textContent = `Score: ${state.score} • ${acc}% juist${extra}`;
 
-    // als MR_SHARED bestaat: geef ALLES door (incl. rows + topic)
-    if (window.MR_SHARED?.trySharedProof) {
-      try {
-        const seconds = Math.max(0, Math.round(duration_ms / 1000));
-        const total = state.testTotal || state.maxQuestions || state.attempts;
-
-        window.MR_SHARED.trySharedProof({
-          mode: "toets",
-          name: state.identity?.name || "",
-          class: state.identity?.class || "",
-          flags: state.identity?.flags || {},
-          score: state.score,
-          total,
-          seconds,
-
-          // redundantie: sommige proof-scripts verwachten andere keys
-          topic: state.topic?.title || "",
-          topicTitle: state.topic?.title || "",
-          topicId: state.topic?.id || "",
-
-          rows: (state.review || []).slice(),
-          questions: (state.review || []).slice(), // alias
-        });
-      } catch (e) {
-        console.warn("Proof error:", e);
+  // Supabase: log run-sessie (samenvatting)
+  if (state.mode === "run") {
+    try {
+      const elapsedSec = Math.round((Date.now() - state.startedAt) / 1000);
+      const nm = state.identity?.name || window.profile?.name || window.profile?.username || "";
+      const cls = state.identity?.class || window.profile?.class || "1B";
+      const summaryRun = {
+        name: nm,
+        class: cls,
+        mode: "run",
+        topicId: state.topic?.id || "",
+        seconds: elapsedSec,
+        timeLimitSec: Math.round((state.timeLimitMs || 0) / 1000),
+        score: state.score,
+        total: state.attempts,
+        correct: state.correct,
+        pct: state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0,
+      };
+      if (typeof window.logTestRun === "function") {
+        window.logTestRun(summaryRun);
       }
-    }
+    } catch (_) {}
   }
 
-  const medalTxt = medal ? ` • ${typeof medalEmoji === "function" ? medalEmoji(medal) : medal}` : "";
-  $("#resLine").textContent = `Score: ${state.score} • ${acc}% juist${medalTxt}`;
 
-  // fouttypes (compact)
-  const wrongEl = $("#resWrong");
-  if (wrongEl) {
-    const entries = Object.entries(state.wrongs || {}).sort((a, b) => b[1] - a[1]);
-    wrongEl.innerHTML = entries.length
-      ? entries.slice(0, 8).map(([k, v]) => `<div>• ${k}: ${v}</div>`).join("")
-      : "<div>Geen fouten 🎉</div>";
+  // Bewijsje (toetsmodus): automatisch downloaden na afloop
+  if (state.mode === "test" && !state.proofDone) {
+    state.proofDone = true;
+
+    try {
+      // vul onbeantwoorde rijen aan
+      state.testLog.forEach(r => {
+        if (r && r.ok == null) { r.ok = false; r.given = r.given || "—"; }
+      });
+
+      const metaId = document.querySelector('meta[name="x-game-id"]')?.content || document.title || "Wiskunde Quest";
+      const elapsedSec = Math.round((Date.now() - state.startedAt) / 1000);
+
+      const nm =
+        state.identity?.name ||
+        window.profile?.name ||
+        window.profile?.username ||
+        "";
+
+      const cls =
+        state.identity?.class ||
+        window.profile?.class ||
+        "";
+
+      const flags = (state.identity && typeof state.identity === "object" && state.identity.flags) ? state.identity.flags : {};
+
+      const goals = [
+        `Topic: ${state.topic?.title || "—"}`,
+        `Aantal vragen: ${state.testCount || state.testLog.length}`,
+        `Tijdslimiet: ${state.timeLimitMs ? msToClock(state.timeLimitMs) : "geen"}`
+      ];
+
+      const summary = {
+        name: nm,
+        class: cls,
+        gameId: metaId,
+        mode: "toets",
+        seconds: elapsedSec,
+        timeLimitSec: Math.round((state.timeLimitMs || 0) / 1000),
+        score: state.score,
+        total: state.testCount || state.testLog.length,
+        testId: state.testId || "",
+        seed: state.seed || 0,
+        goals,
+        flags,
+        accommodations: flags?.dyscalculie ? ["dyscalculie"] : [],
+        questions: state.testLog.map(r => ({
+          q: r.q,
+          correct: r.correct,
+          given: r.given,
+          ok: r.ok,
+          points: r.points,
+          secs: r.secs
+        }))
+      };
+
+      // Hash + JSON export (anti-discussie + voor jouw administratie)
+      (async () => {
+        try{
+          summary.hash = await computeProofHash(summary);
+        }catch(_){}
+        try{
+          window.MR_SHARED?.trySharedProof?.(summary);
+        }catch(_){}
+        // Supabase: log toetsresultaat (handig voor dashboards)
+        try{
+          if (typeof window.logTestRun === 'function') {
+            await window.logTestRun(summary);
+            const line = document.getElementById("resLine");
+            if (line && !line.dataset.logStatus && window.lastTestRunStatus) {
+              line.textContent += ` | log: ${window.lastTestRunStatus}`;
+              line.dataset.logStatus = "1";
+            }
+          }
+        }catch(_){}
+        try{
+          const base = String(nm||"leerling").trim().replace(/[^\w\s-]+/g,"").replace(/\s+/g,"_").slice(0,80) || "leerling";
+          const fn = `bewijs_${base}_${(cls||"").toString().replace(/\s+/g,"_")}_${(summary.testId||"toets")}.json`;
+          const blob = new Blob([JSON.stringify(summary, null, 2)], { type: "application/json" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = fn.replace(/_+/g,"_");
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+        }catch(_){}
+      })();
+;
+    } catch (e) {
+      console.warn("Proof generation failed", e);
+    }
   }
 
   showScreen("scrResult");
 }
 
-
-
-/* =========================
-   FRACTION HELPERS
-========================= */
-
-// parseert breuk ZONDER automatisch te vereenvoudigen (dus "2/4" blijft 2/4)
-function parseFractionRawNL(s) {
-  if (s == null) return null;
-  s = String(s).trim();
-  if (!s) return null;
-
-  s = s.replace(/\s+/g, "");
-
-  // geheel getal
-  if (!s.includes("/")) {
-    const n = parseInt(s, 10);
-    if (!Number.isFinite(n)) return null;
-    return { n, d: 1 };
-  }
-
-  const parts = s.split("/");
-  if (parts.length !== 2) return null;
-
-  let n = parseInt(parts[0], 10);
-  let d = parseInt(parts[1], 10);
-  if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
-
-  if (d < 0) { n = -n; d = -d; } // noemer positief
-  return { n, d };
-}
-
-function gcdInt(a, b) {
-  a = Math.abs(a); b = Math.abs(b);
-  while (b) { const t = a % b; a = b; b = t; }
-  return a || 1;
-}
-
-function fractionEqualRaw(a, b) {
-  if (!a || !b) return false;
-  return a.n * b.d === b.n * a.d;
-}
-
-function fractionIsSimplified(fr) {
-  if (!fr) return false;
-  const g = (typeof gcd === "function") ? gcd(fr.n, fr.d) : gcdInt(fr.n, fr.d);
-  return g === 1;
-}
-
-// verticale preview naast de input, puur met inline CSS
-function verticalFractionHTML(input) {
-  const fr = parseFractionRawNL(input);
-  if (!fr) return "";
-  const n = fr.n;
-  const d = fr.d;
-
-  if (d === 1) return `<div style="display:inline-block;padding:2px 8px;border-radius:10px;background:rgba(0,0,0,0.04);font-weight:800">${n}</div>`;
-
-  return `
-    <div style="display:inline-grid;grid-template-rows:auto 2px auto;min-width:38px;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.04)">
-      <div style="text-align:center;font-weight:800;line-height:1">${n}</div>
-      <div style="height:2px;background:rgba(0,0,0,0.55);border-radius:2px;margin:2px 0;"></div>
-      <div style="text-align:center;font-weight:800;line-height:1">${d}</div>
-    </div>
-  `;
-}
-
-/* =========================
-   UI WIRING (keypad + knoppen)
-========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
   // ---------- Keypad ----------
-  document.querySelectorAll("#keypad .key").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const k = btn.dataset.k;
+document.querySelectorAll("#keypad .key").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const k = btn.dataset.k;
+    const inp = activeInput || document.getElementById("mainInput");
+    if (!inp) return;
 
-      // actieve input (inline) heeft voorrang, anders mainInput
-      const inp = activeInput || document.getElementById("mainInput");
-      if (!inp) return;
-
-      if (!k) {
-        inp.value += btn.textContent;
-      } else if (k === "back") {
-        inp.value = inp.value.slice(0, -1);
-      } else if (k === "clear") {
-        inp.value = "";
-      } else if (k === "comma") {
-        if (!inp.value.includes(",")) inp.value += ",";
-      } else if (k === "slash") {
-        inp.value += "/";
-      } else if (k === "colon") {
-        if (!inp.value.includes(":")) {
-          if (inp.value.length === 0) inp.value = "00";
-          if (inp.value.length === 1) inp.value = "0" + inp.value;
-          inp.value += ":";
-        }
-      } else if (k === "minus") {
-        if (!inp.value.startsWith("-")) inp.value = "-" + inp.value;
-      } else if (k === "ok") {
-        submitAnswer();
+    if (!k) {
+      inp.value += btn.textContent;
+    } else if (k === "back") {
+      inp.value = inp.value.slice(0, -1);
+    } else if (k === "clear") {
+      inp.value = "";
+    } else if (k === "comma") {
+      if (!inp.value.includes(",")) inp.value += ",";
+    } else if (k === "slash") {
+      inp.value += "/";
+    } else if (k === "colon") {
+      if (!inp.value.includes(":")) {
+        if (inp.value.length === 0) inp.value = "00";
+        if (inp.value.length === 1) inp.value = "0" + inp.value;
+        inp.value += ":";
       }
+    }
 
-      // trigger input event voor preview (als actief)
-      if (inp === document.getElementById("mainInput")) {
-        inp.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-    });
+ else if (k === "minus") {
+      if (!inp.value.startsWith("-")) inp.value = "-" + inp.value;
+    } else if (k === "ok") {
+      const helpOpen = !document.getElementById("helpOverlay")?.classList.contains("hidden");
+      if (helpOpen && inp.closest("#helpOverlay")) return;
+      submitAnswer();
+    }
   });
+});
 
   $("#btnOkInline")?.addEventListener("click", submitAnswer);
   $("#btnOkMc")?.addEventListener("click", submitAnswer);
-
-  $("#btnResBack")?.addEventListener("click", () => showScreen("scrMap"));
+  $("#btnResBack")?.addEventListener("click", () => {
+    window.renderTopicMap?.();
+    showScreen("scrMap");
+  });
   $("#btnResAgain")?.addEventListener("click", () => {
     if (state.lastStart) startGame(state.lastStart);
-    else showScreen("scrMap");
+    else {
+      window.renderTopicMap?.();
+      showScreen("scrMap");
+    }
   });
 });
+
+function makeRng(seed){
+  let s = (Number(seed) >>> 0) || 1;
+  return function(){
+    // LCG (Numerical Recipes)
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+}
+
+function pad2(n){ return String(n).padStart(2, "0"); }
+function makeTestId(seed){
+  const d = new Date();
+  const stamp = `${d.getFullYear()}${pad2(d.getMonth()+1)}${pad2(d.getDate())}-${pad2(d.getHours())}${pad2(d.getMinutes())}${pad2(d.getSeconds())}`;
+  const tail = (seed >>> 0).toString(16).toUpperCase().padStart(8,"0").slice(0,6);
+  return `T-${stamp}-${tail}`;
+}
+
+function stableStringify(value){
+  const seen = new WeakSet();
+  const norm = (v) => {
+    if (v && typeof v === "object"){
+      if (seen.has(v)) return "[Circular]";
+      seen.add(v);
+      if (Array.isArray(v)) return v.map(norm);
+      const out = {};
+      Object.keys(v).sort().forEach(k => { out[k] = norm(v[k]); });
+      return out;
+    }
+    return v;
+  };
+  return JSON.stringify(norm(value));
+}
+
+async function sha256Hex(str){
+  const buf = new TextEncoder().encode(str);
+  const digest = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2,"0")).join("");
+}
+
+async function computeProofHash(summary){
+  try{
+    const hex = await sha256Hex(stableStringify(summary));
+    return hex.slice(0, 12).toUpperCase();
+  }catch(_){
+    return "";
+  }
+}
+
+
+// ---------- Progressie helpers (5 niveaus) ----------
+function practiceAdvanceOnOk(){
+  if (state.mode !== 'practice') return;
+  const tier = Math.max(1, Math.min(5, Number(state.practiceTier || 1)));
+  let prog = Math.max(0, Number(state.practiceProg || 0));
+
+  if (tier < 5) {
+    prog += 1;
+    if (prog >= 10) {
+      state.practiceTier = tier + 1;
+      state.practiceProg = 0;
+    } else {
+      state.practiceTier = tier;
+      state.practiceProg = prog;
+    }
+  } else {
+    state.practiceTier = 5;
+    state.practiceProg = Math.min(10, prog + 1);
+  }
+}
+
+function practicePenaltyOnFail(){
+  if (state.mode !== 'practice') return;
+  const tier = Math.max(1, Math.min(5, Number(state.practiceTier || 1)));
+  const prev = Math.max(0, Number(state.practiceProg || 0));
+  if (prev <= 0) return;
+
+  const next = prev - 1;
+  state.practiceProg = next;
+
+  // terugval enkel wanneer je van 1 -> 0 gaat (dus na minstens 1 juiste binnen dit niveau)
+  if (tier > 1 && prev === 1) {
+    state.practiceTier = tier - 1;
+    state.practiceProg = 0;
+  }
+}
+
+function updateLvlTop(){
+  const el = document.getElementById('lvlTop');
+  if (!el) return;
+
+  const show = (state.mode === 'practice' || state.mode === 'run');
+  el.style.display = show ? '' : 'none';
+  if (!show) return;
+
+  let tier = 1;
+  let within = 0;
+
+  if (state.mode === 'run') {
+    tier = tierFromCorrect(state.correct);
+    within = Math.max(0, state.correct - (tier - 1) * 10);
+    if (tier >= 5) within = Math.max(0, state.correct - 40);
+    within = Math.min(10, within);
+  } else {
+    tier = Math.max(1, Math.min(5, Number(state.practiceTier || 1)));
+    within = Math.min(10, Math.max(0, Number(state.practiceProg || 0)));
+  }
+
+  const pct = Math.round((within / 10) * 100);
+  try { el.title = `Niveau ${tier}/5 • ${within}/10`; } catch (_) {}
+
+  const badge = document.getElementById('lvlBadge');
+  if (badge) badge.textContent = String(tier);
+
+  const palette = [
+    { accent: "#60a5fa", fill: "#3b82f6", fill2: "#60a5fa" },
+    { accent: "#34d399", fill: "#10b981", fill2: "#34d399" },
+    { accent: "#fbbf24", fill: "#f59e0b", fill2: "#fbbf24" },
+    { accent: "#fb7185", fill: "#f43f5e", fill2: "#fb7185" },
+    { accent: "#a78bfa", fill: "#8b5cf6", fill2: "#a78bfa" }
+  ];
+  const pal = palette[Math.max(0, Math.min(palette.length - 1, tier - 1))] || palette[0];
+  el.style.setProperty('--lvl-accent', pal.accent);
+  el.style.setProperty('--lvl-fill', pal.fill);
+  el.style.setProperty('--lvl-fill-2', pal.fill2);
+
+  const f = document.getElementById('lvlFill');
+  if (f) f.style.width = pct + '%';
+}
+
+function schedulePanelBodyFit(){
+  if (panelBodyFitRaf) cancelAnimationFrame(panelBodyFitRaf);
+  panelBodyFitRaf = requestAnimationFrame(fitPanelBody);
+}
+
+function fitPanelBody(){
+  const body = document.querySelector("#scrGame .panelBody");
+  const inner = document.getElementById("panelBodyInner");
+  if (!body || !inner) return;
+
+  inner.style.transform = "scale(1)";
+
+  const availableH = body.clientHeight;
+  const availableW = body.clientWidth;
+  const contentH = inner.scrollHeight;
+  const contentW = inner.scrollWidth;
+  if (!availableH || !contentH) return;
+
+  const scaleH = availableH / contentH;
+  const scaleW = contentW ? (availableW / contentW) : 1;
+  const scale = Math.min(1, scaleH, scaleW);
+  inner.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener("resize", schedulePanelBodyFit);
+
+function placeGameControls(wantsKeypad){
+  const gc = document.getElementById('gameControls');
+  const slotBottom = document.getElementById('gcSlotBottom');
+  const slotRight = document.getElementById('gcSlotRight');
+  if (!gc || !slotBottom) return;
+
+  if (wantsKeypad && slotRight){
+    if (gc.parentElement !== slotRight) slotRight.appendChild(gc);
+    slotRight.classList.remove('hidden');
+    slotBottom.classList.add('hidden');
+  } else {
+    if (gc.parentElement !== slotBottom) slotBottom.appendChild(gc);
+    slotBottom.classList.remove('hidden');
+    if (slotRight) slotRight.classList.add('hidden');
+  }
+}
+// HUD helpers
+function setHudVisible(on){
+  const el = $("#hudLine");
+  if (!el) return;
+  el.style.display = on ? "" : "none";
+}
+
+function updateHud(){
+  // HUD compact houden: toon in topbar (pill), en verberg de oude HUD-lijn
+  const line = $("#hudLine");
+  if (line) line.style.display = "none";
+
+  const pill = $("#pillHud");
+  if (!pill) {
+    updateLvlTop();
+    return;
+  }
+
+  if (state.mode !== "test" && state.mode !== "run"){
+    pill.style.display = "none";
+    pill.textContent = "";
+    updateLvlTop();
+    return;
+  }
+
+  pill.style.display = "inline-flex";
+  const total = state.mode === "test" ? (state.testCount || state.testLog.length || 0) : 0;
+  const cur = state.mode === "test" ? (state.testLog.length || 0) : 0;
+
+  const left = state.mode === "test"
+    ? `Vraag ${Math.max(1, cur)}/${total || "?"}`
+    : `Run: ${state.score} p`;
+
+  const right = (state.timeLimitMs > 0)
+    ? "⏱ " + msToClock(state.timeLeftMs)
+    : "⏱ ∞";
+
+  pill.textContent = `${left} • ${right}`;
+  updateLvlTop();
+}

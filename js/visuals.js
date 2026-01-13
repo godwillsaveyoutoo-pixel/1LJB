@@ -2700,46 +2700,61 @@ function svgHoekenHulpkaart() {
   `;
 }
 function svgInhoudHulpkaart() {
-  // Inhoud: l – dl – cl – ml
+  // Interactieve omzettabel: leerlingen kunnen zelf waarden invullen.
   return `
-  <svg viewBox="0 0 820 240" width="100%" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="820" height="240" rx="18" fill="#f8fafc"/>
+  <div class="convTool" id="inhoudConvTool">
+    <div class="convTitle">Inhoud tabel</div>
+    <div class="convSub">Vul de tabel in met jouw waarden.</div>
 
-    <text x="410" y="34" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">
-      Inhoud – omrekenen
-    </text>
-    <text x="410" y="58" text-anchor="middle" font-size="15" font-weight="800" fill="#475569">
-      Naar rechts: ×10 • Naar links: ÷10
-    </text>
+    <div class="convGrid">
+      <div class="convUnit">l</div>
+      <div class="convUnit">dl</div>
+      <div class="convUnit">cl</div>
+      <div class="convUnit">ml</div>
 
-    <!-- boxes -->
-    <g transform="translate(80,98)">
-      <rect x="0"   y="0" width="130" height="82" rx="16" fill="white" stroke="#2563eb" stroke-width="2"/>
-      <rect x="170" y="0" width="130" height="82" rx="16" fill="white" stroke="#2563eb" stroke-width="2"/>
-      <rect x="340" y="0" width="130" height="82" rx="16" fill="white" stroke="#2563eb" stroke-width="2"/>
-      <rect x="510" y="0" width="130" height="82" rx="16" fill="white" stroke="#2563eb" stroke-width="2"/>
+      <input inputmode="decimal" placeholder="..." data-unit="l" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
+    </div>
 
-      <text x="65"  y="52" text-anchor="middle" font-size="22" font-weight="900" fill="#0b1220">l</text>
-      <text x="235" y="52" text-anchor="middle" font-size="22" font-weight="900" fill="#0b1220">dl</text>
-      <text x="405" y="52" text-anchor="middle" font-size="22" font-weight="900" fill="#0b1220">cl</text>
-      <text x="575" y="52" text-anchor="middle" font-size="22" font-weight="900" fill="#0b1220">ml</text>
-
-      <!-- arrows -->
-      <text x="150" y="48" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">→</text>
-      <text x="320" y="48" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">→</text>
-      <text x="490" y="48" text-anchor="middle" font-size="22" font-weight="900" fill="#0f172a">→</text>
-
-      <text x="150" y="76" text-anchor="middle" font-size="14" font-weight="900" fill="#2563eb">×10</text>
-      <text x="320" y="76" text-anchor="middle" font-size="14" font-weight="900" fill="#2563eb">×10</text>
-      <text x="490" y="76" text-anchor="middle" font-size="14" font-weight="900" fill="#2563eb">×10</text>
-    </g>
-
-    <text x="410" y="212" text-anchor="middle" font-size="14" font-weight="800" fill="#334155">
+    <div class="tiny" style="color:var(--mut);margin-top:10px">
       Tip: 1 l = 10 dl = 100 cl = 1000 ml
-    </text>
-  </svg>
+    </div>
+    <div class="tiny" style="color:var(--mut)">
+      Je mag komma of punt typen. Lege vakjes blijven leeg.
+    </div>
+  </div>
   `;
 }
+
+// Init helper voor help overlay
+function initInhoudUnitTable() {
+  const root = document.getElementById("inhoudConvTool");
+  if (!root) return;
+
+  const inputs = Array.from(root.querySelectorAll(".convInput"));
+  if (!inputs.length) return;
+
+  // voorkom dubbele listeners
+  if (root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+
+  inputs.forEach(inp => {
+    inp.addEventListener("focus", () => {
+      if (typeof window.setActiveInput === "function") {
+        window.setActiveInput(inp);
+      }
+    });
+    inp.addEventListener("pointerdown", () => {
+      if (typeof window.setActiveInput === "function") {
+        window.setActiveInput(inp);
+      }
+    });
+  });
+}
+
+window.initInhoudUnitTable = initInhoudUnitTable;
 
 
 function svgMassaHulpkaart() {
@@ -4181,6 +4196,14 @@ const HELP_CARDS = {
 
 window.HELP_CARDS = HELP_CARDS;
 
+// Laat ui.js na openen van de help overlay specifieke tools initialiseren
+function initHelpOverlay(topicId) {
+  if (topicId === 'inhoud') {
+    try { initInhoudUnitTable(); } catch (_) {}
+  }
+}
+window.initHelpOverlay = initHelpOverlay;
+
 
 
 /* =========================
@@ -4208,11 +4231,23 @@ function svgMaatbekerLees(opts = {}) {
 
   const cupPath = `M ${cupTopL} ${topY} L ${cupTopR} ${topY} L ${cupBotR} ${botY} L ${cupBotL} ${botY} Z`;
 
+  let minor = Number(minorStep) || 0;
+  const major = Number(majorStep) || 1;
+  if (minor <= 0) minor = major / 2;
+  if (major >= 10 && (major / minor) < 4) {
+    minor = major / 5;
+  } else if (major < 10 && (major / minor) < 2) {
+    minor = major / 2;
+  }
+
+  const steps = Math.floor(max / minor + 1e-9);
   const ticks = [];
-  for (let v = 0; v <= max + 1e-9; v += minorStep) {
+  for (let i = 0; i <= steps; i++) {
+    const v = i * minor;
+    if (v > max + 1e-6) continue;
     const f = v / max;
     const y = botY - f * h;
-    const isMajor = Math.abs((v / majorStep) - Math.round(v / majorStep)) < 1e-6;
+    const isMajor = Math.abs((v / major) - Math.round(v / major)) < 1e-6;
     const len = isMajor ? 22 : 12;
     const x1 = cupTopR + 14;
     const x2 = x1 + len;
@@ -4220,6 +4255,13 @@ function svgMaatbekerLees(opts = {}) {
     if (isMajor && v !== 0) {
       ticks.push(`<text x="${x2 + 8}" y="${y + 5}" font-size="14" fill="rgba(0,0,0,.88)" font-weight="900">${String(v)}</text>`);
     }
+  }
+  const onTick = Math.abs((value / minor) - Math.round(value / minor)) < 1e-6;
+  if (!onTick) {
+    const y = waterY;
+    const x1 = cupTopR + 14;
+    const x2 = x1 + 18;
+    ticks.push(`<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="rgba(0,0,0,.78)" stroke-width="3" stroke-linecap="round" />`);
   }
 
   return `
@@ -4256,3 +4298,141 @@ function svgMaatbekerLees(opts = {}) {
   </div>`;
 }
 window.svgMaatbekerLees = svgMaatbekerLees;
+
+/* =========================
+   Extra visuals (percent/lines)
+========================= */
+function svgClassGroup(total = 60, percent = 50) {
+  const t = Math.max(1, Number(total) || 1);
+  const p = Math.max(0, Math.min(100, Number(percent) || 0));
+  const count = Math.round(t * p / 100);
+  const cols = Math.min(10, t);
+  const rows = Math.ceil(t / cols);
+  const cell = 18;
+  const pad = 16;
+  const w = cols * cell + pad * 2;
+  const h = rows * cell + pad * 2 + 24;
+
+  const dots = Array.from({ length: t }).map((_, i) => {
+    const c = i % cols;
+    const r = Math.floor(i / cols);
+    const x = pad + c * cell + 6;
+    const y = pad + r * cell + 6;
+    const fill = i < count ? "#2563eb" : "#cbd5e1";
+    return `<circle cx="${x}" cy="${y}" r="6" fill="${fill}"/>`;
+  }).join("");
+
+  return `
+  <svg viewBox="0 0 ${w} ${h}" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="${w - 4}" height="${h - 4}" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+    ${dots}
+    <text x="${w / 2}" y="${h - 6}" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">
+      ${count} van ${t}
+    </text>
+  </svg>`;
+}
+
+function svgBusLoad(total = 90, percent = 30) {
+  const t = Math.max(1, Number(total) || 1);
+  const p = Math.max(0, Math.min(100, Number(percent) || 0));
+  const count = Math.round(t * p / 100);
+  const cols = 10;
+  const rows = Math.ceil(t / cols);
+  const seatW = 16;
+  const seatH = 12;
+  const pad = 18;
+  const w = cols * seatW + pad * 2 + 24;
+  const h = rows * seatH + pad * 2 + 28;
+
+  const seats = Array.from({ length: t }).map((_, i) => {
+    const c = i % cols;
+    const r = Math.floor(i / cols);
+    const x = pad + c * seatW + 12;
+    const y = pad + r * seatH + 8;
+    const fill = i < count ? "#0ea5e9" : "#e2e8f0";
+    return `<rect x="${x}" y="${y}" width="12" height="8" rx="2" fill="${fill}"/>`;
+  }).join("");
+
+  return `
+  <svg viewBox="0 0 ${w} ${h}" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="${w - 4}" height="${h - 4}" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="${pad}" y="${pad}" width="${w - pad * 2}" height="${h - pad * 2 - 16}" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+    ${seats}
+    <text x="${w / 2}" y="${h - 6}" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">
+      ${count} van ${t}
+    </text>
+  </svg>`;
+}
+
+function svgTank(total = 400, percent = 2.5) {
+  const t = Math.max(1, Number(total) || 1);
+  const p = Math.max(0, Math.min(100, Number(percent) || 0));
+  const w = 220;
+  const h = 180;
+  const pad = 16;
+  const innerW = w - pad * 2;
+  const innerH = h - pad * 2 - 20;
+  const fillH = innerH * (p / 100);
+  const yFill = pad + innerH - fillH;
+
+  return `
+  <svg viewBox="0 0 ${w} ${h}" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="${w - 4}" height="${h - 4}" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="${pad}" y="${pad}" width="${innerW}" height="${innerH}" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="${pad}" y="${yFill}" width="${innerW}" height="${fillH}" rx="10" fill="#38bdf8"/>
+    <text x="${w / 2}" y="${h - 6}" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">
+      ${p}% van ${t} l
+    </text>
+  </svg>`;
+}
+
+function _svgSimpleLines(kind = "parallel") {
+  const w = 320, h = 200;
+  const base = `
+    <rect x="2" y="2" width="${w - 4}" height="${h - 4}" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="16" y="16" width="${w - 32}" height="${h - 32}" rx="12" fill="#f8fafc"/>
+  `;
+
+  let lines = "";
+  if (kind === "perp") {
+    lines = `
+      <line x1="90" y1="30" x2="90" y2="170" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+      <line x1="40" y1="100" x2="260" y2="100" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+    `;
+  } else if (kind === "intersect") {
+    lines = `
+      <line x1="40" y1="150" x2="260" y2="50" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+      <line x1="40" y1="60" x2="260" y2="160" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+    `;
+  } else {
+    lines = `
+      <line x1="40" y1="70" x2="260" y2="70" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+      <line x1="40" y1="130" x2="260" y2="130" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+    `;
+  }
+
+  return `
+  <svg viewBox="0 0 ${w} ${h}" width="100%" xmlns="http://www.w3.org/2000/svg">
+    ${base}
+    ${lines}
+  </svg>`;
+}
+
+function svgLinesParallel() {
+  return _svgSimpleLines("parallel");
+}
+
+function svgLinesPerpendicular() {
+  return _svgSimpleLines("perp");
+}
+
+function svgLinesSnijdend() {
+  return _svgSimpleLines("intersect");
+}
+
+window.svgClassGroup = svgClassGroup;
+window.svgBusLoad = svgBusLoad;
+window.svgTank = svgTank;
+window.svgLinesParallel = svgLinesParallel;
+window.svgLinesPerpendicular = svgLinesPerpendicular;
+window.svgLinesSnijdend = svgLinesSnijdend;

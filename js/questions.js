@@ -24,18 +24,18 @@ const BANK = {
         () => qMc("inhoud", "basic_easy",
           "Kies de beste inhoudsmaat:\nEen blikje frisdrank is 33 ____.",
           ["ml", "cl", "dl", "l"], "cl", svgImgSafe("blikje_33cl.svg", "Blikje")),
-        () => qMc("inhoud", "basic_easy",
+        () => qMc("inhoud","basic_easy",
           "Kies de beste inhoudsmaat:\nEen flesje water is 750 ____.",
-          ["ml", "cl", "l"], "ml", svgImgSafe("sportfles.svg", "Flesje")),
-        () => qMc("inhoud", "basic_easy",
+          ["ml","cl","l"], "ml", svgImgSafe("sportfles.svg", "Flesje")),
+        () => qMc("inhoud","basic_easy",
           "Kies de beste inhoudsmaat:\nEen glas water is 20 ____.",
-          ["ml", "cl", "l"], "cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qMc("inhoud", "basic_easy",
+          ["ml","cl","l"], "cl", svgImgSafe("glas_water.svg", "Glas")),
+        () => qMc("inhoud","basic_easy",
           "Kies de beste inhoudsmaat:\nEen brik melk is 1 ____.",
-          ["ml", "cl", "l"], "l", svgImgSafe("brik_melk_1l.svg", "Brik")),
-        () => qMc("inhoud", "basic_easy",
+          ["ml","cl","l"], "l", svgImgSafe("brik_melk_1l.svg", "Brik")),
+        () => qMc("inhoud","basic_easy",
           "Kies de beste inhoudsmaat:\nEen eetlepel is 15 ____.",
-          ["ml", "cl", "l"], "ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
+          ["ml","cl","l"], "ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
 
       ],
       normal: [
@@ -51,15 +51,15 @@ const BANK = {
         () => qMc("inhoud", "basic_normal",
           "Kies de beste inhoudsmaat:\nEen kookpot kan 3 ____ bevatten.",
           ["ml", "cl", "dl", "l"], "l", svgImgSafe("kookpot.svg", "Kookpot")),
-        () => qMc("inhoud", "basic_normal",
+        () => qMc("inhoud","basic_normal",
           "Kies de beste inhoudsmaat:\nEen waterkoker is 1,7 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("waterkoker.svg", "Waterkoker")),
-        () => qMc("inhoud", "basic_normal",
+          ["ml","cl","dl","l"], "l", svgImgSafe("waterkoker.svg", "Waterkoker")),
+        () => qMc("inhoud","basic_normal",
           "Kies de beste inhoudsmaat:\nEen waterzak is 2 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
-        () => qMc("inhoud", "basic_normal",
+          ["ml","cl","dl","l"], "l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
+        () => qMc("inhoud","basic_normal",
           "Kies de beste inhoudsmaat:\nHet reservoir van een koffiemachine is 1,2 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("koffiemachine.svg", "Koffiemachine")),
+          ["ml","cl","dl","l"], "l", svgImgSafe("koffiemachine.svg", "Koffiemachine")),
 
       ],
       hard: [
@@ -75,15 +75,15 @@ const BANK = {
         () => qMc("inhoud", "basic_hard",
           "Kies de beste inhoudsmaat:\nEen grote waterbidon is 5 ____.",
           ["ml", "cl", "dl", "l"], "l", svgImgSafe("waterbidon_5l.svg", "Waterbidon")),
-        () => qMc("inhoud", "basic_hard",
+        () => qMc("inhoud","basic_hard",
           "Kies de beste inhoudsmaat:\nEen badkuip bevat 150 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("badkuip.svg", "Badkuip")),
-        () => qMc("inhoud", "basic_hard",
+          ["ml","cl","dl","l"], "l", svgImgSafe("badkuip.svg", "Badkuip")),
+        () => qMc("inhoud","basic_hard",
           "Kies de beste inhoudsmaat:\nEen aquarium bevat 60 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("aquarium.svg", "Aquarium")),
-        () => qMc("inhoud", "basic_hard",
+          ["ml","cl","dl","l"], "l", svgImgSafe("aquarium.svg", "Aquarium")),
+        () => qMc("inhoud","basic_hard",
           "Kies de beste inhoudsmaat:\nEen verfbeker is 10 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("verfbeker.svg", "Verf")),
+          ["ml","cl","dl","l"], "l", svgImgSafe("verfbeker.svg", "Verf")),
 
       ],
     },
@@ -118,16 +118,16 @@ const BANK = {
              ${svgConvertUnits("1,5", "l", "cl", "Herleid")}
              ${svgImgSafe("petfles_1_5l.svg", "PET 1,5 l")}
            </div>`, 0.01),
-        () => qInput("inhoud", "convert_easy",
+        () => qInput("inhoud","convert_easy",
           "Zet om:\n300 ml = ____ cl.",
           30, "number", "cl", svgImgSafe("pak_chocomelk_250ml.svg", "Pak")),
-        () => qInput("inhoud", "convert_easy",
+        () => qInput("inhoud","convert_easy",
           "Zet om:\n2 dl = ____ ml.",
           200, "number", "ml", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
-        () => qInput("inhoud", "convert_easy",
+        () => qInput("inhoud","convert_easy",
           "Zet om:\n50 cl = ____ ml.",
           500, "number", "ml", svgImgSafe("blikje_33cl.svg", "Blikje")),
-        () => qInput("inhoud", "convert_easy",
+        () => qInput("inhoud","convert_easy",
           "Zet om:\n1 l = ____ dl.",
           10, "number", "dl", svgImgSafe("brik_melk_1l.svg", "Brik")),
 
@@ -157,13 +157,13 @@ const BANK = {
              ${svgConvertUnits("750", "ml", "l", "Herleid")}
              ${svgImgSafe("sportfles.svg", "Sportfles")}
            </div>`, 0.01),
-        () => qInput("inhoud", "convert_normal",
+        () => qInput("inhoud","convert_normal",
           "Zet om:\n90 cl = ____ ml.",
           900, "number", "ml", svgImgSafe("sportfles.svg", "Fles")),
-        () => qInput("inhoud", "convert_normal",
+        () => qInput("inhoud","convert_normal",
           "Zet om:\n0,25 l = ____ ml.",
           250, "number", "ml", svgImgSafe("pak_chocomelk_250ml.svg", "Pak")),
-        () => qInput("inhoud", "convert_normal",
+        () => qInput("inhoud","convert_normal",
           "Zet om:\n600 ml = ____ dl.",
           6, "number", "dl", svgImgSafe("drinkbus.svg", "Drinkbus")),
 
@@ -193,13 +193,13 @@ const BANK = {
              ${svgConvertUnits("50", "l", "cl", "Herleid")}
              ${svgImgSafe("vat_50l.svg", "Vat 50 l")}
            </div>`, 0.01),
-        () => qInput("inhoud", "convert_hard",
+        () => qInput("inhoud","convert_hard",
           "Zet om:\n3,5 l = ____ ml.",
           3500, "number", "ml", svgImgSafe("jerrycan_5l.svg", "Jerrycan")),
-        () => qInput("inhoud", "convert_hard",
+        () => qInput("inhoud","convert_hard",
           "Zet om:\n1250 ml = ____ l.",
           1.25, "number", "l", svgImgSafe("petfles_1l.svg", "Fles")),
-        () => qInput("inhoud", "convert_hard",
+        () => qInput("inhoud","convert_hard",
           "Zet om:\n0,08 l = ____ ml.",
           80, "number", "ml", svgImgSafe("maatschepje_5ml.svg", "Schepje")),
 
@@ -224,18 +224,18 @@ const BANK = {
         () => qMc("inhoud", "factor10_easy",
           "100 keer kleiner dan 1 l is ____ cl.",
           ["1", "10", "100"], "1", svgImgSafe("boog_gedeeld.svg", "÷100")),
-        () => qMc("inhoud", "factor10_easy",
-          "10 keer meer dan 2 dl is ____ ml.",
-          ["200", "2000", "20"], "2000", svgImgSafe("pijl_maal.svg", "×10")),
-        () => qMc("inhoud", "factor10_easy",
-          "10 keer kleiner dan 300 ml is ____ ml.",
-          ["30", "3", "3000"], "30", svgImgSafe("pijl_gedeeld.svg", "÷10")),
-        () => qMc("inhoud", "factor10_easy",
-          "100 keer meer dan 5 ml is ____ ml.",
-          ["50", "500", "5000"], "500", svgImgSafe("pijl_maal.svg", "×100")),
-        () => qMc("inhoud", "factor10_easy",
-          "100 keer kleiner dan 2 l is ____ cl.",
-          ["0,2", "2", "20"], "2", svgImgSafe("pijl_gedeeld.svg", "÷100")),
+() => qMc("inhoud", "factor10_easy",
+  "10 keer meer dan 2 dl is ____ ml.",
+  ["200", "2000", "20"], "2000", svgImgSafe("pijl_maal.svg", "×10")),
+() => qMc("inhoud", "factor10_easy",
+  "10 keer kleiner dan 300 ml is ____ ml.",
+  ["30", "3", "3000"], "30", svgImgSafe("pijl_gedeeld.svg", "÷10")),
+() => qMc("inhoud", "factor10_easy",
+  "100 keer meer dan 5 ml is ____ ml.",
+  ["50", "500", "5000"], "500", svgImgSafe("pijl_maal.svg", "×100")),
+() => qMc("inhoud", "factor10_easy",
+  "100 keer kleiner dan 2 l is ____ cl.",
+  ["0,2", "2", "20"], "2", svgImgSafe("pijl_gedeeld.svg", "÷100")),
 
       ],
       normal: [
@@ -252,45 +252,45 @@ const BANK = {
         () => qMc("inhoud", "factor10_normal",
           "10 keer kleiner dan 500 ml is ____ ml.",
           ["5", "50", "500"], "50", svgImgSafe("boog_gedeeld.svg", "÷10")),
-        () => qMc("inhoud", "factor10_normal",
-          "1000 keer meer dan 3 ml is ____ l.",
-          ["0,003", "0,3", "3"], "3", svgImgSafe("boog_maal.svg", "×1000")),
-        () => qMc("inhoud", "factor10_normal",
-          "100 keer kleiner dan 4 dl is ____ ml.",
-          ["4", "40", "400"], "4", svgImgSafe("boog_gedeeld.svg", "÷100")),
-        () => qMc("inhoud", "factor10_normal",
-          "10 keer meer dan 0,6 l is ____ l.",
-          ["0,06", "6", "60"], "6", svgImgSafe("boog_maal.svg", "×10")),
+() => qMc("inhoud", "factor10_normal",
+  "1000 keer meer dan 3 ml is ____ l.",
+  ["0,003", "0,3", "3"], "3", svgImgSafe("boog_maal.svg", "×1000")),
+() => qMc("inhoud", "factor10_normal",
+  "100 keer kleiner dan 4 dl is ____ ml.",
+  ["4", "40", "400"], "4", svgImgSafe("boog_gedeeld.svg", "÷100")),
+() => qMc("inhoud", "factor10_normal",
+  "10 keer meer dan 0,6 l is ____ l.",
+  ["0,06", "6", "60"], "6", svgImgSafe("boog_maal.svg", "×10")),
 
       ],
       hard: [
         () => qInput("inhoud", "factor10_hard",
           "Vul in: 100× groter dan 0,07 l = ____ l", 7, "number", "l",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("pijl_maal.svg", "×100")}
+             ${svgImgSafe("pijl_maal.svg","×100")}
 
            </div>`, 0.01),
         () => qInput("inhoud", "factor10_hard",
           "Vul in: 1000× kleiner dan 2 l = ____ ml", 2, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("pijl_gedeeld.svg", "÷1000")}
+             ${svgImgSafe("pijl_gedeeld.svg","÷1000")}
 
            </div>`, 0.001),
         () => qMc("inhoud", "factor10_hard",
           "Welke is juist?",
           ["1 dl = 100 ml", "1 dl = 10 ml", "1 dl = 1000 ml"], "1 dl = 100 ml",
-          svgImgSafe("boog_maal.svg", "Relatie")),
+          svgImgSafe("boog_maal.svg","Relatie")),
         () => qMc("inhoud", "factor10_hard",
           "Welke is juist?",
           ["1 cl = 0,1 l", "1 cl = 10 ml", "1 cl = 100 ml"], "1 cl = 10 ml",
-          svgImgSafe("boog_gedeeld.svg", "Relatie")),
-        () => qInput("inhoud", "factor10_hard",
+          svgImgSafe("boog_gedeeld.svg","Relatie")),
+        () => qInput("inhoud","factor10_hard",
           "Vul in:\n100× kleiner dan 0,8 l = ____ ml.",
           8, "number", "ml", svgImgSafe("boog_gedeeld.svg", "÷100")),
-        () => qInput("inhoud", "factor10_hard",
+        () => qInput("inhoud","factor10_hard",
           "Vul in:\n1000× groter dan 0,004 l = ____ ml.",
           4000, "number", "ml", svgImgSafe("boog_maal.svg", "×1000")),
-        () => qInput("inhoud", "factor10_hard",
+        () => qInput("inhoud","factor10_hard",
           "Vul in:\n10× kleiner dan 3,5 l = ____ dl.",
           3.5, "number", "dl", svgImgSafe("boog_gedeeld.svg", "÷10"), 0.02),
 
@@ -315,79 +315,79 @@ const BANK = {
         () => qMc("inhoud", "maatbeker_easy",
           "Welke maatbeker past het best bij 1 liter?",
           ["maatbeker tot 500 ml", "maatbeker tot 1000 ml"], "maatbeker tot 1000 ml",
-          svgImgSafe("maatbeker_1000ml.svg", "Maatbeker 1L")),
-        () => qInput("inhoud", "maatbeker_easy",
+          svgImgSafe("maatbeker_1000ml.svg","Maatbeker 1L")),
+        () => qInput("inhoud","maatbeker_easy",
           "Lees af op de maatbeker:\n____ ml.",
           100, "number", "ml", svgMaatbekerLees({ value: 100, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" })),
-        () => qInput("inhoud", "maatbeker_easy",
+        () => qInput("inhoud","maatbeker_easy",
           "Lees af op de maatbeker:\n____ ml.",
           250, "number", "ml", svgMaatbekerLees({ value: 250, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" })),
-        () => qInput("inhoud", "maatbeker_easy",
+        () => qInput("inhoud","maatbeker_easy",
           "Lees af op de maatbeker:\n____ ml.",
           900, "number", "ml", svgMaatbekerLees({ value: 900, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qMc("inhoud", "maatbeker_easy",
+        () => qMc("inhoud","maatbeker_easy",
           "Welke maatbeker is het handigst om 250 ml af te lezen?",
-          ["maatbeker in ml", "maatbeker in cl", "maatbeker in dl"],
-          "maatbeker in ml",
+          ["maatbeker 500 ml","maatbeker 1000 ml","maatbeker in dl"],
+          "maatbeker 500 ml",
           `<div style="display:flex; gap:10px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
-             <div>${svgImgSafe("maatbeker_500ml.svg", "ml", 90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
-             <div>${svgImgSafe("maatbeker_1000ml.svg", "cl", 90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
-             <div>${svgImgSafe("maatbeker_dl.svg", "dl", 90)}<div style="text-align:center;font-size:12px;opacity:.85">dl</div></div>
+             <div>${svgImgSafe("maatbeker_500ml.svg","500 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
+             <div>${svgImgSafe("maatbeker_1000ml.svg","1000 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
+             <div>${svgImgSafe("maatbeker_dl.svg","dl",90)}<div style="text-align:center;font-size:12px;opacity:.85">dl</div></div>
            </div>`),
 
       ],
       normal: [
         () => qInput("inhoud", "maatbeker_normal",
           "Lees af: ____ ml", 450, "number", "ml",
-          svgMaatbekerLees({ value: 450, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
+          svgMaatbekerLees({ value: 450, max: 1000, unit: "ml", majorStep: 100, minorStep: 20, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_normal",
-          "Lees af: ____ dl", 6, "number", "dl",
-          svgMaatbekerLees({ value: 6, max: 10, unit: "dl", majorStep: 1, minorStep: 0.5, title: "Maatbeker in dl" }), 0.01),
+          "Lees af en zet om: ____ ml", 600, "number", "ml",
+          svgMaatbekerLees({ value: 6, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.01),
         () => qInput("inhoud", "maatbeker_normal",
-          "Lees af: ____ dl", 3.5, "number", "dl",
-          svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.5, title: "Maatbeker in dl" }), 0.01),
+          "Lees af en zet om: ____ cl", 35, "number", "cl",
+          svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.01),
         () => qInput("inhoud", "maatbeker_normal",
           "Een glas is 25 cl.\nHoeveel ml is dat? ____ ml", 250, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("glas_water.svg", "Glas")}
+             ${svgImgSafe("glas_water.svg","Glas")}
            </div>`, 0.01),
-        () => qInput("inhoud", "maatbeker_normal",
+        () => qInput("inhoud","maatbeker_normal",
           "Lees af op de maatbeker:\n____ ml.",
-          650, "number", "ml", svgMaatbekerLees({ value: 650, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud", "maatbeker_normal",
+          650, "number", "ml", svgMaatbekerLees({ value: 650, max: 1000, unit: "ml", majorStep: 100, minorStep: 20, title: "Maatbeker 1000 ml" })),
+        () => qInput("inhoud","maatbeker_normal",
           "Lees af op de maatbeker:\n____ dl.",
-          8.5, "number", "dl", svgMaatbekerLees({ value: 8.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.5, title: "Maatbeker in dl" }), 0.02),
-        () => qInput("inhoud", "maatbeker_normal",
+          8.5, "number", "dl", svgMaatbekerLees({ value: 8.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
+        () => qInput("inhoud","maatbeker_normal",
           "Lees af en zet om:\n____ ml.",
-          350, "number", "ml", svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.5, title: "Maatbeker in dl" }), 0.5),
+          350, "number", "ml", svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.5),
 
       ],
       hard: [
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 850, "number", "ml",
-          svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
+          svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 350, "number", "ml",
-          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
+          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 500 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Een wijnglas is 20 cl.\nHoeveel ml is dat? ____ ml", 200, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("wijnglas.svg", "Wijnglas")}
+             ${svgImgSafe("wijnglas.svg","Wijnglas")}
            </div>`, 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "In een kan zit 1,2 l water.\nHoeveel ml is dat? ____ ml", 1200, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("kan_water.svg", "Kan water")}
+             ${svgImgSafe("kan_water.svg","Kan water")}
            </div>`, 0.01),
-        () => qInput("inhoud", "maatbeker_hard",
+        () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ ml.",
-          950, "number", "ml", svgMaatbekerLees({ value: 950, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud", "maatbeker_hard",
+          950, "number", "ml", svgMaatbekerLees({ value: 950, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" })),
+        () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ ml.",
-          850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud", "maatbeker_hard",
+          850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 1000 ml" })),
+        () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ dl.",
-          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.5, title: "Maatbeker in dl" }), 0.02),
+          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.1, title: "Maatbeker in dl" }), 0.02),
 
       ],
     },
@@ -454,26 +454,26 @@ const BANK = {
           "ml",
           svgImgSafe("theelepel_5ml.svg", "Theelepel")
         ),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal glazen", rightLabel: "inhoud (ml)", rows: [["1 glas", "200"], ["3 glazen", null]] },
-          600, "ml",
-          `<div class="svgWrap">${svgImgSafe("glas_water.svg", "Glas", 120)}</div>`),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal mokken", rightLabel: "inhoud (cl)", rows: [["1 mok", "25"], ["4 mokken", null]] },
-          100, "cl",
-          `<div class="svgWrap">${svgImgSafe("mok.svg", "Mok", 120)}</div>`),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal flessen", rightLabel: "inhoud (l)", rows: [["1 fles", "1,5"], ["3 flessen", null]] },
-          4.5, "l",
-          `<div class="svgWrap">${svgImgSafe("petfles_1_5l.svg", "Fles", 120)}</div>`, 0.02),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal spuiten", rightLabel: "inhoud (ml)", rows: [["1 spuit", "20"], ["5 spuiten", null]] },
-          100, "ml",
-          `<div class="svgWrap">${svgImgSafe("spuit_20ml.svg", "Spuit", 120)}</div>`),
+() => qRatio("inhoud", "ratio_easy",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal glazen", rightLabel: "inhoud (ml)", rows: [["1 glas", "200"],["3 glazen", null]] },
+  600, "ml",
+  `<div class="svgWrap">${svgImgSafe("glas_water.svg","Glas",120)}</div>`),
+() => qRatio("inhoud", "ratio_easy",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal mokken", rightLabel: "inhoud (cl)", rows: [["1 mok", "25"],["4 mokken", null]] },
+  100, "cl",
+  `<div class="svgWrap">${svgImgSafe("mok.svg","Mok",120)}</div>`),
+() => qRatio("inhoud", "ratio_easy",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal flessen", rightLabel: "inhoud (l)", rows: [["1 fles", "1,5"],["3 flessen", null]] },
+  4.5, "l",
+  `<div class="svgWrap">${svgImgSafe("petfles_1_5l.svg","Fles",120)}</div>` , 0.02),
+() => qRatio("inhoud", "ratio_easy",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal spuiten", rightLabel: "inhoud (ml)", rows: [["1 spuit", "20"],["5 spuiten", null]] },
+  100, "ml",
+  `<div class="svgWrap">${svgImgSafe("spuit_20ml.svg","Spuit",120)}</div>`),
 
       ],
       normal: [
@@ -505,7 +505,7 @@ const BANK = {
           [300, 5],
           " ",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("maatbeker_dl.svg", "Maatbeker dl")}
+             ${svgImgSafe("maatbeker_dl.svg","Maatbeker dl")}
            </div>`,
           { sub: "Tip: 1 dl = 100 ml" }
         ),
@@ -536,28 +536,28 @@ const BANK = {
           [70],
           "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("spuit_10ml.svg", "Spuit 10 ml")}
+             ${svgImgSafe("spuit_10ml.svg","Spuit 10 ml")}
            </div>`,
           { factor: { op: "×", expected: 7 }, sub: "Je mag eerst ×7 gebruiken." }
         ),
-        () => qRatioFill("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal flessen", rightLabel: "inhoud (ml)", rows: [["5", "2500"], ["1", null]] },
-          [500], "ml",
-          `<div class="svgWrap">${svgImgSafe("petfles_500ml.svg", "Fles", 120)}</div>`,
-          { factor: { op: "÷", expected: 5 }, sub: "Eerst naar 1 fles: deel door 5." }),
-        () => qRatioFill("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "inhoud (dl)", rightLabel: "inhoud (ml)", rows: [["1", "100"], ["6", null], [null, "350"]] },
-          [600, 3.5], " ",
-          `<div class="svgWrap">${svgImgSafe("maatbeker_dl.svg", "dl", 120)}</div>`,
-          { sub: "6 dl is 6× 100 ml. En 350 ml is 3,5 dl.", tol: 0.02 }),
-        () => qRatioFill("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "inhoud (l)", rightLabel: "inhoud (ml)", rows: [["0,5", "500"], ["1,5", null], [null, "750"]] },
-          [1500, 0.75], " ",
-          `<div class="svgWrap">${svgImgSafe("thermos.svg", "Thermos", 120)}</div>`,
-          { sub: "Gebruik 1 l = 1000 ml.", tol: 0.02 }),
+() => qRatioFill("inhoud", "ratio_normal",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal flessen", rightLabel: "inhoud (ml)", rows: [["5", "2500"],["1", null]] },
+  [500], "ml",
+  `<div class="svgWrap">${svgImgSafe("petfles_500ml.svg","Fles",120)}</div>`,
+  { factor: { op: "÷", expected: 5 }, sub: "Eerst naar 1 fles: deel door 5." }),
+() => qRatioFill("inhoud", "ratio_normal",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "inhoud (dl)", rightLabel: "inhoud (ml)", rows: [["1", "100"],["6", null],[null, "350"]] },
+  [600, 3.5], " ",
+  `<div class="svgWrap">${svgImgSafe("maatbeker_dl.svg","dl",120)}</div>`,
+  { sub: "6 dl is 6× 100 ml. En 350 ml is 3,5 dl." , tol: 0.02 }),
+() => qRatioFill("inhoud", "ratio_normal",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "inhoud (l)", rightLabel: "inhoud (ml)", rows: [["0,5", "500"],["1,5", null],[null, "750"]] },
+  [1500, 0.75], " ",
+  `<div class="svgWrap">${svgImgSafe("thermos.svg","Thermos",120)}</div>`,
+  { sub: "Gebruik 1 l = 1000 ml." , tol: 0.02 }),
 
       ],
       hard: [
@@ -575,7 +575,7 @@ const BANK = {
           [250, 3.5],
           " ",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("petfles_1l.svg", "Fles 1 l")}
+             ${svgImgSafe("petfles_1l.svg","Fles 1 l")}
            </div>`,
           { sub: "Tip: 1 l = 100 cl" }
         ),
@@ -592,7 +592,7 @@ const BANK = {
           [1000],
           "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("handgel.svg", "Handgel")}
+             ${svgImgSafe("handgel.svg","Handgel")}
                </div>`,
           { factor: { op: "×", expected: 4 }, sub: "Eerst ×4, dan invullen." }
         ),
@@ -624,24 +624,24 @@ const BANK = {
           "ml",
           svgImgSafe("medicijnsiroop.svg", "Siroop")
         ),
-        () => qRatioFill("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "aantal brikken", rightLabel: "inhoud (l)", rows: [["3", "3"], ["5", null], [null, "7"]] },
-          [5, 7], " ",
-          `<div class="svgWrap">${svgImgSafe("brik_melk_1l.svg", "Brik", 120)}</div>`,
-          { factor: { op: "×", expected: 1 }, sub: "Hier is 1 brik = 1 l. Denk in stappen." }),
-        () => qRatioFill("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "inhoud (cl)", rightLabel: "inhoud (ml)", rows: [["1", "10"], ["12,5", null], [null, "275"]] },
-          [125, 27.5], " ",
-          `<div class="svgWrap">${svgImgSafe("yoghurt_drink_200ml.svg", "Drink", 120)}</div>`,
-          { sub: "1 cl = 10 ml. Let op met kommagetallen.", tol: 0.05 }),
-        () => qRatioFill("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan.",
-          { leftLabel: "inhoud (l)", rightLabel: "inhoud (cl)", rows: [["1", "100"], ["0,35", null], [null, "18"]] },
-          [35, 0.18], " ",
-          `<div class="svgWrap">${svgImgSafe("petfles_1l.svg", "Fles", 120)}</div>`,
-          { sub: "1 l = 100 cl.", tol: 0.02 }),
+() => qRatioFill("inhoud", "ratio_hard",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "aantal brikken", rightLabel: "inhoud (l)", rows: [["3", "3"],["5", null],[null, "7"]] },
+  [5, 7], " ",
+  `<div class="svgWrap">${svgImgSafe("brik_melk_1l.svg","Brik",120)}</div>`,
+  { factor: { op: "×", expected: 1 }, sub: "Hier is 1 brik = 1 l. Denk in stappen." }),
+() => qRatioFill("inhoud", "ratio_hard",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "inhoud (cl)", rightLabel: "inhoud (ml)", rows: [["1", "10"],["12,5", null],[null, "275"]] },
+  [125, 27.5], " ",
+  `<div class="svgWrap">${svgImgSafe("yoghurt_drink_200ml.svg","Drink",120)}</div>`,
+  { sub: "1 cl = 10 ml. Let op met kommagetallen." , tol: 0.05 }),
+() => qRatioFill("inhoud", "ratio_hard",
+  "Vul de verhoudingstabel aan.",
+  { leftLabel: "inhoud (l)", rightLabel: "inhoud (cl)", rows: [["1", "100"],["0,35", null],[null, "18"]] },
+  [35, 0.18], " ",
+  `<div class="svgWrap">${svgImgSafe("petfles_1l.svg","Fles",120)}</div>`,
+  { sub: "1 l = 100 cl." , tol: 0.02 }),
 
       ],
     },
@@ -658,7 +658,7 @@ const BANK = {
         () => qInput("inhoud", "story_easy",
           "Je vult 3 mokken van 25 cl.\nSamen is dat ____ cl.", 75, "number", "cl",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("mok.svg", "Mok")}
+             ${svgImgSafe("mok.svg","Mok")}
            </div>`, 0.01),
         () => qInput("inhoud", "story_easy",
           "Je maakt limonade: 4 glazen van 250 ml.\nSamen is dat ____ ml.", 1000, "number", "ml",
@@ -666,18 +666,18 @@ const BANK = {
         () => qInput("inhoud", "story_easy",
           "In de koelkast staan 6 blikjes van 33 cl.\nSamen is dat ____ cl.", 198, "number", "cl",
           svgImgSafe("koelkast.svg", "Koelkast"), 0.01),
-        () => qInput("inhoud", "story_easy",
-          "Oscar drinkt 2 glazen van 20 cl. Hoeveel cl drinkt hij? ____ cl.",
-          40, "number", "cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qInput("inhoud", "story_easy",
-          "Ella vult 3 spuiten van 20 ml. Hoeveel ml is dat? ____ ml.",
-          60, "number", "ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
-        () => qInput("inhoud", "story_easy",
-          "Er gaan 5 lepels van 5 ml in een potje. Hoeveel ml is dat? ____ ml.",
-          25, "number", "ml", svgImgSafe("theelepel_5ml.svg", "Lepel")),
-        () => qInput("inhoud", "story_easy",
-          "In een fles zit 1,5 l water. Hoeveel ml is dat? ____ ml.",
-          1500, "number", "ml", svgImgSafe("petfles_1_5l.svg", "Fles")),
+() => qInput("inhoud","story_easy",
+  "Oscar drinkt 2 glazen van 20 cl. Hoeveel cl drinkt hij? ____ cl.",
+  40, "number", "cl", svgImgSafe("glas_water.svg", "Glas")),
+() => qInput("inhoud","story_easy",
+  "Ella vult 3 spuiten van 20 ml. Hoeveel ml is dat? ____ ml.",
+  60, "number", "ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
+() => qInput("inhoud","story_easy",
+  "Er gaan 5 lepels van 5 ml in een potje. Hoeveel ml is dat? ____ ml.",
+  25, "number", "ml", svgImgSafe("theelepel_5ml.svg", "Lepel")),
+() => qInput("inhoud","story_easy",
+  "In een fles zit 1,5 l water. Hoeveel ml is dat? ____ ml.",
+  1500, "number", "ml", svgImgSafe("petfles_1_5l.svg", "Fles")),
 
       ],
       normal: [
@@ -693,15 +693,15 @@ const BANK = {
         () => qInput("inhoud", "story_normal",
           "Een lijmfles bevat 100 ml.\nJe hebt 5 lijmflessen.\nSamen ____ ml.", 500, "number", "ml",
           svgImgSafe("lijmfles.svg", "Lijm"), 0.01),
-        () => qInput("inhoud", "story_normal",
-          "In de soepkeuken wordt 6 l soep verdeeld over kommen van 3 dl. Hoeveel kommen zijn dat? ____ kommen.",
-          20, "number", "kommen", svgImgSafe("soepkeuken.svg", "Soep")),
-        () => qInput("inhoud", "story_normal",
-          "Een limonadefles bevat 75 cl. Oscar drinkt 3/5 van de fles. Hoeveel cl drinkt hij? ____ cl.",
-          45, "number", "cl", svgImgSafe("limonade.svg", "Limonade")),
-        () => qInput("inhoud", "story_normal",
-          "Een brik sap is 1 l. Ella schenkt 4 glazen van 20 cl in. Hoeveel cl blijft over? ____ cl.",
-          20, "number", "cl", svgImgSafe("brik_sap_1l.svg", "Brik")),
+() => qInput("inhoud","story_normal",
+  "In de soepkeuken wordt 6 l soep verdeeld over kommen van 3 dl. Hoeveel kommen zijn dat? ____ kommen.",
+  20, "number", "kommen", svgImgSafe("soepkeuken.svg", "Soep")),
+() => qInput("inhoud","story_normal",
+  "Een limonadefles bevat 75 cl. Oscar drinkt 3/5 van de fles. Hoeveel cl drinkt hij? ____ cl.",
+  45, "number", "cl", svgImgSafe("limonade.svg", "Limonade")),
+() => qInput("inhoud","story_normal",
+  "Een brik sap is 1 l. Ella schenkt 4 glazen van 20 cl in. Hoeveel cl blijft over? ____ cl.",
+  20, "number", "cl", svgImgSafe("brik_sap_1l.svg", "Brik")),
 
       ],
       hard: [
@@ -717,15 +717,15 @@ const BANK = {
         () => qInput("inhoud", "story_hard",
           "Aan de drinkfontein vul je 5 drinkbussen van 500 ml.\nSamen ____ l.", 2.5, "number", "l",
           svgImgSafe("drinkfontein.svg", "Drinkfontein"), 0.01),
-        () => qInput("inhoud", "story_hard",
-          "Oscar maakt sportdrank: 1,2 l water + 35 cl siroop. Hoeveel ml is dat samen? ____ ml.",
-          1550, "number", "ml", svgImgSafe("sportbidon.svg", "Bidon")),
-        () => qInput("inhoud", "story_hard",
-          "In de campingpot zit 2,5 l water. Ella giet er nog 750 ml bij. Hoeveel liter is dat samen? ____ l.",
-          3.25, "number", "l", svgImgSafe("camping.svg", "Camping"), 0.02),
-        () => qInput("inhoud", "story_hard",
-          "Een vat bevat 20 l. Oscar tapt 8 keer 7,5 dl. Hoeveel liter zit er nog in het vat? ____ l.",
-          14, "number", "l", svgImgSafe("vat_20l.svg", "Vat"), 0.02),
+() => qInput("inhoud","story_hard",
+  "Oscar maakt sportdrank: 1,2 l water + 35 cl siroop. Hoeveel ml is dat samen? ____ ml.",
+  1550, "number", "ml", svgImgSafe("sportbidon.svg", "Bidon")),
+() => qInput("inhoud","story_hard",
+  "In de campingpot zit 2,5 l water. Ella giet er nog 750 ml bij. Hoeveel liter is dat samen? ____ l.",
+  3.25, "number", "l", svgImgSafe("camping.svg", "Camping"), 0.02),
+() => qInput("inhoud","story_hard",
+  "Een vat bevat 20 l. Oscar tapt 8 keer 7,5 dl. Hoeveel liter zit er nog in het vat? ____ l.",
+  14, "number", "l", svgImgSafe("vat_20l.svg", "Vat"), 0.02),
 
       ],
     },
@@ -737,77 +737,77 @@ const BANK = {
       easy: [
         () => qMc("inhoud", "schatting_easy",
           "Welke schatting past het best bij een badkuip?",
-          ["15 l", "150 l", "1500 l"], "150 l", svgImgSafe("badkuip.svg", "Badkuip")),
+          ["15 l", "150 l", "1500 l"], "150 l", svgImgSafe("badkuip.svg","Badkuip")),
         () => qMc("inhoud", "schatting_easy",
           "Welke schatting past het best bij een aquarium?",
-          ["6 l", "60 l", "600 l"], "60 l", svgImgSafe("aquarium.svg", "Aquarium")),
+          ["6 l", "60 l", "600 l"], "60 l", svgImgSafe("aquarium.svg","Aquarium")),
         () => qMc("inhoud", "schatting_easy",
           "Welke schatting past het best bij een waterkoker?",
-          ["0,15 l", "1,5 l", "15 l"], "1,5 l", svgImgSafe("waterkoker.svg", "Waterkoker")),
+          ["0,15 l", "1,5 l", "15 l"], "1,5 l", svgImgSafe("waterkoker.svg","Waterkoker")),
         () => qMc("inhoud", "schatting_easy",
           "Welke schatting past het best bij een koffiemachine-reservoir?",
-          ["0,1 l", "1 l", "10 l"], "1 l", svgImgSafe("koffiemachine.svg", "Koffiemachine")),
-        () => qMc("inhoud", "schatting_easy",
-          "Schat: hoeveel past er in een waterkoker?",
-          ["0,2 l", "1,7 l", "20 l"], "1,7 l", svgImgSafe("waterkoker.svg", "Waterkoker")),
-        () => qMc("inhoud", "schatting_easy",
-          "Schat: hoeveel past er in een glas water?",
-          ["20 cl", "2 l", "200 l"], "20 cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qMc("inhoud", "schatting_easy",
-          "Schat: hoeveel is een eetlepel?",
-          ["15 ml", "15 cl", "15 l"], "15 ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
-        () => qMc("inhoud", "schatting_easy",
-          "Schat: hoeveel past er in een waterzak?",
-          ["2 l", "20 cl", "200 l"], "2 l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
+          ["0,1 l", "1 l", "10 l"], "1 l", svgImgSafe("koffiemachine.svg","Koffiemachine")),
+() => qMc("inhoud","schatting_easy",
+  "Schat: hoeveel past er in een waterkoker?",
+  ["0,2 l","1,7 l","20 l"], "1,7 l", svgImgSafe("waterkoker.svg", "Waterkoker")),
+() => qMc("inhoud","schatting_easy",
+  "Schat: hoeveel past er in een glas water?",
+  ["20 cl","2 l","200 l"], "20 cl", svgImgSafe("glas_water.svg", "Glas")),
+() => qMc("inhoud","schatting_easy",
+  "Schat: hoeveel is een eetlepel?",
+  ["15 ml","15 cl","15 l"], "15 ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
+() => qMc("inhoud","schatting_easy",
+  "Schat: hoeveel past er in een waterzak?",
+  ["2 l","20 cl","200 l"], "2 l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
 
       ],
       normal: [
         () => qMc("inhoud", "schatting_normal",
           "Welke schatting past het best bij een klein opblaaszwembad?",
-          ["80 l", "800 l", "8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg", "Zwembadje")),
+          ["80 l", "800 l", "8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg","Zwembadje")),
         () => qMc("inhoud", "schatting_normal",
           "Welke is het meest realistisch?",
           ["Een drinkyoghurt: 2 l", "Een drinkyoghurt: 200 ml", "Een drinkyoghurt: 20 ml"], "Een drinkyoghurt: 200 ml",
-          svgImgSafe("yoghurt_drink_200ml.svg", "Drinkyoghurt")),
+          svgImgSafe("yoghurt_drink_200ml.svg","Drinkyoghurt")),
         () => qMc("inhoud", "schatting_normal",
           "Welke is het meest realistisch?",
-          ["Handgel: 250 ml", "Handgel: 25 l", "Handgel: 2 ml"], "Handgel: 250 ml", svgImgSafe("handgel.svg", "Handgel")),
+          ["Handgel: 250 ml", "Handgel: 25 l", "Handgel: 2 ml"], "Handgel: 250 ml", svgImgSafe("handgel.svg","Handgel")),
         () => qMc("inhoud", "schatting_normal",
           "Welke is het meest realistisch?",
-          ["Shampoo: 400 ml", "Shampoo: 4 l", "Shampoo: 40 ml"], "Shampoo: 400 ml", svgImgSafe("shampoo_fles.svg", "Shampoo")),
-        () => qMc("inhoud", "schatting_normal",
-          "Schat: hoeveel water zit er in een aquarium?",
-          ["6 l", "60 l", "600 l"], "60 l", svgImgSafe("aquarium.svg", "Aquarium")),
-        () => qMc("inhoud", "schatting_normal",
-          "Schat: hoeveel frisdrank zit er in een grote fles?",
-          ["1,5 l", "15 l", "150 ml"], "1,5 l", svgImgSafe("petfles_1_5l.svg", "Fles")),
-        () => qMc("inhoud", "schatting_normal",
-          "Schat: hoeveel past er in een verfbeker?",
-          ["10 l", "1 dl", "10 ml"], "10 l", svgImgSafe("verfbeker.svg", "Verf")),
+          ["Shampoo: 400 ml", "Shampoo: 4 l", "Shampoo: 40 ml"], "Shampoo: 400 ml", svgImgSafe("shampoo_fles.svg","Shampoo")),
+() => qMc("inhoud","schatting_normal",
+  "Schat: hoeveel water zit er in een aquarium?",
+  ["6 l","60 l","600 l"], "60 l", svgImgSafe("aquarium.svg", "Aquarium")),
+() => qMc("inhoud","schatting_normal",
+  "Schat: hoeveel frisdrank zit er in een grote fles?",
+  ["1,5 l","15 l","150 ml"], "1,5 l", svgImgSafe("petfles_1_5l.svg", "Fles")),
+() => qMc("inhoud","schatting_normal",
+  "Schat: hoeveel past er in een verfbeker?",
+  ["10 l","1 dl","10 ml"], "10 l", svgImgSafe("verfbeker.svg", "Verf")),
 
       ],
       hard: [
         () => qMc("inhoud", "schatting_hard",
           "Welke is het meest realistisch?",
-          ["Een vat: 50 cl", "Een vat: 50 l", "Een vat: 50 ml"], "Een vat: 50 l", svgImgSafe("vat_50l.svg", "Vat")),
+          ["Een vat: 50 cl", "Een vat: 50 l", "Een vat: 50 ml"], "Een vat: 50 l", svgImgSafe("vat_50l.svg","Vat")),
         () => qMc("inhoud", "schatting_hard",
           "Welke is het meest realistisch?",
-          ["Een jerrycan: 10 l", "Een jerrycan: 10 ml", "Een jerrycan: 10 cl"], "Een jerrycan: 10 l", svgImgSafe("jerrycan_10l.svg", "Jerrycan")),
+          ["Een jerrycan: 10 l", "Een jerrycan: 10 ml", "Een jerrycan: 10 cl"], "Een jerrycan: 10 l", svgImgSafe("jerrycan_10l.svg","Jerrycan")),
         () => qMc("inhoud", "schatting_hard",
           "Welke is het meest realistisch?",
-          ["Een spuit: 20 ml", "Een spuit: 2 l", "Een spuit: 200 cl"], "Een spuit: 20 ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
+          ["Een spuit: 20 ml", "Een spuit: 2 l", "Een spuit: 200 cl"], "Een spuit: 20 ml", svgImgSafe("spuit_20ml.svg","Spuit")),
         () => qMc("inhoud", "schatting_hard",
           "Welke is het meest realistisch?",
-          ["Een waterzak: 2 l", "Een waterzak: 2 ml", "Een waterzak: 20 l"], "Een waterzak: 2 l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
-        () => qMc("inhoud", "schatting_hard",
-          "Schat: hoeveel water past er in een badkuip?",
-          ["15 l", "150 l", "1500 l"], "150 l", svgImgSafe("badkuip.svg", "Badkuip")),
-        () => qMc("inhoud", "schatting_hard",
-          "Schat: hoeveel water past er in een kleine opblaas-zwembad?",
-          ["80 l", "800 l", "8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg", "Zwembad")),
-        () => qMc("inhoud", "schatting_hard",
-          "Schat: hoeveel water past er in een drinkfonteinreservoir?",
-          ["5 l", "50 l", "500 l"], "50 l", svgImgSafe("drinkfontein.svg", "Drinkfontein")),
+          ["Een waterzak: 2 l", "Een waterzak: 2 ml", "Een waterzak: 20 l"], "Een waterzak: 2 l", svgImgSafe("waterzak_2l.svg","Waterzak")),
+() => qMc("inhoud","schatting_hard",
+  "Schat: hoeveel water past er in een badkuip?",
+  ["15 l","150 l","1500 l"], "150 l", svgImgSafe("badkuip.svg", "Badkuip")),
+() => qMc("inhoud","schatting_hard",
+  "Schat: hoeveel water past er in een kleine opblaas-zwembad?",
+  ["80 l","800 l","8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg", "Zwembad")),
+() => qMc("inhoud","schatting_hard",
+  "Schat: hoeveel water past er in een drinkfonteinreservoir?",
+  ["5 l","50 l","500 l"], "50 l", svgImgSafe("drinkfontein.svg", "Drinkfontein")),
 
       ],
     },
@@ -826,18 +826,18 @@ const BANK = {
           svgImgSafe("petfles_1_5l.svg", "Water"), 0.02),
         () => qInput("inhoud", "mass_easy", "Water: 500 ml weegt ongeveer ____ g", 500, "number", "g",
           svgImgSafe("drinkbus.svg", "Water"), 0.01),
-        () => qInput("inhoud", "mass_easy",
-          "Water: 500 ml weegt ongeveer ____ g.",
-          500, "number", "g", svgImgSafe("kan_water.svg", "Water")),
-        () => qInput("inhoud", "mass_easy",
-          "Water: 0,25 l weegt ongeveer ____ g.",
-          250, "number", "g", svgImgSafe("glas_water.svg", "Glas")),
-        () => qInput("inhoud", "mass_easy",
-          "Water: 12 cl weegt ongeveer ____ g.",
-          120, "number", "g", svgImgSafe("wijnglas.svg", "Glas")),
-        () => qInput("inhoud", "mass_easy",
-          "Water: 4 dl weegt ongeveer ____ g.",
-          400, "number", "g", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
+() => qInput("inhoud","mass_easy",
+  "Water: 500 ml weegt ongeveer ____ g.",
+  500, "number", "g", svgImgSafe("kan_water.svg", "Water")),
+() => qInput("inhoud","mass_easy",
+  "Water: 0,25 l weegt ongeveer ____ g.",
+  250, "number", "g", svgImgSafe("glas_water.svg", "Glas")),
+() => qInput("inhoud","mass_easy",
+  "Water: 12 cl weegt ongeveer ____ g.",
+  120, "number", "g", svgImgSafe("wijnglas.svg", "Glas")),
+() => qInput("inhoud","mass_easy",
+  "Water: 4 dl weegt ongeveer ____ g.",
+  400, "number", "g", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
 
       ],
       normal: [
@@ -849,15 +849,15 @@ const BANK = {
           svgImgSafe("waterkoker.svg", "Water"), 0.02),
         () => qInput("inhoud", "mass_normal", "Water: 0,45 l weegt ongeveer ____ g", 450, "number", "g",
           svgImgSafe("sportbidon.svg", "Water"), 0.01),
-        () => qInput("inhoud", "mass_normal",
-          "Water: 1,25 l weegt ongeveer ____ g.",
-          1250, "number", "g", svgImgSafe("petfles_1l.svg", "Fles")),
-        () => qInput("inhoud", "mass_normal",
-          "Water: 95 cl weegt ongeveer ____ g.",
-          950, "number", "g", svgImgSafe("thermos.svg", "Thermos")),
-        () => qInput("inhoud", "mass_normal",
-          "Water: 2,4 l weegt ongeveer ____ kg.",
-          2.4, "number", "kg", svgImgSafe("kookpot.svg", "Pot"), 0.02),
+() => qInput("inhoud","mass_normal",
+  "Water: 1,25 l weegt ongeveer ____ g.",
+  1250, "number", "g", svgImgSafe("petfles_1l.svg", "Fles")),
+() => qInput("inhoud","mass_normal",
+  "Water: 95 cl weegt ongeveer ____ g.",
+  950, "number", "g", svgImgSafe("thermos.svg", "Thermos")),
+() => qInput("inhoud","mass_normal",
+  "Water: 2,4 l weegt ongeveer ____ kg.",
+  2.4, "number", "kg", svgImgSafe("kookpot.svg", "Pot"), 0.02),
 
       ],
       hard: [
@@ -869,15 +869,15 @@ const BANK = {
           svgImgSafe("vat_20l.svg", "Water"), 0.02),
         () => qInput("inhoud", "mass_hard", "Water: 50 l weegt ongeveer ____ kg", 50, "number", "kg",
           svgImgSafe("vat_50l.svg", "Water"), 0.02),
-        () => qInput("inhoud", "mass_hard",
-          "Water: 0,015 m³ water weegt ongeveer ____ g.",
-          15000, "number", "g", svgImgSafe("zwembad_opblaas.svg", "Zwembad")),
-        () => qInput("inhoud", "mass_hard",
-          "Water: 35 000 cm³ water weegt ongeveer ____ kg.",
-          35, "number", "kg", svgImgSafe("aquarium.svg", "Aquarium")),
-        () => qInput("inhoud", "mass_hard",
-          "Water: 2,4 dm³ water weegt ongeveer ____ g.",
-          2400, "number", "g", svgImgSafe("maatbeker_1000ml.svg", "Maatbeker")),
+() => qInput("inhoud","mass_hard",
+  "Water: 0,015 m³ water weegt ongeveer ____ g.",
+  15000, "number", "g", svgImgSafe("zwembad_opblaas.svg", "Zwembad")),
+() => qInput("inhoud","mass_hard",
+  "Water: 35 000 cm³ water weegt ongeveer ____ kg.",
+  35, "number", "kg", svgImgSafe("aquarium.svg", "Aquarium")),
+() => qInput("inhoud","mass_hard",
+  "Water: 2,4 dm³ water weegt ongeveer ____ g.",
+  2400, "number", "g", svgImgSafe("maatbeker_1000ml.svg", "Maatbeker")),
 
       ],
     },
@@ -890,33 +890,33 @@ const BANK = {
         () => qMc("inhoud", "compare_easy", "Wat is meer?",
           ["500 ml", "2 l"], "2 l",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("drinkbus.svg", "500 ml")}
+             ${svgImgSafe("drinkbus.svg","500 ml")}
            </div>`),
         () => qMc("inhoud", "compare_easy", "Wat is meer?",
           ["75 cl", "500 ml"], "75 cl",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("sportfles.svg", "75 cl")}
+             ${svgImgSafe("sportfles.svg","75 cl")}
            </div>`),
         () => qInput("inhoud", "compare_easy", "Verschil: 2 l − 500 ml = ____ ml", 1500, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("kan_water.svg", "2 l")}
-             ${svgImgSafe("petfles_500ml.svg", "500 ml")}
+             ${svgImgSafe("kan_water.svg","2 l")}
+             ${svgImgSafe("petfles_500ml.svg","500 ml")}
            </div>`, 0.01),
         () => qInput("inhoud", "compare_easy", "Verschil: 1 l − 25 cl = ____ cl", 75, "number", "cl",
           `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("petfles_1l.svg", "1 l")}
-             ${svgImgSafe("glas_water.svg", "25 cl")}
+             ${svgImgSafe("petfles_1l.svg","1 l")}
+             ${svgImgSafe("glas_water.svg","25 cl")}
            </div>`, 0.01),
-        () => qMc("inhoud", "compare_easy",
+        () => qMc("inhoud","compare_easy",
           "Wat is meer?",
-          ["1 l", "85 cl"], "1 l", svgImgSafe("brik_melk_1l.svg", "Brik")),
-        () => qMc("inhoud", "compare_easy",
+          ["1 l","85 cl"], "1 l", svgImgSafe("brik_melk_1l.svg", "Brik")),
+        () => qMc("inhoud","compare_easy",
           "Wat is meer?",
-          ["250 ml", "30 cl"], "30 cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qInput("inhoud", "compare_easy",
+          ["250 ml","30 cl"], "30 cl", svgImgSafe("glas_water.svg", "Glas")),
+        () => qInput("inhoud","compare_easy",
           "Verschil:\n750 ml − 25 cl = ____ ml.",
           500, "number", "ml", svgImgSafe("sportfles.svg", "Fles")),
-        () => qInput("inhoud", "compare_easy",
+        () => qInput("inhoud","compare_easy",
           "Som:\n200 ml + 3 dl = ____ ml.",
           500, "number", "ml", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
 
@@ -924,23 +924,23 @@ const BANK = {
       normal: [
         () => qMc("inhoud", "compare_normal", "Wat is het kleinste?",
           ["0,75 l", "80 cl", "700 ml"], "700 ml",
-          svgImgSafe("supermarkt_rek.svg", "Vergelijk")),
+          svgImgSafe("supermarkt_rek.svg","Vergelijk")),
         () => qInput("inhoud", "compare_normal",
           "Som: 350 ml + 0,4 l = ____ ml", 750, "number", "ml",
-          svgImgSafe("limonade.svg", "Som"), 0.01),
+          svgImgSafe("limonade.svg","Som"), 0.01),
         () => qInput("inhoud", "compare_normal",
           "Som: 2 dl + 15 cl = ____ cl", 35, "number", "cl",
-          svgImgSafe("soepkom.svg", "Som"), 0.01),
+          svgImgSafe("soepkom.svg","Som"), 0.01),
         () => qInput("inhoud", "compare_normal",
           "Noor heeft 0,9 l.\nYassin heeft 8,5 dl.\nNoor heeft ____ ml meer.", 50, "number", "ml",
-          svgImgSafe("drinkfontein.svg", "Flessen"), 0.01),
-        () => qInput("inhoud", "compare_normal",
+          svgImgSafe("drinkfontein.svg","Flessen"), 0.01),
+        () => qInput("inhoud","compare_normal",
           "Som:\n1,2 l + 35 cl = ____ ml.",
           1550, "number", "ml", svgImgSafe("sportbidon.svg", "Bidon")),
-        () => qMc("inhoud", "compare_normal",
+        () => qMc("inhoud","compare_normal",
           "Wat is het grootste?",
-          ["0,6 l", "65 cl", "550 ml"], "65 cl", svgImgSafe("thermos.svg", "Thermos")),
-        () => qInput("inhoud", "compare_normal",
+          ["0,6 l","65 cl","550 ml"], "65 cl", svgImgSafe("thermos.svg", "Thermos")),
+        () => qInput("inhoud","compare_normal",
           "Verschil:\n1,8 l − 9 dl = ____ ml.",
           900, "number", "ml", svgImgSafe("petfles_1_5l.svg", "Fles")),
 
@@ -948,25 +948,25 @@ const BANK = {
       hard: [
         () => qInput("inhoud", "compare_hard",
           "Verschil: 1,75 l − 650 ml = ____ ml", 1100, "number", "ml",
-          svgImgSafe("sportbidon.svg", "Verschil"), 0.01),
+          svgImgSafe("sportbidon.svg","Verschil"), 0.01),
         () => qInput("inhoud", "compare_hard",
           "Som: 0,8 l + 2 dl + 35 cl = ____ ml", 1350, "number", "ml",
-          svgImgSafe("koelkast.svg", "Som"), 0.01),
+          svgImgSafe("koelkast.svg","Som"), 0.01),
         () => qMc("inhoud", "compare_hard",
           "Wat is het grootste?", ["12 dl", "1,05 l", "980 ml"], "12 dl",
-          svgImgSafe("supermarkt_rek.svg", "Grootste")),
+          svgImgSafe("supermarkt_rek.svg","Grootste")),
         () => qInput("inhoud", "compare_hard",
           "Er zijn 9 siroopflessen van 100 ml.\nSamen ____ ml.", 900, "number", "ml",
-          svgImgSafe("medicijnsiroop.svg", "Siroop"), 0.01),
-        () => qInput("inhoud", "compare_hard",
+          svgImgSafe("medicijnsiroop.svg","Siroop"), 0.01),
+        () => qInput("inhoud","compare_hard",
           "Som:\n1,25 l + 750 ml + 8 dl = ____ ml.",
           2800, "number", "ml", svgImgSafe("jerrycan_5l.svg", "Jerrycan")),
-        () => qInput("inhoud", "compare_hard",
+        () => qInput("inhoud","compare_hard",
           "Verschil:\n2,4 l − 1350 ml = ____ cl.",
           105, "number", "cl", svgImgSafe("kookpot.svg", "Pot")),
-        () => qMc("inhoud", "compare_hard",
+        () => qMc("inhoud","compare_hard",
           "Wat is het kleinste?",
-          ["0,95 l", "9,2 dl", "900 ml"], "900 ml", svgImgSafe("glas_water.svg", "Glas")),
+          ["0,95 l","9,2 dl","900 ml"], "900 ml", svgImgSafe("glas_water.svg", "Glas")),
 
       ],
     },
@@ -984,18 +984,18 @@ const BANK = {
           svgImgSafe("pijl_gedeeld.svg", "Fout?")),
         () => qMc("inhoud", "error_easy", "Iemand zegt: 1 dl = 100 ml.\nKlopt dat?", ["ja", "nee"], "ja",
           svgImgSafe("pijl_maal.svg", "Juist?")),
-        () => qMc("inhoud", "error_easy",
+        () => qMc("inhoud","error_easy",
           "Iemand zegt: 1 cl = 100 ml.\nKlopt dat?",
-          ["ja", "nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
-        () => qMc("inhoud", "error_easy",
+          ["ja","nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
+        () => qMc("inhoud","error_easy",
           "Iemand zegt: 5 dl = 0,5 l.\nKlopt dat?",
-          ["ja", "nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
-        () => qMc("inhoud", "error_easy",
+          ["ja","nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
+        () => qMc("inhoud","error_easy",
           "Iemand zegt: 250 ml = 2,5 cl.\nKlopt dat?",
-          ["ja", "nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
-        () => qMc("inhoud", "error_easy",
+          ["ja","nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
+        () => qMc("inhoud","error_easy",
           "Iemand zegt: 10 dl = 1 l.\nKlopt dat?",
-          ["ja", "nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
+          ["ja","nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
 
       ],
       normal: [
@@ -1011,18 +1011,18 @@ const BANK = {
         () => qMc("inhoud", "error_normal", "Welke is fout?",
           ["1 dl = 0,1 l", "1 cl = 0,1 l", "1 ml = 0,001 l"], "1 cl = 0,1 l",
           svgImgSafe("supermarkt_rek.svg", "Eén is fout")),
-        () => qMc("inhoud", "error_normal",
-          "Welke is juist?",
-          ["1 dl = 10 cl", "1 dl = 100 cl"],
-          "1 dl = 10 cl", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
-        () => qMc("inhoud", "error_normal",
-          "Welke uitspraak is fout?",
-          ["1 l = 1000 ml", "1 l = 100 cl", "1 l = 10 000 ml"],
-          "1 l = 10 000 ml", svgImgSafe("brik_melk_1l.svg", "Brik")),
-        () => qMc("inhoud", "error_normal",
-          "Welke is juist?",
-          ["1 cl = 10 ml", "1 cl = 100 ml"],
-          "1 cl = 10 ml", svgImgSafe("wijnglas.svg", "Glas")),
+() => qMc("inhoud","error_normal",
+  "Welke is juist?",
+  ["1 dl = 10 cl","1 dl = 100 cl"],
+  "1 dl = 10 cl", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
+() => qMc("inhoud","error_normal",
+  "Welke uitspraak is fout?",
+  ["1 l = 1000 ml","1 l = 100 cl","1 l = 10 000 ml"],
+  "1 l = 10 000 ml", svgImgSafe("brik_melk_1l.svg", "Brik")),
+() => qMc("inhoud","error_normal",
+  "Welke is juist?",
+  ["1 cl = 10 ml","1 cl = 100 ml"],
+  "1 cl = 10 ml", svgImgSafe("wijnglas.svg", "Glas")),
 
       ],
       hard: [
@@ -1034,21 +1034,20 @@ const BANK = {
           svgImgSafe("boog_gedeeld.svg", "Fout?")),
         () => qMc("inhoud", "error_hard", "Iemand zegt: 75 cl = 0,75 l.\nKlopt dit?", ["ja", "nee"], "ja",
           svgImgSafe("boog_maal.svg", "Juist?")),
-        () => qMc("inhoud", "error_hard",
+        () => qMc("inhoud","error_hard",
           "Iemand rekent: 2 dl = 20 ml.\nKlopt dit?",
-          ["ja", "nee"], "nee", svgImgSafe("maatbeker_dl.svg", "")),
-        () => qMc("inhoud", "error_hard",
+          ["ja","nee"], "nee", svgImgSafe("maatbeker_dl.svg", "")),
+        () => qMc("inhoud","error_hard",
           "Iemand zegt: 1,2 l = 120 cl.\nKlopt dat?",
-          ["ja", "nee"], "ja", svgImgSafe("petfles_1l.svg", "")),
-        () => qMc("inhoud", "error_hard",
+          ["ja","nee"], "ja", svgImgSafe("petfles_1l.svg", "")),
+        () => qMc("inhoud","error_hard",
           "Iemand zegt: 0,35 l = 35 dl.\nKlopt dat?",
-          ["ja", "nee"], "nee", svgImgSafe("thermos.svg", "")),
+          ["ja","nee"], "nee", svgImgSafe("thermos.svg", "")),
 
       ],
     },
 
-  },
-  grafieken: {
+  },  grafieken: {
     line_read: {
 
       easy: [
@@ -5689,7 +5688,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "8",
             "number",
             null,
@@ -5710,7 +5709,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "2",
             "number",
             null,
@@ -5731,7 +5730,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "9",
             "number",
             null,
@@ -5752,7 +5751,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "4",
             "number",
             null,
@@ -5778,7 +5777,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "5",
             "number",
             null,
@@ -5799,7 +5798,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "4",
             "number",
             null,
@@ -5820,7 +5819,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "3",
             "number",
             null,
@@ -5841,7 +5840,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "2",
             "number",
             null,
@@ -5862,7 +5861,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "20",
             "number",
             null,
@@ -5883,7 +5882,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_easy",
-            "",
+            "Vul het ontbrekende getal in.",
             "3",
             "number",
             null,
@@ -5972,7 +5971,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_normal",
-            "",
+            "Vul het ontbrekende getal in.",
             "4",
             "number",
             null,
@@ -5993,7 +5992,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_normal",
-            "",
+            "Vul het ontbrekende getal in.",
             "2",
             "number",
             null,
@@ -6077,7 +6076,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_normal",
-            "",
+            "Vul het ontbrekende getal in.",
             "5",
             "number",
             null,
@@ -6098,7 +6097,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "simplify_normal",
-            "",
+            "Vul het ontbrekende getal in.",
             "3",
             "number",
             null,
@@ -6841,7 +6840,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_easy",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -6866,7 +6865,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_easy",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -6891,7 +6890,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_easy",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -6920,7 +6919,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_normal",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -6945,7 +6944,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_normal",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -6970,7 +6969,7 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
           return qInput(
             "breuken",
             "fraction_click_normal",
-            "",
+            `Klik ${num}/${den} van ${total} vakjes aan.`,
             null,
             null,
             null,
@@ -7495,7 +7494,719 @@ Bekijk het staafdiagram. Wat is het gemiddelde aantal bezoekers per uur?`,
     }
 
   },
+  lijnen: {
 
+    /* =========================
+       RELATIES (∥ ⟂ ×)
+       - easy: 10
+       - normal: 10
+       - hard: 10 (a,b,c,d in 1 tekening)
+    ========================= */
+    relations: {
+
+      easy: [
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke relatie is juist?\nTwee evenwijdige rechten zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symParallel()
+        ),
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke relatie is juist?\nTwee loodrechte rechten zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symPerpendicular()
+        ),
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke relatie is juist?\nTwee snijdende rechten zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symSnijdend()
+        ),
+
+        // visueel: evenwijdig
+        () => {
+          const v = svgLinesParallel();
+          return qMc(
+            "lijnen", "relations_easy",
+            "Kies het juiste symbool voor de twee blauwe rechten.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            v
+          );
+        },
+
+        // visueel: loodrecht
+        () => {
+          const v = svgLinesPerpendicular();
+          return qMc(
+            "lijnen", "relations_easy",
+            "Kies het juiste symbool voor de twee blauwe rechten.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symPerpendicular(),
+            v
+          );
+        },
+
+        // visueel: snijdend (niet 90°)
+        () => {
+          const v = svgLinesSnijdend();
+          return qMc(
+            "lijnen", "relations_easy",
+            "Kies het juiste symbool voor de twee blauwe rechten.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            v
+          );
+        },
+
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke uitspraak klopt?\nAls twee rechten evenwijdig zijn, dan …",
+          ["snijden ze", "snijden ze nooit", "staan ze loodrecht"],
+          "snijden ze nooit"
+        ),
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke uitspraak klopt?\nLoodrechte rechten maken een hoek van …",
+          ["45°", "90°", "180°"],
+          "90°"
+        ),
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke relatie past?\nRechte r snijdt rechte s.",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symSnijdend()
+        ),
+        () => qMc(
+          "lijnen", "relations_easy",
+          "Welke relatie past?\nRechte m staat loodrecht op rechte n.",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symPerpendicular()
+        )
+      ],
+
+      normal: [
+        () => qMc(
+          "lijnen", "relations_normal",
+          "Twee verschillende rechten kunnen niet tegelijk evenwijdig én snijdend zijn.",
+          ["juist", "fout"],
+          "juist"
+        ),
+        () => qMc(
+          "lijnen", "relations_normal",
+          "Als twee rechten loodrecht staan, dan zijn de overstaande hoeken …",
+          ["90°", "180°", "altijd 45°"],
+          "90°"
+        ),
+        () => {
+          const v = svgLinesABCD({ type: "parallel" });
+          return qMc(
+            "lijnen", "relations_normal",
+            "Kies het symbool dat past bij b en c.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            v
+          );
+        },
+        () => {
+          const v = svgLinesABCD({ type: "perp" });
+          return qMc(
+            "lijnen", "relations_normal",
+            "Kies het symbool dat past bij b en c.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symPerpendicular(),
+            v
+          );
+        },
+        () => {
+          const v = svgLinesABCD({ type: "intersect" });
+          return qMc(
+            "lijnen", "relations_normal",
+            "Kies het symbool dat past bij b en c.",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            v
+          );
+        },
+
+        () => qMc(
+          "lijnen", "relations_normal",
+          "Welke relatie is juist?\nTwee rechten die een hoek van 90° maken zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symPerpendicular()
+        ),
+        () => qMc(
+          "lijnen", "relations_normal",
+          "Welke relatie is juist?\nTwee rechten die nooit snijden zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symParallel()
+        ),
+        () => qMc(
+          "lijnen", "relations_normal",
+          "Welke relatie is juist?\nTwee rechten die elkaar kruisen (maar niet 90°) zijn …",
+          [symParallel(), symSnijdend(), symPerpendicular()],
+          symSnijdend()
+        ),
+        () => {
+          const v = svgLinesABCD({ type: "parallel", variant: 2 });
+          return qMc(
+            "lijnen", "relations_normal",
+            "Welke relatie is juist tussen b en c?",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            v
+          );
+        },
+        () => {
+          const v = svgLinesABCD({ type: "intersect", variant: 2 });
+          return qMc(
+            "lijnen", "relations_normal",
+            "Welke relatie is juist tussen b en c?",
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            v
+          );
+        }
+      ],
+
+      hard: [
+        // 10 oef. met meerdere lijnen + verschillende letters
+        () => {
+          const pair = ["b", "c"]; const type = "parallel";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            svgLinesABCD({ type, variant: 1, pair })
+          );
+        },
+        () => {
+          const pair = ["a", "d"]; const type = "parallel";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            svgLinesABCD({ type, variant: 2, pair })
+          );
+        },
+        () => {
+          const pair = ["a", "c"]; const type = "parallel";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            svgLinesABCD({ type, variant: 3, pair })
+          );
+        },
+        () => {
+          const pair = ["b", "d"]; const type = "parallel";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symParallel(),
+            svgLinesABCD({ type, variant: 4, pair })
+          );
+        },
+
+        () => {
+          const pair = ["a", "b"]; const type = "perp";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symPerpendicular(),
+            svgLinesABCD({ type, variant: 1, pair })
+          );
+        },
+        () => {
+          const pair = ["c", "d"]; const type = "perp";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symPerpendicular(),
+            svgLinesABCD({ type, variant: 2, pair })
+          );
+        },
+        () => {
+          const pair = ["a", "d"]; const type = "perp";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symPerpendicular(),
+            svgLinesABCD({ type, variant: 4, pair })
+          );
+        },
+
+        () => {
+          const pair = ["b", "c"]; const type = "intersect";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            svgLinesABCD({ type, variant: 1, pair })
+          );
+        },
+        () => {
+          const pair = ["a", "c"]; const type = "intersect";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            svgLinesABCD({ type, variant: 2, pair })
+          );
+        },
+        () => {
+          const pair = ["a", "b"]; const type = "intersect";
+          return qMc(
+            "lijnen", "relations_hard",
+            `Kies het symbool dat past bij ${pair[0]} en ${pair[1]}.`,
+            [symParallel(), symSnijdend(), symPerpendicular()],
+            symSnijdend(),
+            svgLinesABCD({ type, variant: 3, pair })
+          );
+        },
+      ]
+    },
+
+    /* =========================
+       LIJNSTUKKEN METEN (met geodriehoek)
+       - easy: 10 horizontaal
+       - normal: 10 schuin
+       Altijd afronden op 1 decimaal.
+    ========================= */
+    meten: {
+      easy: [
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [AB] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          4.5, "number", "cm", svgLijnenMeten(4.5, "A", "B", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [CD] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          7.0, "number", "cm", svgLijnenMeten(7.0, "C", "D", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [EF] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          3.5, "number", "cm", svgLijnenMeten(3.5, "E", "F", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [GH] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          9.0, "number", "cm", svgLijnenMeten(9.0, "G", "H", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [IJ] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          6.5, "number", "cm", svgLijnenMeten(6.5, "I", "J", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [KL] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          2.5, "number", "cm", svgLijnenMeten(2.5, "K", "L", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [MN] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          8.0, "number", "cm", svgLijnenMeten(8.0, "M", "N", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [OP] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          5.5, "number", "cm", svgLijnenMeten(5.5, "O", "P", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [QR] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          7.5, "number", "cm", svgLijnenMeten(7.5, "Q", "R", 0), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_easy",
+          "Meet het lijnstuk [ST] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          4.0, "number", "cm", svgLijnenMeten(4.0, "S", "T", 0), 0.11
+        )
+      ],
+
+      normal: [
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [AB] met de geodriehoek.\nHet lijnstuk is schuin. Rond af op 1 decimaal: ____ cm",
+          6.0, "number", "cm", svgLijnenMeten(6.0, "A", "B", 20), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [CD] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          4.5, "number", "cm", svgLijnenMeten(4.5, "C", "D", 35), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [EF] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          8.0, "number", "cm", svgLijnenMeten(8.0, "E", "F", 50), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [GH] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          3.5, "number", "cm", svgLijnenMeten(3.5, "G", "H", 75), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [IJ] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          7.0, "number", "cm", svgLijnenMeten(7.0, "I", "J", 110), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [KL] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          5.0, "number", "cm", svgLijnenMeten(5.0, "K", "L", 140), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [MN] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          9.5, "number", "cm", svgLijnenMeten(9.5, "M", "N", 15), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [OP] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          2.5, "number", "cm", svgLijnenMeten(2.5, "O", "P", 60), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [QR] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          6.5, "number", "cm", svgLijnenMeten(6.5, "Q", "R", 95), 0.11
+        ),
+        () => qInput(
+          "lijnen", "meten_normal",
+          "Meet het lijnstuk [ST] met de geodriehoek.\nRond af op 1 decimaal: ____ cm",
+          4.0, "number", "cm", svgLijnenMeten(4.0, "S", "T", 125), 0.11
+        )
+      ]
+    }
+  },
+
+  hoeken: {
+
+    /* =========================
+       HOEKEN HERKENNEN (soort)
+    ========================= */
+    angle_type: {
+
+      easy: [
+        () => qMc(
+          "hoeken", "angle_type_easy",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "rechte hoek", "stompe hoek"],
+          "scherpe hoek",
+          svgAngle(30)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_easy",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "rechte hoek", "stompe hoek"],
+          "scherpe hoek",
+          svgAngle(60)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_easy",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "rechte hoek", "stompe hoek"],
+          "rechte hoek",
+          svgAngle(90)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_easy",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "rechte hoek", "stompe hoek"],
+          "stompe hoek",
+          svgAngle(120)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_easy",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "rechte hoek", "stompe hoek"],
+          "stompe hoek",
+          svgAngle(150)
+        )
+      ],
+
+      normal: [
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Welke soort hoek is dit?",
+          ["nulhoek", "rechte hoek", "gestrekte hoek"],
+          "nulhoek",
+          svgAngle(0)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Welke soort hoek is dit?",
+          ["scherpe hoek", "stompe hoek", "gestrekte hoek"],
+          "gestrekte hoek",
+          svgAngle(180)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Welke soort hoek is dit?",
+          ["volle hoek", "nulhoek", "gestrekte hoek"],
+          "volle hoek",
+          svgAngle(360)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Is deze hoek scherp of stomp?",
+          ["scherp", "stomp"],
+          "scherp",
+          svgAngle(15)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Is deze hoek scherp of stomp?",
+          ["scherp", "stomp"],
+          "scherp",
+          svgAngle(75)
+        ),
+        () => qMc(
+          "hoeken", "angle_type_normal",
+          "Is deze hoek scherp of stomp?",
+          ["scherp", "stomp"],
+          "stomp",
+          svgAngle(135)
+        )
+      ]
+    },
+
+    /* =========================
+       HOEKEN BEREKENEN (aanvullen)
+       Geen decimalen.
+    ========================= */
+    measure: {
+
+      easy: [
+        () => qMc(
+          "hoeken", "measure_easy",
+          "Hoeveel graden is deze hoek?",
+          ["30°", "45°", "60°"],
+          "45°",
+          svgAngle(45)
+        ),
+        () => qMc(
+          "hoeken", "measure_easy",
+          "Hoeveel graden is deze hoek?",
+          ["45°", "60°", "90°"],
+          "60°",
+          svgAngle(60)
+        ),
+        () => qInput(
+          "hoeken", "measure_easy",
+          "Hoeveel graden is een rechte hoek?",
+          90,
+          "number",
+          "°",
+          svgAngle(90),
+          0.01
+        ),
+        () => qMc(
+          "hoeken", "measure_easy",
+          "Hoeveel graden is deze hoek?",
+          ["120°", "90°", "150°"],
+          "120°",
+          svgAngle(120)
+        ),
+        () => qMc(
+          "hoeken", "measure_easy",
+          "Hoeveel graden is deze hoek?",
+          ["135°", "150°", "180°"],
+          "135°",
+          svgAngle(135)
+        )
+      ],
+
+      normal: [
+        () => qInput(
+          "hoeken", "measure_normal",
+          "Vul aan tot 90°:\n90° − 35° = ____°",
+          55, "number", "°", null, 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_normal",
+          "Vul aan tot 90°:\n90° − 68° = ____°",
+          22, "number", "°", null, 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_normal",
+          "Vul aan tot 180°:\n180° − 120° = ____°",
+          60, "number", "°", null, 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_normal",
+          "Deze hoek is 40°.\nHoeveel ontbreekt tot 90°?",
+          50, "number", "°", svgAngle(40), 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_normal",
+          "Deze hoek is 125°.\nHoeveel ontbreekt tot 180°?",
+          55, "number", "°", svgAngle(125), 0.01
+        )
+      ],
+
+      hard: [
+        () => qInput(
+          "hoeken", "measure_hard",
+          "De hoek is 80°.\nHoeveel graden ontbreekt tot een gestrekte hoek (180°)?",
+          100, "number", "°", svgAngle(80), 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_hard",
+          "De hoek is 35°.\nHoeveel graden ontbreekt tot een rechte hoek (90°)?",
+          55, "number", "°", svgAngle(35), 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_hard",
+          "De hoek is 210°.\nHoeveel graden ontbreekt tot een volle hoek (360°)?",
+          150, "number", "°", svgAngle(210), 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_hard",
+          "De hoek is 300°.\nHoeveel graden ontbreekt tot een volle hoek (360°)?",
+          60, "number", "°", svgAngle(300), 0.01
+        ),
+        () => qInput(
+          "hoeken", "measure_hard",
+          "De hoek is 150°.\nHoeveel graden ontbreekt tot een gestrekte hoek (180°)?",
+          30, "number", "°", svgAngle(150), 0.01
+        )
+      ]
+    },
+
+    /* =========================
+       METEN MET GEODRIEHOEK (interactief)
+       (hoek meten op het scherm)
+    ========================= */
+    geo_meet: {
+
+      easy: [
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_easy",
+          "Meet deze hoek met de geodriehoek: ____",
+          30,
+          svgAngleMeten(30),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_easy",
+          "Meet deze hoek met de geodriehoek: ____",
+          45,
+          svgAngleMeten(45),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_easy",
+          "Meet deze hoek met de geodriehoek: ____",
+          60,
+          svgAngleMeten(60),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_easy",
+          "Meet deze hoek met de geodriehoek: ____",
+          90,
+          svgAngleMeten(90),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_easy",
+          "Meet deze hoek met de geodriehoek: ____",
+          120,
+          svgAngleMeten(120),
+          2
+        )
+      ],
+
+      normal: [
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_normal",
+          "Meet deze hoek met de geodriehoek: ____",
+          25,
+          svgAngleMeten(25),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_normal",
+          "Meet deze hoek met de geodriehoek: ____",
+          70,
+          svgAngleMeten(70),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_normal",
+          "Meet deze hoek met de geodriehoek: ____",
+          95,
+          svgAngleMeten(95),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_normal",
+          "Meet deze hoek met de geodriehoek: ____",
+          110,
+          svgAngleMeten(110),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_normal",
+          "Meet deze hoek met de geodriehoek: ____",
+          155,
+          svgAngleMeten(155),
+          2
+        )
+      ],
+
+      hard: [
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_hard",
+          "Meet deze hoek met de geodriehoek: ____",
+          15,
+          svgAngleMeten(15, 25),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_hard",
+          "Meet deze hoek met de geodriehoek: ____",
+          40,
+          svgAngleMeten(40, -20),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_hard",
+          "Meet deze hoek met de geodriehoek: ____",
+          80,
+          svgAngleMeten(80, 35),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_hard",
+          "Meet deze hoek met de geodriehoek: ____",
+          135,
+          svgAngleMeten(135, -30),
+          2
+        ),
+        () => qAngleMeasure(
+          "hoeken", "geo_meet_hard",
+          "Meet deze hoek met de geodriehoek: ____",
+          170,
+          svgAngleMeten(170, 15),
+          2
+        )
+      ]
+    }
+  },
 
 
   tijd: (() => {
@@ -7849,3 +8560,327 @@ function pickFromTopic(topic) {
   return lvl[Math.floor(Math.random() * lvl.length)]();
 }
 
+
+
+/* =========================
+   Sprint 1: extra niveau 1/2 (inhoud)
+   - Veel meer herleidingsvragen (niveau 1/2)
+   - Veel meer maatbeker-lezen (niveau 1/2)
+   - Niveau 1: altijd antwoord in dezelfde eenheid als de schaal
+========================= */
+
+(function addExtraInhoudTierQuestions() {
+  try {
+    const sub = BANK?.inhoud;
+    if (!sub) return;
+
+    const convEasy = sub.convert?.easy;
+    const mbEasy = sub.maatbeker?.easy;
+
+    if (!Array.isArray(convEasy) || !Array.isArray(mbEasy)) return;
+
+    const withTier = (fn, tier) => {
+      fn._tier = tier;
+      return fn;
+    };
+
+    const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const fmt = (n) => String(n).replace(".", ",");
+    const objByUnit = {
+      l: [
+        { label: "brik melk", file: "brik_melk_1l.svg" },
+        { label: "waterkoker", file: "waterkoker.svg" },
+        { label: "jerrycan", file: "jerrycan_5l.svg" },
+        { label: "sportbidon", file: "sportbidon.svg" }
+      ],
+      dl: [
+        { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
+        { label: "glas water", file: "glas_water.svg" }
+      ],
+      cl: [
+        { label: "blikje frisdrank", file: "blikje_33cl.svg" },
+        { label: "mok", file: "mok.svg" }
+      ],
+      ml: [
+        { label: "drinkbus", file: "drinkbus.svg" },
+        { label: "spuitje", file: "spuit_20ml.svg" },
+        { label: "maatschepje", file: "maatschepje_5ml.svg" },
+        { label: "parfumflesje", file: "parfum_fles.svg" }
+      ]
+    };
+
+    function convertContext(x, fromU, toU) {
+      const list = objByUnit[fromU] || objByUnit.ml;
+      const obj = pick(list);
+      return {
+        prompt: `Een ${obj.label} bevat ${fmt(x)} ${fromU}. Hoeveel ${toU} is dat?`,
+        visual: svgImgSafe(obj.file, obj.label),
+      };
+    }
+
+    function makeConvertTier1() {
+      // Alleen naastliggende stappen (×10 / ÷10)
+      const pairs = [
+        { a: "l", b: "dl", f: 10 },
+        { a: "dl", b: "cl", f: 10 },
+        { a: "cl", b: "ml", f: 10 }
+      ];
+      const p = pick(pairs);
+      const dir = Math.random() < 0.5 ? "ab" : "ba";
+      if (dir === "ab") {
+        const x = ri(1, 9);
+        const ctx = convertContext(x, p.a, p.b);
+        return qInput({
+          topic: "inhoud",
+          skill: "convert",
+          sub: "Herleiden",
+          prompt: ctx.prompt,
+          answer: x * p.f,
+          unit: p.b,
+          visual: ctx.visual,
+          explain: "Stapjes: naar rechts ×10, naar links ÷10."
+        });
+      } else {
+        const x = ri(1, 9) * p.f;
+        const ctx = convertContext(x, p.b, p.a);
+        return qInput({
+          topic: "inhoud",
+          skill: "convert",
+          sub: "Herleiden",
+          prompt: ctx.prompt,
+          answer: x / p.f,
+          unit: p.a,
+          visual: ctx.visual,
+          explain: "Stapjes: naar rechts ×10, naar links ÷10."
+        });
+      }
+    }
+
+    function makeConvertTier2() {
+      // Mag grotere sprongen bevatten (×100 / ×1000), maar met nette hele uitkomsten
+      const pairs = [
+        { a: "l", b: "cl", f: 100 },
+        { a: "l", b: "ml", f: 1000 },
+        { a: "dl", b: "ml", f: 100 }
+      ];
+      const p = pick(pairs);
+      const dir = Math.random() < 0.5 ? "ab" : "ba";
+      if (dir === "ab") {
+        const x = ri(1, 7);
+        const ctx = convertContext(x, p.a, p.b);
+        return qInput({
+          topic: "inhoud",
+          skill: "convert",
+          sub: "Herleiden",
+          prompt: ctx.prompt,
+          answer: x * p.f,
+          unit: p.b,
+          visual: ctx.visual,
+          explain: "Meerdere stapjes: elke stap ×10."
+        });
+      } else {
+        const x = ri(1, 7) * p.f;
+        const ctx = convertContext(x, p.b, p.a);
+        return qInput({
+          topic: "inhoud",
+          skill: "convert",
+          sub: "Herleiden",
+          prompt: ctx.prompt,
+          answer: x / p.f,
+          unit: p.a,
+          visual: ctx.visual,
+          explain: "Meerdere stapjes: elke stap ÷10."
+        });
+      }
+    }
+
+    function makeMaatbekerTier1() {
+      // Niveau 1: antwoord altijd in dezelfde eenheid als de schaal
+      const choice = pick(["ml", "ml", "ml", "dl", "cl"]); // vooral ml
+      const scaleFor = (unit) => {
+        if (unit === "ml") {
+          const minor = pick([50, 20, 10]);
+          return { major: 100, minor };
+        }
+        if (unit === "dl") {
+          const minor = pick([0.5, 0.2, 0.1]);
+          return { major: 1, minor };
+        }
+        const minor = pick([5, 2, 1]); // cl
+        return { major: 10, minor };
+      };
+      const pickValue = (max, step) => {
+        const steps = Math.max(2, Math.floor(max / step));
+        return ri(1, steps - 1) * step;
+      };
+
+      if (choice === "ml") {
+        const max = pick([500, 1000, 1000]);
+        const sc = scaleFor("ml");
+        const v = pickValue(max, sc.minor);
+        return qInput({
+          topic: "inhoud",
+          skill: "maatbeker",
+          sub: "Maatbeker",
+          prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+          answer: v,
+          unit: choice,
+          visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+          explain: "Je leest af op de schaal."
+        });
+      }
+
+      if (choice === "dl") {
+        const max = 10;
+        const sc = scaleFor("dl");
+        const v = pickValue(max, sc.minor);
+        return qInput({
+          topic: "inhoud",
+          skill: "maatbeker",
+          sub: "Maatbeker",
+          prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+          answer: v,
+          unit: choice,
+          visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+          explain: "Je leest af op de schaal."
+        });
+      }
+
+      // cl
+      const max = 100;
+      const sc = scaleFor("cl");
+      const v = pickValue(max, sc.minor);
+      return qInput({
+        topic: "inhoud",
+        skill: "maatbeker",
+        sub: "Maatbeker",
+        prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+        answer: v,
+        unit: choice,
+        visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+        explain: "Je leest af op de schaal."
+      });
+    }
+
+    function makeMaatbekerTier2() {
+      // Niveau 2: nog steeds aflezen, maar soms kleinere stapjes (meer nauwkeurig)
+      const choice = pick(["ml", "ml", "dl", "cl"]);
+      const scaleFor = (unit) => {
+        if (unit === "ml") {
+          const minor = pick([50, 20, 10]);
+          return { major: 100, minor };
+        }
+        if (unit === "dl") {
+          const minor = pick([0.5, 0.2, 0.1]);
+          return { major: 1, minor };
+        }
+        const minor = pick([5, 2, 1]); // cl
+        return { major: 10, minor };
+      };
+      const pickValue = (max, step) => {
+        const steps = Math.max(2, Math.floor(max / step));
+        return ri(1, steps - 1) * step;
+      };
+
+      if (choice === "ml") {
+        const max = pick([500, 1000]);
+        const sc = scaleFor("ml");
+        const v = pickValue(max, sc.minor);
+        return qInput({
+          topic: "inhoud",
+          skill: "maatbeker",
+          sub: "Maatbeker",
+          prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+          answer: v,
+          unit: choice,
+          visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+          explain: "Let op de kleine streepjes."
+        });
+      }
+
+      if (choice === "dl") {
+        const max = 10;
+        const sc = scaleFor("dl");
+        const v = pickValue(max, sc.minor);
+        return qInput({
+          topic: "inhoud",
+          skill: "maatbeker",
+          sub: "Maatbeker",
+          prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+          answer: v,
+          unit: choice,
+          visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+          explain: "Let op de halve stapjes."
+        });
+      }
+
+      const max = 100;
+      const sc = scaleFor("cl");
+      const v = pickValue(max, sc.minor);
+      return qInput({
+        topic: "inhoud",
+        skill: "maatbeker",
+        sub: "Maatbeker",
+        prompt: `Lees de maatbeker af. Hoeveel ${choice} zit er in de maatbeker?`,
+        answer: v,
+        unit: choice,
+        visual: svgMaatbekerLees({ value: v, max, unit: choice, majorStep: sc.major, minorStep: sc.minor, title: "Maatbeker" }),
+        explain: "Let op de kleine streepjes."
+      });
+    }
+
+    // Veel extra items toevoegen (random factories)
+    for (let i = 0; i < 35; i++) convEasy.push(withTier(() => makeConvertTier1(), 1));
+    for (let i = 0; i < 25; i++) convEasy.push(withTier(() => makeConvertTier2(), 2));
+
+    for (let i = 0; i < 45; i++) mbEasy.push(withTier(() => makeMaatbekerTier1(), 1));
+    for (let i = 0; i < 25; i++) mbEasy.push(withTier(() => makeMaatbekerTier2(), 2));
+
+  } catch (_) {}
+})();
+
+// Runtime check: ga na of alle question factories geldig terugkeren.
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    const issues = [];
+    const bank = BANK;
+    Object.entries(bank || {}).forEach(([topicId, topic]) => {
+      if (!topic || typeof topic !== "object") return;
+      Object.entries(topic).forEach(([subId, sub]) => {
+        if (!sub || typeof sub !== "object") return;
+        Object.entries(sub).forEach(([lv, arr]) => {
+          if (!Array.isArray(arr)) return;
+          arr.forEach((fn, idx) => {
+            if (typeof fn !== "function") {
+              issues.push(`${topicId}.${subId}.${lv}[${idx}] is geen function`);
+              return;
+            }
+            try {
+              const q = fn();
+              if (!q || typeof q !== "object") {
+                issues.push(`${topicId}.${subId}.${lv}[${idx}] -> geen vraagobject`);
+                return;
+              }
+              if (!q.prompt || typeof q.prompt !== "string") {
+                issues.push(`${topicId}.${subId}.${lv}[${idx}] -> ontbrekende prompt`);
+              }
+              if (!q.kind || (q.kind !== "mc" && q.kind !== "input")) {
+                issues.push(`${topicId}.${subId}.${lv}[${idx}] -> ongeldig kind`);
+              }
+            } catch (e) {
+              issues.push(`${topicId}.${subId}.${lv}[${idx}] -> fout: ${e?.message || e}`);
+            }
+          });
+        });
+      });
+    });
+    if (issues.length) {
+      console.warn("Vraagbank issues:", issues);
+    } else {
+      console.info("Vraagbank check OK");
+    }
+  } catch (e) {
+    console.warn("Vraagbank check faalde:", e?.message || e);
+  }
+});

@@ -161,7 +161,6 @@ async function onAuthReady() {
       const row = await ensureProfileRow();
       if (typeof applyRemoteProfile === "function") {
         applyRemoteProfile(row);
-        
       }
     } catch (e) {
       console.warn("Profile sync failed:", e);
@@ -171,7 +170,6 @@ async function onAuthReady() {
   // UI
   updateUserPill?.();
   renderSettings?.();
-renderTopicMap?.();   // ✅ map opnieuw tekenen → medailles zichtbaar
 
   // naar map
   showScreen?.("scrMap");

@@ -60,7 +60,7 @@ function updateUserPill() {
 
   if (profile.name) {
     const tag = profile.class ? ` • ${profile.class}` : "";
-    const t = profile.role === "teacher" ? "👨‍🏫" : "";
+    const t = profile.role === "teacher" ? " 👩‍🏫" : "";
     pill.textContent = `${profile.name}${tag}${t}`;
   } else {
     pill.textContent = "Ingelogd";
@@ -71,9 +71,11 @@ function updateUserPill() {
 
 function updateNavVisibility(){
   const teach = document.getElementById('navTeacher');
-  if (!teach) return;
+  const badges = document.getElementById('navBadges');
   const isTeach = !!(profile && profile.role === 'teacher');
-  teach.style.display = isTeach ? '' : 'none';
+  if (teach) teach.style.display = isTeach ? '' : 'none';
+  if (badges) badges.style.display = authUser ? '' : 'none';
+  try { window.updateBadgePill?.(); } catch (_) {}
 }
 /* ---------- Drawer ---------- */
 async function openDrawer() {
@@ -96,25 +98,22 @@ function openTopicModal(topic) {
   const badge = $("#topicModalBadges");
   const runBtn = document.getElementById("btnTopicRun");
 
-  // Run lock: eerst oefenen?
+  // Run is altijd beschikbaar (geen blokkering)
   let lockInfo = "";
   if (runBtn) {
-    const gate = !!profile?.settings?.gateRun;
-    const isGlobal = topic?.id === "global";
-    const a = prog?.practice?.[topic?.id]?.a ?? 0;
-    const need = 8;
-    const left = Math.max(0, need - a);
-    const locked = gate && !isGlobal && left > 0;
-    runBtn.disabled = locked;
-    runBtn.classList.toggle("disabled", locked);
-    if (locked) lockInfo = `Eerst oefenen: nog ${left} oefenvragen`;
+    runBtn.disabled = false;
+    runBtn.classList.remove("disabled");
   }
 
   if (badge) {
     const medal = prog?.medals?.[topic.id]
       ? `Behaald: ${medalEmoji(prog.medals[topic.id])}`
       : "Nog geen medaille";
-    badge.textContent = lockInfo ? `${medal} • ${lockInfo}` : medal;
+
+    const bc = (typeof window.badgeCount === "function") ? window.badgeCount(topic.id) : 0;
+    const badgesTxt = `Badges: ${bc}`;
+    const extra = lockInfo ? `${lockInfo} • ${badgesTxt}` : badgesTxt;
+    badge.textContent = `${medal} • ${extra}`;
   }
 
   $("#topicModalBack")?.classList.add("open");
@@ -133,8 +132,10 @@ function renderSettings() {
 
   $("#autoOkState").textContent = profile.settings.autoOk ? "on" : "off";
   $("#soundState").textContent = profile.settings.sound ? "on" : "off";
+  const gateBtn = document.getElementById("togGateRun");
+  if (gateBtn) gateBtn.style.display = "none";
   const g = document.getElementById("gateRunState");
-  if (g) g.textContent = profile.settings.gateRun ? "on" : "off";
+  if (g) g.textContent = "off";
 }
 
 /* ---------- Event bindings ---------- */
@@ -142,6 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
   /* Drawer */
   $("#btnMenu")?.addEventListener("click", () => { openDrawer(); });
   $("#btnCloseDrawer")?.addEventListener("click", closeDrawer);
+  // Badges (top pill)
+  $("#pillBadges")?.addEventListener("click", () => {
+    window.renderBadges?.();
+    showScreen("scrBadges");
+  });
+
+  $("#btnBackFromBadges")?.addEventListener("click", () => {
+    showScreen(authUser ? "scrMap" : "scrStart");
+  });
+
 
   $$(".drawer .item").forEach((item) => {
     item.addEventListener("click", () => {
@@ -156,6 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (nav === "stats") {
         window.renderMyStats?.();
         showScreen("scrStats");
+      }
+      if (nav === "badges") {
+        window.renderBadges?.();
+        showScreen("scrBadges");
       }
       if (nav === "teacher") {
         // zorg dat role up-to-date is vóór we beslissen
@@ -180,12 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveProfile();
     renderSettings();
   });
-
-  $("#togGateRun")?.addEventListener("click", () => {
-    profile.settings.gateRun = !profile.settings.gateRun;
-    saveProfile();
-    renderSettings();
-  });
+  // gateRun is afgeschaft: Run blijft altijd toegankelijk
 
   $("#btnCloseSettings")?.addEventListener("click", () => {
     showScreen(authUser ? "scrMap" : "scrStart");
@@ -378,6 +388,53 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Help overlay
+  let helpPrevRightPanel = null;
+  const helpCard = document.querySelector("#helpOverlay .helpCard");
+  const helpHeader = document.querySelector("#helpOverlay .helpHeader");
+
+  if (helpCard && helpHeader) {
+    let drag = null;
+    const startDrag = (e) => {
+      if (e.target && e.target.closest && e.target.closest("#btnCloseHelp")) return;
+      if (e.button != null && e.button !== 0) return;
+      const rect = helpCard.getBoundingClientRect();
+      const sx = Number(helpCard.dataset.dragX || 0);
+      const sy = Number(helpCard.dataset.dragY || 0);
+      drag = {
+        startX: e.clientX,
+        startY: e.clientY,
+        baseX: sx,
+        baseY: sy,
+        maxX: window.innerWidth - rect.width - 12,
+        maxY: window.innerHeight - rect.height - 12
+      };
+      helpHeader.setPointerCapture?.(e.pointerId);
+    };
+
+    const onMove = (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.startX;
+      const dy = e.clientY - drag.startY;
+      let nx = drag.baseX + dx;
+      let ny = drag.baseY + dy;
+      nx = Math.max(-drag.maxX, Math.min(drag.maxX, nx));
+      ny = Math.max(-drag.maxY, Math.min(drag.maxY, ny));
+      helpCard.style.transform = `translate(${nx}px, ${ny}px)`;
+      helpCard.dataset.dragX = String(nx);
+      helpCard.dataset.dragY = String(ny);
+    };
+
+    const endDrag = (e) => {
+      drag = null;
+      helpHeader.releasePointerCapture?.(e.pointerId);
+    };
+
+    helpHeader.addEventListener("pointerdown", startDrag);
+    helpHeader.addEventListener("pointermove", onMove);
+    helpHeader.addEventListener("pointerup", endDrag);
+    helpHeader.addEventListener("pointercancel", endDrag);
+  }
+
   $("#btnHelp")?.addEventListener("click", () => {
     const topicId = state.topic?.id;
     const help = HELP_CARDS?.[topicId];
@@ -388,73 +445,44 @@ document.addEventListener("DOMContentLoaded", () => {
       ? help()
       : "<p>Geen hulpkaart beschikbaar.</p>";
 
+    try { state.helpUsedThisQ = true; } catch (_) {}
+
     $("#helpOverlay").classList.remove("hidden");
+
+    // init interactieve hulp (bv. omzettabel inhoud)
+    try {
+      window.initHelpOverlay?.(topicId);
+    } catch (_) {}
+
+    if (topicId === "inhoud") {
+      const rp = $("#rightPanel");
+      if (rp) {
+        helpPrevRightPanel = {
+          display: rp.style.display,
+          noKeypad: rp.classList.contains("noKeypad")
+        };
+        rp.style.display = "grid";
+        rp.classList.remove("noKeypad");
+      }
+    }
   });
 
   $("#btnCloseHelp")?.addEventListener("click", () => {
     $("#helpOverlay").classList.add("hidden");
+    if (helpPrevRightPanel) {
+      const rp = $("#rightPanel");
+      if (rp) {
+        rp.style.display = helpPrevRightPanel.display;
+        if (helpPrevRightPanel.noKeypad) rp.classList.add("noKeypad");
+        else rp.classList.remove("noKeypad");
+      }
+      helpPrevRightPanel = null;
+    }
+    const mainInput = document.getElementById("mainInput");
+    if (typeof window.setActiveInput === "function") {
+      window.setActiveInput(mainInput);
+    }
   });
-});
-function makeDraggable(panelEl, handleEl) {
-  let startX = 0, startY = 0;
-  let startLeft = 0, startTop = 0;
-  let dragging = false;
-
-  function ensureLeftTop() {
-    const r = panelEl.getBoundingClientRect();
-    panelEl.style.left = r.left + "px";
-    panelEl.style.top  = r.top  + "px";
-    panelEl.style.right = "auto";
-    panelEl.style.bottom = "auto";
-    panelEl.style.transform = "none"; // we gaan nu puur met left/top werken
-  }
-
-  handleEl.addEventListener("pointerdown", (e) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-
-    ensureLeftTop();
-
-    dragging = true;
-    handleEl.setPointerCapture(e.pointerId);
-
-    const r = panelEl.getBoundingClientRect();
-    startX = e.clientX;
-    startY = e.clientY;
-    startLeft = r.left;
-    startTop  = r.top;
-
-    e.preventDefault();
-  });
-
-  handleEl.addEventListener("pointermove", (e) => {
-    if (!dragging) return;
-
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-
-    let newLeft = startLeft + dx;
-    let newTop  = startTop  + dy;
-
-    // binnen scherm houden
-    const w = panelEl.offsetWidth;
-    const h = panelEl.offsetHeight;
-    newLeft = Math.max(0, Math.min(window.innerWidth  - w, newLeft));
-    newTop  = Math.max(0, Math.min(window.innerHeight - h, newTop));
-
-    panelEl.style.left = newLeft + "px";
-    panelEl.style.top  = newTop  + "px";
-  });
-
-  const stop = () => { dragging = false; };
-  handleEl.addEventListener("pointerup", stop);
-  handleEl.addEventListener("pointercancel", stop);
-}
-
-// Init (roep dit na DOMContentLoaded)
-document.addEventListener("DOMContentLoaded", () => {
-  const card = document.getElementById("calcCard");
-  const handle = card?.querySelector("[data-drag-handle]");
-  if (card && handle) makeDraggable(card, handle);
 });
 
 /* ---------- Exports ---------- */

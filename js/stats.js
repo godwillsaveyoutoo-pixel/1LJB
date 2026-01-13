@@ -54,6 +54,44 @@ function _fillTopicSelect(selId) {
   sel.value = keep;
 }
 
+async function _fillLearnerSelect(selId) {
+  const sel = document.getElementById(selId);
+  if (!sel || !window.sb) return;
+
+  const keep = sel.value || "all";
+  const first = sel.querySelector('option[value="all"]');
+  sel.innerHTML = "";
+  if (first) {
+    sel.appendChild(first);
+  } else {
+    const opt = document.createElement("option");
+    opt.value = "all";
+    opt.textContent = "alle leerlingen";
+    sel.appendChild(opt);
+  }
+
+  try {
+    const { data, error } = await sb
+      .from("profiles")
+      .select("name,class")
+      .order("name", { ascending: true });
+    if (error) throw error;
+
+    (data || [])
+      .filter(r => (r.name || "").trim())
+      .forEach(r => {
+        const o = document.createElement("option");
+        o.value = r.name;
+        o.textContent = r.class ? `${r.name} (${r.class})` : r.name;
+        sel.appendChild(o);
+      });
+  } catch (e) {
+    console.warn("fetch learners failed:", e?.message || e);
+  }
+
+  sel.value = keep;
+}
+
 function _rangeISO(rangeVal) {
   if (rangeVal === "all") return null;
   const days = Number(rangeVal || 30);
@@ -63,7 +101,7 @@ function _rangeISO(rangeVal) {
   return d.toISOString();
 }
 
-async function _fetchRuns({ range, mode, topic, teacher, search }) {
+async function _fetchRuns({ range, mode, topic, teacher, learner }) {
   if (!window.sb || !window.authUser) return [];
 
   let q = sb
@@ -81,8 +119,8 @@ async function _fetchRuns({ range, mode, topic, teacher, search }) {
   if (!teacher) {
     q = q.eq("user_id", authUser.id);
   } else {
-    if (search && String(search).trim()) {
-      q = q.ilike("learner_name", `%${String(search).trim()}%`);
+    if (learner && String(learner).trim() && learner !== "all") {
+      q = q.eq("learner_name", String(learner).trim());
     }
   }
 
@@ -177,12 +215,14 @@ async function renderMyStats() {
   const topic = document.getElementById("statsTopic")?.value || "all";
 
   const runs = await _fetchRuns({ range, mode, topic, teacher: false });
+  const lastErr = window.lastTestRunError;
 
   const kpi = document.getElementById("statsKpis");
   if (kpi) {
     const pcts = runs.map(r => Number(r.pct)).filter(n => Number.isFinite(n));
     const avg = pcts.length ? Math.round((pcts.reduce((a,b)=>a+b,0)/pcts.length)) : null;
     kpi.textContent = `aantal: ${runs.length}${avg!=null ? ` • gem.: ${avg}%` : ""}`;
+    if (!runs.length && lastErr) kpi.textContent += ` | log-fout: ${lastErr}`;
   }
 
   // Line: average by day
@@ -229,9 +269,11 @@ async function renderTeacherDashboard() {
   const range = document.getElementById("teachRange")?.value || "30";
   const mode = document.getElementById("teachMode")?.value || "toets";
   const topic = document.getElementById("teachTopic")?.value || "all";
-  const search = document.getElementById("teachSearch")?.value || "";
+  await _fillLearnerSelect("teachSearch");
+  const learner = document.getElementById("teachSearch")?.value || "all";
 
-  const runs = await _fetchRuns({ range, mode, topic, teacher: true, search });
+  const runs = await _fetchRuns({ range, mode, topic, teacher: true, learner });
+  const lastErr = window.lastTestRunError;
 
   const kpi = document.getElementById("teachKpis");
   if (kpi) {
@@ -239,6 +281,7 @@ async function renderTeacherDashboard() {
     const avg = pcts.length ? Math.round((pcts.reduce((a,b)=>a+b,0)/pcts.length)) : null;
     const learners = new Set(runs.map(r => (r.learner_name || "").trim()).filter(Boolean));
     kpi.textContent = `aantal: ${runs.length}${learners.size ? ` • leerlingen: ${learners.size}` : ""}${avg!=null ? ` • gem.: ${avg}%` : ""}`;
+    if (!runs.length && lastErr) kpi.textContent += ` | log-fout: ${lastErr}`;
   }
 
   const barsWrap = document.getElementById("teachBars");
@@ -285,9 +328,5 @@ document.addEventListener("DOMContentLoaded", () => {
   ["teachRange","teachMode","teachTopic"].forEach(id => {
     document.getElementById(id)?.addEventListener("change", renderTeacherDashboard);
   });
-  document.getElementById("teachSearch")?.addEventListener("input", () => {
-    // kleine debounce
-    clearTimeout(window.__teachSearchTimer);
-    window.__teachSearchTimer = setTimeout(renderTeacherDashboard, 300);
-  });
+  document.getElementById("teachSearch")?.addEventListener("change", renderTeacherDashboard);
 });

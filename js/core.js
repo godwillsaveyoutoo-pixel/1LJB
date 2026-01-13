@@ -18,6 +18,16 @@ const norm = (s) =>
     .replace(/\s+/g, " ")
     .replace("ℓ", "l");
 
+/* ---------- MC key (werkt ook voor SVG/HTML opties) ---------- */
+function mcKey(s) {
+  return String(s ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/ℓ/g, "l");
+}
+
+
 /* ---------- Arrays ---------- */
 function shuffle(arr) {
   const a = arr.slice();
@@ -30,8 +40,12 @@ function shuffle(arr) {
 
 /* ---------- Dates & time ---------- */
 function todayKey() {
+  // lokaal (België) i.p.v. UTC, anders verspringt de dag rond middernacht
   const d = new Date();
-  return d.toISOString().slice(0, 10);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
 
 function msToClock(ms) {
@@ -177,53 +191,6 @@ function fractionEqual(a, b) {
   return a.n * b.d === b.n * a.d;
 }
 
-// ─────────────────────────────────────────────────────
-// FRACTION HELPERS (raw parse + simplified check)
-//  - parseFractionNL() blijft "equivalent-vriendelijk" (reduceert).
-//  - parseFractionRawNL() bewaart wat de leerling typte (geen reductie).
-// ─────────────────────────────────────────────────────
-
-function parseFractionRawNL(s) {
-  if (s == null) return null;
-  const str = String(s).trim().replace(/,/g, ".");
-  if (!str) return null;
-
-  // geheel getal
-  if (!str.includes("/")) {
-    const n = parseInt(str, 10);
-    if (!Number.isFinite(n)) return null;
-    return { n, d: 1 };
-  }
-
-  const parts = str.split("/");
-  if (parts.length !== 2) return null;
-
-  let n = parseInt(parts[0], 10);
-  let d = parseInt(parts[1], 10);
-  if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
-
-  // normaliseer teken zodat noemer positief is
-  if (d < 0) {
-    n = -n;
-    d = -d;
-  }
-
-  return { n, d };
-}
-
-function fractionEqualRaw(a, b) {
-  if (!a || !b) return false;
-  return a.n * b.d === b.n * a.d;
-}
-
-function fractionIsSimplified(a) {
-  if (!a) return false;
-  const n = Math.abs(a.n);
-  const d = Math.abs(a.d);
-  if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return false;
-  return gcd(n, d) === 1;
-}
-
 /* ======================================================
    APP LIFECYCLE & SCREEN MANAGEMENT
 ====================================================== */
@@ -233,6 +200,27 @@ const APP = {
   screen: null,
 };
 
+
+
+// ---------- Topbar helpers ----------
+function setBrandTitle(text){
+  try{
+    const el = document.querySelector('.brandTitle');
+    if (el) el.textContent = text || 'Wiskunde Quest';
+  }catch(_){ }
+}
+
+function setLvlTopVisible(on){
+  const el = document.getElementById('lvlTop');
+  if (!el) return;
+  el.style.display = on ? '' : 'none';
+  if (!on){
+    const f = document.getElementById('lvlFill');
+    if (f) f.style.width = '0%';
+    const badge = document.getElementById('lvlBadge');
+    if (badge) badge.textContent = '1';
+  }
+}
 function hideAllScreens() {
   $$(".screen").forEach((s) => (s.style.display = "none"));
 }
@@ -243,6 +231,21 @@ function showScreen(id) {
   hideAllScreens();
   el.style.display = "block";
   APP.screen = id;
+
+  // Topbar reset: buiten het spel (scrGame/scrResult) terug naar standaard titel
+  const inGameFlow = (id === "scrGame" || id === "scrResult");
+  if (!inGameFlow) {
+    setBrandTitle("Wiskunde Quest");
+  }
+  // Levelbalk enkel tonen tijdens het echte spelen
+  if (id !== "scrGame") {
+    setLvlTopVisible(false);
+  }
+
+  // Map moet opnieuw gerenderd worden nadat prog/skills van de gebruiker geladen zijn
+  if (id === "scrMap") {
+    try { window.renderTopicMap?.(); } catch (_) {}
+  }
 }
 
 /* ---------- Init (defensief) ---------- */
@@ -270,6 +273,8 @@ function rateLimit(key, ms = 400) {
 
 /* ---------- Exports ---------- */
 Object.assign(window, {
+  setBrandTitle,
+  setLvlTopVisible,
   $,
   $$,
   showScreen,
@@ -288,9 +293,6 @@ Object.assign(window, {
   formatTime,
   parseFractionNL,
   fractionEqual,
-  parseFractionRawNL,
-  fractionEqualRaw,
-  fractionIsSimplified,
   rateLimit,
 });
 

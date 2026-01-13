@@ -74,21 +74,6 @@ function renderTopicModalContent(topic) {
   if (!wrap) return;
 
   wrap.innerHTML = "";
-
-  // Alleen informatieve lijst van subtopics (geen levels!)
-  if (topic.subtopics) {
-    Object.values(topic.subtopics).forEach(sub => {
-      const block = document.createElement("div");
-      block.className = "subBlock";
-
-      const title = document.createElement("div");
-      title.className = "subTitle";
-      title.textContent = sub.title;
-
-      block.appendChild(title);
-      wrap.appendChild(block);
-    });
-  }
 }
 
 

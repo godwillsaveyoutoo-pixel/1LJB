@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 512 512" xml:space="preserve">
-<polygon style="fill:#D1E7F8;" points="411.826,0 100.174,0 100.174,478.609 133.565,478.609 133.565,512 378.435,512 
-	378.435,478.609 411.826,478.609 "/>
-<polygon style="fill:#57A4FF;" points="411.826,111.304 100.174,111.304 100.174,478.609 133.565,478.609 133.565,512 378.435,512 
-	378.435,478.609 411.826,478.609 "/>
-<polygon points="378.435,0 133.565,0 100.174,0 100.174,33.391 100.174,478.609 133.565,478.609 133.565,33.391 378.435,33.391 
-	378.435,478.609 411.826,478.609 411.826,33.391 411.826,0 "/>
-<rect x="133.565" y="478.609" width="244.87" height="33.391"/>
+	 viewBox="0 0 496.2 496.2" xml:space="preserve">
+<path style="fill:#25B7D3;" d="M496.2,248.1C496.2,111.1,385.1,0,248.1,0S0,111.1,0,248.1s111.1,248.1,248.1,248.1
+	S496.2,385.1,496.2,248.1z"/>
 <g>
-	<rect x="166.957" y="278.261" style="fill:#FFFFFF;" width="33.391" height="33.391"/>
-	<rect x="166.957" y="345.043" style="fill:#FFFFFF;" width="33.391" height="100.174"/>
+	<ellipse style="fill:#D9DBDB;" cx="248.1" cy="400.7" rx="79.8" ry="39.9"/>
+	<rect x="168.3" y="95.5" style="fill:#D9DBDB;" width="159.6" height="305.9"/>
 </g>
+<rect x="175.2" y="96" style="fill:#F4F4EF;" width="145.8" height="287.3"/>
+<rect x="175.2" y="237.2" style="fill:#B9E4EA;" width="145.8" height="146.1"/>
+<rect x="175.2" y="237.2" style="fill:#9CC9D3;" width="72.9" height="146.1"/>
+<ellipse style="fill:#A8D5DD;" cx="248.1" cy="238.4" rx="72.9" ry="36.5"/>
+<path style="fill:#C2EEF2;" d="M321,238.4c0,20.1-32.7,36.5-72.9,36.5V202C288.4,202,321,218.3,321,238.4z"/>
+<ellipse style="fill:#D9DBDB;" cx="248.1" cy="95.5" rx="79.8" ry="39.9"/>
+<ellipse style="fill:#F4F4EF;" cx="248.1" cy="95.5" rx="73.1" ry="33"/>
+<path style="fill:#EFEFE8;" d="M248.1,128.4c-40.4,0-73.1-14.8-73.1-33s32.7-33,73.1-33V128.4z"/>
+<ellipse style="fill:#B9E4EA;" cx="248.1" cy="380.4" rx="72.9" ry="36.5"/>
+<path style="fill:#9CC9D3;" d="M248.1,416.8c-40.3,0-72.9-16.3-72.9-36.5c0-20.1,32.7-36.5,72.9-36.5V416.8z"/>
 </svg>

@@ -132,22 +132,12 @@
   }
 
   function downloadBlob(blob, filename){
-  if (!blob) {
-    console.error("downloadBlob: blob is null/undefined");
-    return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 200);
   }
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename || "bewijsje.png";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  // 👇 langer laten leven, zeker bij grote PNG's
-  setTimeout(()=>{ URL.revokeObjectURL(url); }, 15000);
-}
-
 
   function tickOrCross(ctx, x, y, ok){
     ctx.save();
@@ -201,9 +191,8 @@
     const accLine = (Array.isArray(S.accommodations) && S.accommodations.length)
       ? S.accommodations.join(', ')
       : (dys ? 'dyscalculie' : '—');
-const topicLine = safe(S.topic ?? S.topicTitle ?? S.topicName ?? S.subject ?? '');
+
     const meta = [
-      ['Thema',  topicLine || '—'],
       ['Naam',   dispName],
       ['Klas',   S.class||'—'],
       ['Spel-ID', S.gameId||'—'],
@@ -273,9 +262,7 @@ const topicLine = safe(S.topic ?? S.topicTitle ?? S.topicName ?? S.subject ?? ''
 
       // Support zowel string-rijen als objecten
       const no = String(i+1);
-const q  = typeof r === 'string'
-  ? r
-  : safe(r.q ?? r.prompt ?? r.question ?? r.vraag);
+      const q  = typeof r === 'string' ? r : (r.q!=null? String(r.q): '');
       const correct = typeof r === 'string' ? '' : safe(r.correct);
       // ✅ alias: accepteer 'given' of legacy 'a'/'answer'/'gegeven'
       const given   = typeof r === 'string' ? '' : safe(r.given ?? r.a ?? r.answer ?? r.gegeven);
@@ -310,42 +297,22 @@ const q  = typeof r === 'string'
     return c; // caller zet om naar blob & download
   }
 
-async function finishSession(summary){
-  const S = normalizeSummary(summary || {});
+  async function finishSession(summary){
+    const S = normalizeSummary(summary||{});
+    const c = buildCertificatePNG(S);
+    const blob = await new Promise(res => c.toBlob(res, 'image/png'));
 
-  // accepteer ook rows als input
-  if (!Array.isArray(S.questions) && Array.isArray(S.rows)) S.questions = S.rows;
+    const date = new Date();
+    const stamp = `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}-${String(date.getHours()).padStart(2,'0')}${String(date.getMinutes()).padStart(2,'0')}`;
 
-  const c = buildCertificatePNG(S);
+    // naam met (dyscalculie) in bestandsnaam is ok: zet niet in safeFile filter
+    const dys = !!(S.flags && S.flags.dyscalculie) || (Array.isArray(S.accommodations) && S.accommodations.includes('dyscalculie'));
+    const nameForFile = (S.name || 'anoniem') + (dys ? ' (dyscalculie)' : '');
+    const fname = fileSafe(`${S.gameId||'Spel'} — ${nameForFile} — ${stamp}.png`);
+    downloadBlob(blob, fname);
 
-  const blob = await new Promise(res => c.toBlob(res, 'image/png'));
-  if (!blob) {
-    console.error("finishSession: canvas.toBlob gaf null terug");
-    return { blob: null, filename: null };
+    return { blob, filename: fname };
   }
-
-  const date = new Date();
-  const stamp =
-    `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}-`+
-    `${String(date.getHours()).padStart(2,'0')}${String(date.getMinutes()).padStart(2,'0')}`;
-
-  const dys = !!(S.flags && S.flags.dyscalculie) || (Array.isArray(S.accommodations) && S.accommodations.includes('dyscalculie'));
-  const nameForFile = (S.name || "anoniem") + (dys ? " (dyscalculie)" : "");
-  const topicForFile = safe(S.topic ?? S.topicTitle ?? S.topicName ?? S.subject ?? "");
-  const modeForFile = modeLabel(S.mode);
-  const Mode = modeForFile ? (modeForFile[0].toUpperCase() + modeForFile.slice(1)) : "Toets";
-
-  // base apart safen, dan pas ".png" toevoegen (zodat extensie nooit afgesneden wordt)
-  const base = [Mode, (topicForFile || "Thema"), nameForFile, (S.class || ""), stamp]
-    .filter(Boolean)
-    .join("_");
-
-  const fname = fileSafe(base) + ".png";
-
-  downloadBlob(blob, fname);
-  return { blob, filename: fname };
-}
-
 
   function trySharedProof(summary){
     try{
@@ -387,8 +354,6 @@ async function finishSession(summary){
 
     ctx.font = '600 18px Inter, system-ui, Arial';
     let y = 90;
-    const topicLine = safe(S.topic ?? S.topicTitle ?? S.topicName ?? S.subject ?? '');
-
     const goalsLine = (Array.isArray(S.goals) && S.goals.length) ? S.goals.join(', ') : '—';
     const accLine = (Array.isArray(S.accommodations) && S.accommodations.length)
       ? S.accommodations.join(', ')
@@ -397,7 +362,7 @@ async function finishSession(summary){
     const kv = [
       ['Naam', dispName], ['Klas', S.class||'—'], ['Spel-ID', S.gameId||'—'],
       ['Datum', formatDateTimeBE(new Date())], ['Modus', modeLabel(S.mode)], ['Tijd', formatDurationSec(S.seconds)],
-      ['Score', `${S.score||0}/${S.total||rows.length}`],['Thema', topicLine || '—'], ['Doelen', goalsLine], ['Aanpassingen', accLine]
+      ['Score', `${S.score||0}/${S.total||rows.length}`], ['Doelen', goalsLine], ['Aanpassingen', accLine]
     ];
 
     kv.forEach(([k,v])=>{ ctx.fillStyle='#6b7280'; ctx.fillText(k+':',40,y); ctx.fillStyle='#111827'; ctx.fillText(String(v), 190, y); y+=26; });
