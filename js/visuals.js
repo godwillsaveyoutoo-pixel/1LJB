@@ -2716,6 +2716,16 @@ function svgInhoudHulpkaart() {
       <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
       <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
       <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
+
+      <input inputmode="decimal" placeholder="..." data-unit="l" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
+
+      <input inputmode="decimal" placeholder="..." data-unit="l" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="dl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="cl" class="convInput" />
+      <input inputmode="decimal" placeholder="..." data-unit="ml" class="convInput" />
     </div>
 
     <div class="tiny" style="color:var(--mut);margin-top:10px">
