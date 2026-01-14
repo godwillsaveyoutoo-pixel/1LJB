@@ -368,7 +368,7 @@ const BANK = {
           svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 350, "number", "ml",
-          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 500 ml" }), 0.01),
+          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Een wijnglas is 20 cl.\nHoeveel ml is dat? ____ ml", 200, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
@@ -8778,7 +8778,9 @@ function pickFromTopic(topic) {
       const choice = pick(["ml", "ml", "ml", "dl", "cl"]); // vooral ml
       const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          let minorPool = [50, 20];
+          if (maxVal >= 1000) minorPool = [50];
+          if (maxVal <= 300) minorPool = [20, 10];
           const minor = pick(minorPool);
           return { major: 100, minor };
         }
@@ -8847,7 +8849,9 @@ function pickFromTopic(topic) {
       const choice = pick(["ml", "ml", "dl", "cl"]);
       const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          let minorPool = [50, 20];
+          if (maxVal >= 1000) minorPool = [50];
+          if (maxVal <= 300) minorPool = [20, 10];
           const minor = pick(minorPool);
           return { major: 100, minor };
         }
