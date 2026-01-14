@@ -368,7 +368,7 @@ const BANK = {
           svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Lees af: ____ ml", 350, "number", "ml",
-          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 10, title: "Maatbeker 500 ml" }), 0.01),
+          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
         () => qInput("inhoud", "maatbeker_hard",
           "Een wijnglas is 20 cl.\nHoeveel ml is dat? ____ ml", 200, "number", "ml",
           `<div style="display:grid;gap:10px;justify-items:center">
@@ -387,7 +387,7 @@ const BANK = {
           850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
         () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ dl.",
-          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.1, title: "Maatbeker in dl" }), 0.02),
+          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
 
       ],
     },
@@ -8588,31 +8588,109 @@ function pickFromTopic(topic) {
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
     const fmt = (n) => String(n).replace(".", ",");
     const objByUnit = {
-      l: [
-        { label: "brik melk", file: "brik_melk_1l.svg" },
-        { label: "waterkoker", file: "waterkoker.svg" },
-        { label: "jerrycan", file: "jerrycan_5l.svg" },
-        { label: "sportbidon", file: "sportbidon.svg" }
-      ],
-      dl: [
-        { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
-        { label: "glas water", file: "glas_water.svg" }
-      ],
+      l: {
+        small: [
+          { label: "brik melk", file: "brik_melk_1l.svg" },
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "waterzak", file: "waterzak_2l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ],
+        large: [
+          { label: "jerrycan", file: "jerrycan_5l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ]
+      },
+      dl: {
+        tiny: [
+          { label: "glas water", file: "glas_water.svg" },
+          { label: "brik melk", file: "brik_melk_1l.svg" }
+        ],
+        small: [
+          { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
+          { label: "drinkbus", file: "drinkbus.svg" }
+        ],
+        large: [
+          { label: "emmer", file: "emmer.svg" },
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "waterzak", file: "waterzak_2l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ]
+      },
       cl: [
         { label: "blikje frisdrank", file: "blikje_33cl.svg" },
         { label: "mok", file: "mok.svg" }
       ],
-      ml: [
-        { label: "drinkbus", file: "drinkbus.svg" },
-        { label: "spuitje", file: "spuit_20ml.svg" },
-        { label: "maatschepje", file: "maatschepje_5ml.svg" },
-        { label: "parfumflesje", file: "parfum_fles.svg" }
-      ]
+      ml: {
+        small: [
+          { label: "spuitje", file: "spuit_20ml.svg" },
+          { label: "maatschepje", file: "maatschepje_5ml.svg" },
+          { label: "parfumflesje", file: "parfum_fles.svg" }
+        ],
+        medium: [
+          { label: "drinkbus", file: "drinkbus.svg" },
+          { label: "sportbidon", file: "sportbidon.svg" }
+        ],
+        large: [
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ]
+      }
     };
 
+    const fixedValuesByUnit = {
+      l: { t1: [1, 2], t2: [3, 5] },
+      dl: { t1: [2, 3, 4, 5, 6, 8], t2: [10, 12, 15, 20, 25] },
+      cl: { t1: [10, 20, 25, 33, 50], t2: [30, 40, 50] },
+      ml: { t1: [50, 200, 250, 500], t2: [600, 750, 1000, 1500] }
+    };
+    const objConstraints = {
+      "drinkbus.svg": { ml: { min: 300, max: 1000 }, dl: { min: 3, max: 10 } },
+      "sportbidon.svg": { ml: { min: 300, max: 1000 } },
+      "brik_melk_1l.svg": { l: { values: [1] }, dl: { values: [2] } },
+      "mok.svg": { dl: { min: 2, max: 4 }, cl: { min: 20, max: 40 } },
+      "glas_water.svg": { dl: { min: 2, max: 3.5 }, cl: { min: 20, max: 35 } },
+      "blikje_33cl.svg": { cl: { values: [33, 50] } },
+      "waterkoker.svg": { l: { min: 0.5, max: 2 }, dl: { min: 5, max: 20 }, ml: { min: 500, max: 2000 } },
+      "kookpot.svg": { l: { min: 1, max: 5 }, dl: { min: 10, max: 50 }, ml: { min: 1000, max: 5000 } },
+      "parfum_fles.svg": { ml: { max: 100 } },
+      "spuit_20ml.svg": { ml: { max: 50 } },
+      "jerrycan_5l.svg": { l: { min: 3, max: 10 }, dl: { min: 30, max: 100 }, ml: { min: 3000, max: 10000 } }
+    };
+
+    function pickFixedValue(unit, tier, multipleOf = 1) {
+      const pool = fixedValuesByUnit[unit]?.[tier] || [];
+      if (!pool.length) return ri(1, 9);
+      const filtered = pool.filter((v) => v % multipleOf === 0);
+      const list = filtered.length ? filtered : pool;
+      return pick(list);
+    }
+
     function convertContext(x, fromU, toU) {
-      const list = objByUnit[fromU] || objByUnit.ml;
-      const obj = pick(list);
+      let list = objByUnit[fromU] || objByUnit.ml;
+      if (fromU === "l" && !Array.isArray(list)) {
+        list = x <= 2 ? list.small : list.large;
+      }
+      if (fromU === "dl" && !Array.isArray(list)) {
+        list = x <= 3 ? list.tiny : (x >= 10 ? list.large : list.small);
+      }
+      if (fromU === "ml" && !Array.isArray(list)) {
+        list = x < 100 ? list.small : (x < 1000 ? list.medium : list.large);
+      }
+      if (!Array.isArray(list)) {
+        list = objByUnit.ml.medium || objByUnit.ml;
+      }
+      const isAllowed = (obj, unit, value) => {
+        const c = objConstraints[obj.file];
+        if (!c) return true;
+        const rule = c[unit];
+        if (!rule) return false;
+        if (rule.values && !rule.values.includes(value)) return false;
+        if (rule.min != null && value < rule.min) return false;
+        if (rule.max != null && value > rule.max) return false;
+        return true;
+      };
+      const constrained = list.filter((obj) => isAllowed(obj, fromU, x));
+      const obj = pick(constrained.length ? constrained : list);
       return {
         prompt: `Een ${obj.label} bevat ${fmt(x)} ${fromU}. Hoeveel ${toU} is dat?`,
         visual: svgImgSafe(obj.file, obj.label),
@@ -8629,7 +8707,7 @@ function pickFromTopic(topic) {
       const p = pick(pairs);
       const dir = Math.random() < 0.5 ? "ab" : "ba";
       if (dir === "ab") {
-        const x = ri(1, 9);
+        const x = pickFixedValue(p.a, "t1");
         const ctx = convertContext(x, p.a, p.b);
         return qInput({
           topic: "inhoud",
@@ -8642,7 +8720,7 @@ function pickFromTopic(topic) {
           explain: "Stapjes: naar rechts ×10, naar links ÷10."
         });
       } else {
-        const x = ri(1, 9) * p.f;
+        const x = pickFixedValue(p.b, "t1", p.f);
         const ctx = convertContext(x, p.b, p.a);
         return qInput({
           topic: "inhoud",
@@ -8667,7 +8745,7 @@ function pickFromTopic(topic) {
       const p = pick(pairs);
       const dir = Math.random() < 0.5 ? "ab" : "ba";
       if (dir === "ab") {
-        const x = ri(1, 7);
+        const x = pickFixedValue(p.a, "t2");
         const ctx = convertContext(x, p.a, p.b);
         return qInput({
           topic: "inhoud",
@@ -8680,7 +8758,7 @@ function pickFromTopic(topic) {
           explain: "Meerdere stapjes: elke stap ×10."
         });
       } else {
-        const x = ri(1, 7) * p.f;
+        const x = pickFixedValue(p.b, "t2", p.f);
         const ctx = convertContext(x, p.b, p.a);
         return qInput({
           topic: "inhoud",
@@ -8700,15 +8778,21 @@ function pickFromTopic(topic) {
       const choice = pick(["ml", "ml", "ml", "dl", "cl"]); // vooral ml
       const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          let minorPool = [50, 20];
+          if (maxVal >= 1000) minorPool = [50];
+          if (maxVal <= 300) minorPool = [20, 10];
           const minor = pick(minorPool);
           return { major: 100, minor };
         }
         if (unit === "dl") {
-          const minor = pick([0.5, 0.2, 0.1]);
+          let minorPool = [0.5, 0.2];
+          if (maxVal != null && maxVal <= 3) minorPool = [0.1, 0.2];
+          const minor = pick(minorPool);
           return { major: 1, minor };
         }
-        const minor = pick([5, 2, 1]); // cl
+        let clMinorPool = [5, 2]; // cl
+        if (maxVal != null && maxVal <= 30) clMinorPool = [2, 1];
+        const minor = pick(clMinorPool);
         return { major: 10, minor };
       };
       const pickValue = (max, step) => {
@@ -8769,15 +8853,21 @@ function pickFromTopic(topic) {
       const choice = pick(["ml", "ml", "dl", "cl"]);
       const scaleFor = (unit, maxVal = null) => {
         if (unit === "ml") {
-          const minorPool = maxVal >= 1000 ? [50] : [50, 20, 10];
+          let minorPool = [50, 20];
+          if (maxVal >= 1000) minorPool = [50];
+          if (maxVal <= 300) minorPool = [20, 10];
           const minor = pick(minorPool);
           return { major: 100, minor };
         }
         if (unit === "dl") {
-          const minor = pick([0.5, 0.2, 0.1]);
+          let minorPool = [0.5, 0.2];
+          if (maxVal != null && maxVal <= 3) minorPool = [0.1, 0.2];
+          const minor = pick(minorPool);
           return { major: 1, minor };
         }
-        const minor = pick([5, 2, 1]); // cl
+        let clMinorPool = [5, 2]; // cl
+        if (maxVal != null && maxVal <= 30) clMinorPool = [2, 1];
+        const minor = pick(clMinorPool);
         return { major: 10, minor };
       };
       const pickValue = (max, step) => {
@@ -8886,3 +8976,5 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn("Vraagbank check faalde:", e?.message || e);
   }
 });
+
+
