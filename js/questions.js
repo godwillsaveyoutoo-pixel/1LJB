@@ -8588,15 +8588,24 @@ function pickFromTopic(topic) {
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
     const fmt = (n) => String(n).replace(".", ",");
     const objByUnit = {
-      l: [
-        { label: "brik melk", file: "brik_melk_1l.svg" },
-        { label: "waterkoker", file: "waterkoker.svg" },
-        { label: "jerrycan", file: "jerrycan_5l.svg" },
-        { label: "kookpot", file: "kookpot.svg" }
-      ],
-      dl: {
+      l: {
         small: [
+          { label: "brik melk", file: "brik_melk_1l.svg" },
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "waterzak", file: "waterzak_2l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ],
+        large: [
+          { label: "jerrycan", file: "jerrycan_5l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ]
+      },
+      dl: {
+        tiny: [
           { label: "glas water", file: "glas_water.svg" },
+          { label: "brik melk", file: "brik_melk_1l.svg" }
+        ],
+        small: [
           { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
           { label: "drinkbus", file: "drinkbus.svg" }
         ],
@@ -8623,8 +8632,7 @@ function pickFromTopic(topic) {
         ],
         large: [
           { label: "waterkoker", file: "waterkoker.svg" },
-          { label: "kookpot", file: "kookpot.svg" },
-          { label: "jerrycan", file: "jerrycan_5l.svg" }
+          { label: "kookpot", file: "kookpot.svg" }
         ]
       }
     };
@@ -8634,6 +8642,19 @@ function pickFromTopic(topic) {
       dl: { t1: [2, 3, 4, 5, 6, 8], t2: [10, 12, 15, 20, 25] },
       cl: { t1: [10, 20, 25, 33, 50], t2: [30, 40, 50] },
       ml: { t1: [50, 200, 250, 500], t2: [600, 750, 1000, 1500] }
+    };
+    const objConstraints = {
+      "drinkbus.svg": { ml: { min: 300, max: 1000 }, dl: { min: 3, max: 10 } },
+      "sportbidon.svg": { ml: { min: 300, max: 1000 } },
+      "brik_melk_1l.svg": { l: { values: [1] }, dl: { values: [2] } },
+      "mok.svg": { dl: { min: 2, max: 4 }, cl: { min: 20, max: 40 } },
+      "glas_water.svg": { dl: { min: 2, max: 3.5 }, cl: { min: 20, max: 35 } },
+      "blikje_33cl.svg": { cl: { values: [33, 50] } },
+      "waterkoker.svg": { l: { min: 0.5, max: 2 }, dl: { min: 5, max: 20 }, ml: { min: 500, max: 2000 } },
+      "kookpot.svg": { l: { min: 1, max: 5 }, dl: { min: 10, max: 50 }, ml: { min: 1000, max: 5000 } },
+      "parfum_fles.svg": { ml: { max: 100 } },
+      "spuit_20ml.svg": { ml: { max: 50 } },
+      "jerrycan_5l.svg": { l: { min: 3, max: 10 }, dl: { min: 30, max: 100 }, ml: { min: 3000, max: 10000 } }
     };
 
     function pickFixedValue(unit, tier, multipleOf = 1) {
@@ -8646,8 +8667,11 @@ function pickFromTopic(topic) {
 
     function convertContext(x, fromU, toU) {
       let list = objByUnit[fromU] || objByUnit.ml;
+      if (fromU === "l" && !Array.isArray(list)) {
+        list = x <= 2 ? list.small : list.large;
+      }
       if (fromU === "dl" && !Array.isArray(list)) {
-        list = x >= 10 ? list.large : list.small;
+        list = x <= 3 ? list.tiny : (x >= 10 ? list.large : list.small);
       }
       if (fromU === "ml" && !Array.isArray(list)) {
         list = x < 100 ? list.small : (x < 1000 ? list.medium : list.large);
@@ -8655,7 +8679,18 @@ function pickFromTopic(topic) {
       if (!Array.isArray(list)) {
         list = objByUnit.ml.medium || objByUnit.ml;
       }
-      const obj = pick(list);
+      const isAllowed = (obj, unit, value) => {
+        const c = objConstraints[obj.file];
+        if (!c) return true;
+        const rule = c[unit];
+        if (!rule) return false;
+        if (rule.values && !rule.values.includes(value)) return false;
+        if (rule.min != null && value < rule.min) return false;
+        if (rule.max != null && value > rule.max) return false;
+        return true;
+      };
+      const constrained = list.filter((obj) => isAllowed(obj, fromU, x));
+      const obj = pick(constrained.length ? constrained : list);
       return {
         prompt: `Een ${obj.label} bevat ${fmt(x)} ${fromU}. Hoeveel ${toU} is dat?`,
         visual: svgImgSafe(obj.file, obj.label),
