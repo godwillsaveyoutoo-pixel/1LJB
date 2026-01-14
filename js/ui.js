@@ -197,6 +197,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // gateRun is afgeschaft: Run blijft altijd toegankelijk
 
+  // Sessietest (Supabase)
+  $("#btnSessionTest")?.addEventListener("click", async () => {
+    const out = $("#sessionStatus");
+    if (out) out.textContent = "Sessietest bezig...";
+    try {
+      const { data, error } = await window.sb?.auth?.getSession?.();
+      if (error) throw error;
+      const ok = !!data?.session;
+      if (out) out.textContent = ok
+        ? "Sessietest: OK (ingelogd)"
+        : "Sessietest: geen actieve sessie";
+    } catch (e) {
+      if (out) out.textContent = "Sessietest fout: " + (e?.message || e);
+    }
+  });
+
   $("#btnCloseSettings")?.addEventListener("click", () => {
     showScreen(authUser ? "scrMap" : "scrStart");
   });

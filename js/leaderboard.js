@@ -131,9 +131,32 @@ function markPosted() {
   localStorage.setItem(key, String(Date.now()));
 }
 
+async function hasActiveSession() {
+  if (!sb) return false;
+  try {
+    const { data, error } = await sb.auth.getSession();
+    if (error) {
+      console.warn("getSession failed", error?.message || error);
+    }
+    return !!data?.session;
+  } catch (e) {
+    console.warn("getSession crashed", e?.message || e);
+    return false;
+  }
+}
+
 async function postScore({ mode, topic, score, acc, duration_ms }) {
   if (!leaderboardReady()) return;
   if (!canPostNow()) return;
+  window.lastScoreAttempted = true;
+  window.lastScoreStatus = "bezig";
+  window.lastScoreError = null;
+  if (!(await hasActiveSession())) {
+    window.lastScoreError = "Geen actieve sessie. Log opnieuw in.";
+    window.lastScoreStatus = "blocked";
+    console.warn("Score post blocked: no active session");
+    return;
+  }
 
   const payload = {
     user_id: authUser.id,
@@ -151,41 +174,13 @@ async function postScore({ mode, topic, score, acc, duration_ms }) {
   try {
     const { error } = await sb.from("scores").insert(payload);
     if (error) throw error;
+    window.lastScoreStatus = "ok";
+    window.lastScoreError = null;
   } catch (e) {
     // niet blokkeren als deze tabel/beleid ontbreekt
+    window.lastScoreStatus = "fout";
+    window.lastScoreError = e?.message || String(e);
     console.warn("scores insert failed", e?.message || e);
-  }
-
-  // 2) best-of (scores_best) zodat de toplijst meteen werkt
-  try {
-    const { data: cur, error: e1 } = await sb
-      .from("scores_best")
-      .select("score,acc,duration_ms")
-      .eq("user_id", payload.user_id)
-      .eq("day", payload.day)
-      .eq("mode", payload.mode)
-      .eq("topic", payload.topic)
-      .maybeSingle();
-
-    if (e1 && !String(e1.message || "").includes("0 rows")) {
-      // als er geen rijen zijn, is dat ok
-      // andere errors loggen maar proberen toch verder
-      console.warn("scores_best select failed", e1?.message || e1);
-    }
-
-    const better = (!cur)
-      || (payload.score > (cur.score ?? -1))
-      || (payload.score === (cur.score ?? -1) && payload.acc > (cur.acc ?? -1))
-      || (payload.score === (cur.score ?? -1) && payload.acc === (cur.acc ?? -1) && (payload.duration_ms ?? 9e15) < (cur.duration_ms ?? 9e15));
-
-    if (better) {
-      const { error: e2 } = await sb
-        .from("scores_best")
-        .upsert(payload, { onConflict: "user_id,day,mode,topic" });
-      if (e2) throw e2;
-    }
-  } catch (e) {
-    console.warn("scores_best upsert failed", e?.message || e);
   }
 
   markPosted();

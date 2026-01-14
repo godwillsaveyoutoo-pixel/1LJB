@@ -895,6 +895,27 @@ function endGame() {
       const topic = topicId === "global" ? "global" : topicId;
       window.postScore?.({ mode, topic, score: state.score, acc, duration_ms });
       window.refreshBoards?.();
+
+      // toon status op resultaatregel (eenmalig, met vertraging)
+      setTimeout(() => {
+        const line = document.getElementById("resLine");
+        if (!line || line.dataset.scoreStatus) return;
+        if (!window.lastScoreAttempted) return;
+        const st = window.lastScoreStatus || "";
+        const err = window.lastScoreError || "";
+        let tail = "";
+        if (st === "ok") tail = " | scoreboard: ok";
+        else if (st === "blocked" || st === "fout") {
+          const msg = err ? String(err).slice(0, 80) : "onbekend";
+          tail = ` | scoreboard: fout (${msg})`;
+        } else if (st) {
+          tail = ` | scoreboard: ${st}`;
+        }
+        if (tail) {
+          line.textContent += tail;
+          line.dataset.scoreStatus = "1";
+        }
+      }, 800);
     } catch (e) {
       console.warn("Run finalize failed", e);
     }

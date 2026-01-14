@@ -125,7 +125,19 @@ async function signup({ username, password, name, className }) {
 
   if (error) throw error;
 
-  authUser = data.user;
+  // Probeer meteen een echte sessie te krijgen (niet enkel een signup user).
+  try {
+    const { data: sData, error: sErr } = await sb.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (sErr) throw sErr;
+    authUser = sData?.user || data.user;
+  } catch (e) {
+    // Signup kan slagen zonder actieve sessie (bv. storage of policy issues).
+    console.warn("Auto-login na signup mislukt:", e?.message || e);
+    authUser = data.user;
+  }
   window.authUser = authUser;
 
   // profiel wordt centraal beheerd in profile.js
