@@ -387,7 +387,7 @@ const BANK = {
           850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
         () => qInput("inhoud","maatbeker_hard",
           "Lees af op de maatbeker:\n____ dl.",
-          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.1, title: "Maatbeker in dl" }), 0.02),
+          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
 
       ],
     },
@@ -8785,10 +8785,14 @@ function pickFromTopic(topic) {
           return { major: 100, minor };
         }
         if (unit === "dl") {
-          const minor = pick([0.5, 0.2, 0.1]);
+          let minorPool = [0.5, 0.2];
+          if (maxVal != null && maxVal <= 3) minorPool = [0.1, 0.2];
+          const minor = pick(minorPool);
           return { major: 1, minor };
         }
-        const minor = pick([5, 2, 1]); // cl
+        let clMinorPool = [5, 2]; // cl
+        if (maxVal != null && maxVal <= 30) clMinorPool = [2, 1];
+        const minor = pick(clMinorPool);
         return { major: 10, minor };
       };
       const pickValue = (max, step) => {
@@ -8856,10 +8860,14 @@ function pickFromTopic(topic) {
           return { major: 100, minor };
         }
         if (unit === "dl") {
-          const minor = pick([0.5, 0.2, 0.1]);
+          let minorPool = [0.5, 0.2];
+          if (maxVal != null && maxVal <= 3) minorPool = [0.1, 0.2];
+          const minor = pick(minorPool);
           return { major: 1, minor };
         }
-        const minor = pick([5, 2, 1]); // cl
+        let clMinorPool = [5, 2]; // cl
+        if (maxVal != null && maxVal <= 30) clMinorPool = [2, 1];
+        const minor = pick(clMinorPool);
         return { major: 10, minor };
       };
       const pickValue = (max, step) => {
