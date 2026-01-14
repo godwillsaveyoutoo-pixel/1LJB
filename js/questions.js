@@ -8592,26 +8592,69 @@ function pickFromTopic(topic) {
         { label: "brik melk", file: "brik_melk_1l.svg" },
         { label: "waterkoker", file: "waterkoker.svg" },
         { label: "jerrycan", file: "jerrycan_5l.svg" },
-        { label: "sportbidon", file: "sportbidon.svg" }
+        { label: "kookpot", file: "kookpot.svg" }
       ],
-      dl: [
-        { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
-        { label: "glas water", file: "glas_water.svg" }
-      ],
+      dl: {
+        small: [
+          { label: "glas water", file: "glas_water.svg" },
+          { label: "maatbeker in dl", file: "maatbeker_dl.svg" },
+          { label: "drinkbus", file: "drinkbus.svg" }
+        ],
+        large: [
+          { label: "emmer", file: "emmer.svg" },
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "waterzak", file: "waterzak_2l.svg" },
+          { label: "kookpot", file: "kookpot.svg" }
+        ]
+      },
       cl: [
         { label: "blikje frisdrank", file: "blikje_33cl.svg" },
         { label: "mok", file: "mok.svg" }
       ],
-      ml: [
-        { label: "drinkbus", file: "drinkbus.svg" },
-        { label: "spuitje", file: "spuit_20ml.svg" },
-        { label: "maatschepje", file: "maatschepje_5ml.svg" },
-        { label: "parfumflesje", file: "parfum_fles.svg" }
-      ]
+      ml: {
+        small: [
+          { label: "spuitje", file: "spuit_20ml.svg" },
+          { label: "maatschepje", file: "maatschepje_5ml.svg" },
+          { label: "parfumflesje", file: "parfum_fles.svg" }
+        ],
+        medium: [
+          { label: "drinkbus", file: "drinkbus.svg" },
+          { label: "sportbidon", file: "sportbidon.svg" }
+        ],
+        large: [
+          { label: "waterkoker", file: "waterkoker.svg" },
+          { label: "kookpot", file: "kookpot.svg" },
+          { label: "jerrycan", file: "jerrycan_5l.svg" }
+        ]
+      }
     };
 
+    const fixedValuesByUnit = {
+      l: { t1: [1, 2], t2: [3, 5] },
+      dl: { t1: [2, 3, 4, 5, 6, 8], t2: [10, 12, 15, 20, 25] },
+      cl: { t1: [10, 20, 25, 33, 50], t2: [30, 40, 50] },
+      ml: { t1: [50, 200, 250, 500], t2: [600, 750, 1000, 1500] }
+    };
+
+    function pickFixedValue(unit, tier, multipleOf = 1) {
+      const pool = fixedValuesByUnit[unit]?.[tier] || [];
+      if (!pool.length) return ri(1, 9);
+      const filtered = pool.filter((v) => v % multipleOf === 0);
+      const list = filtered.length ? filtered : pool;
+      return pick(list);
+    }
+
     function convertContext(x, fromU, toU) {
-      const list = objByUnit[fromU] || objByUnit.ml;
+      let list = objByUnit[fromU] || objByUnit.ml;
+      if (fromU === "dl" && !Array.isArray(list)) {
+        list = x >= 10 ? list.large : list.small;
+      }
+      if (fromU === "ml" && !Array.isArray(list)) {
+        list = x < 100 ? list.small : (x < 1000 ? list.medium : list.large);
+      }
+      if (!Array.isArray(list)) {
+        list = objByUnit.ml.medium || objByUnit.ml;
+      }
       const obj = pick(list);
       return {
         prompt: `Een ${obj.label} bevat ${fmt(x)} ${fromU}. Hoeveel ${toU} is dat?`,
@@ -8629,7 +8672,7 @@ function pickFromTopic(topic) {
       const p = pick(pairs);
       const dir = Math.random() < 0.5 ? "ab" : "ba";
       if (dir === "ab") {
-        const x = ri(1, 9);
+        const x = pickFixedValue(p.a, "t1");
         const ctx = convertContext(x, p.a, p.b);
         return qInput({
           topic: "inhoud",
@@ -8642,7 +8685,7 @@ function pickFromTopic(topic) {
           explain: "Stapjes: naar rechts ×10, naar links ÷10."
         });
       } else {
-        const x = ri(1, 9) * p.f;
+        const x = pickFixedValue(p.b, "t1", p.f);
         const ctx = convertContext(x, p.b, p.a);
         return qInput({
           topic: "inhoud",
@@ -8667,7 +8710,7 @@ function pickFromTopic(topic) {
       const p = pick(pairs);
       const dir = Math.random() < 0.5 ? "ab" : "ba";
       if (dir === "ab") {
-        const x = ri(1, 7);
+        const x = pickFixedValue(p.a, "t2");
         const ctx = convertContext(x, p.a, p.b);
         return qInput({
           topic: "inhoud",
@@ -8680,7 +8723,7 @@ function pickFromTopic(topic) {
           explain: "Meerdere stapjes: elke stap ×10."
         });
       } else {
-        const x = ri(1, 7) * p.f;
+        const x = pickFixedValue(p.b, "t2", p.f);
         const ctx = convertContext(x, p.b, p.a);
         return qInput({
           topic: "inhoud",
@@ -8886,3 +8929,5 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn("Vraagbank check faalde:", e?.message || e);
   }
 });
+
+
