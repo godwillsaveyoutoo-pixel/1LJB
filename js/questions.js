@@ -2,6 +2,31 @@
    Wiskunde Quest – questions.js
    Volledige vragenbank 
 ========================= */
+const SVG = {
+  
+  aquarium: "aquarium-fish-svgrepo-com.svg",
+  badkuip: "bathtub-bath-svgrepo-com.svg",
+  emmer: "bucket-svgrepo-com.svg",
+  jerrycan: "jerrycan-svgrepo-com.svg",
+  brik: "milk-carton-svgrepo-com.svg",
+  waterkoker: "kettle-svgrepo-com.svg",
+  theepot: "teapot-svgrepo-com.svg",
+  koffiekannetje: "coffee-pot-svgrepo-com.svg",
+  kookpot: "pot-svgrepo-com.svg",
+  sauspan: "saucepan-cook-svgrepo-com.svg",
+  spuitwater: "soda-water-svgrepo-com.svg",
+  lepel: "spoon-svgrepo-com.svg",
+  spuit: "syringe-svgrepo-com.svg",
+  oogdruppel: "eye-drop-solid-svgrepo-com.svg",
+  vial: "vial-svgrepo-com.svg",
+  shampoo: "shampoo-svgrepo-com.svg",
+  parfum: "perfume-bottle-with-heart-svgrepo-com.svg",
+  nagellak: "nail-polish-beauty-svgrepo-com.svg",
+  gieter: "watering-can-with-water-drops-svgrepo-com.svg",
+  verfemmer: "paint-bucket-bucket-svgrepo-com.svg",
+  verfspray: "paint-spray-spray-svgrepo-com.svg",
+  spuitbus: "spray-can-svgrepo-com.svg",
+};
 
 const BANK = {
   inhoud: {
@@ -12,80 +37,113 @@ const BANK = {
     ========================= */
     basic: {
       easy: [
-        () => qMc("inhoud", "basic_easy",
-          "Kies de beste inhoudsmaat:\nEen drinkbus is 500 ____.",
-          ["ml", "cl", "l"], "ml", svgImgSafe("drinkbus.svg", "Drinkbus")),
-        () => qMc("inhoud", "basic_easy",
-          "Kies de beste inhoudsmaat:\nEen kleine parfumfles is 50 ____.",
-          ["ml", "cl", "l"], "ml", svgImgSafe("parfum_fles.svg", "Parfum")),
-        () => qMc("inhoud", "basic_easy",
-          "Kies de beste inhoudsmaat:\nEen mok is ongeveer 25 ____.",
-          ["ml", "cl", "l"], "cl", svgImgSafe("mok.svg", "Mok")),
-        () => qMc("inhoud", "basic_easy",
-          "Kies de beste inhoudsmaat:\nEen blikje frisdrank is 33 ____.",
-          ["ml", "cl", "dl", "l"], "cl", svgImgSafe("blikje_33cl.svg", "Blikje")),
-        () => qMc("inhoud","basic_easy",
-          "Kies de beste inhoudsmaat:\nEen flesje water is 750 ____.",
-          ["ml","cl","l"], "ml", svgImgSafe("sportfles.svg", "Flesje")),
-        () => qMc("inhoud","basic_easy",
-          "Kies de beste inhoudsmaat:\nEen glas water is 20 ____.",
-          ["ml","cl","l"], "cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qMc("inhoud","basic_easy",
-          "Kies de beste inhoudsmaat:\nEen brik melk is 1 ____.",
-          ["ml","cl","l"], "l", svgImgSafe("brik_melk_1l.svg", "Brik")),
-        () => qMc("inhoud","basic_easy",
-          "Kies de beste inhoudsmaat:\nEen eetlepel is 15 ____.",
-          ["ml","cl","l"], "ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
+  () => qMc("inhoud", "basic_easy",
+    "Kies de beste inhoudsmaat:\nEen drinkbus is 500 ____.",
+    ["ml", "cl", "l"], "ml", svgImgSafe("drinkbus.svg", "Drinkbus")),
+  () => qMc("inhoud", "basic_easy",
+    "Kies de beste inhoudsmaat:\nEen kleine parfumfles is 50 ____.",
+    ["ml", "cl", "l"], "ml", svgImgSafe("parfum_fles.svg", "Parfum")),
+  () => qMc("inhoud", "basic_easy",
+    "Kies de beste inhoudsmaat:\nEen mok is ongeveer 25 ____.",
+    ["ml", "cl", "l"], "cl", svgImgSafe("mok.svg", "Mok")),
+  () => qMc("inhoud", "basic_easy",
+    "Kies de beste inhoudsmaat:\nEen blikje frisdrank is 33 ____.",
+    ["ml", "cl", "dl", "l"], "cl", svgImgSafe("blikje_33cl.svg", "Blikje")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen flesje water is 750 ____.",
+    ["ml","cl","l"], "ml", svgImgSafe("sportfles.svg", "Flesje")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen glas water is 2 ____.",
+    ["ml","cl","dl"], "dl", svgImgSafe("glas_water.svg", "Glas")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen brik melk is 1 ____.",
+    ["ml","cl","l"], "l", svgImgSafe("brik_melk_1l.svg", "Brik")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen eetlepel is 15 ____.",
+    ["ml","cl","l"], "ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen theelepel is 5 ____.",
+    ["ml","cl","l"], "ml", svgImgSafe("theelepel_5ml.svg", "Theelepel")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen brik fruitsap is 1 ____.",
+    ["ml","cl","l"], "l", svgImgSafe("brik_sap_1l.svg", "Brik sap")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen klein flesje cola is 2 ____.",
+    ["ml","cl","dl"], "dl", svgImgSafe("flesje_20cl.svg", "Flesje")),
+  () => qMc("inhoud","basic_easy",
+    "Kies de beste inhoudsmaat:\nEen shampoo fles is 250 ____.",
+    ["ml","cl","l"], "ml", svgImgSafe("shampoo_250ml.svg", "Shampoo")),
+],
 
-      ],
-      normal: [
-        () => qMc("inhoud", "basic_normal",
-          "Kies de beste inhoudsmaat:\nEen emmer is 10 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("emmer.svg", "Emmer")),
-        () => qMc("inhoud", "basic_normal",
-          "Kies de beste inhoudsmaat:\nEen spuitje is 20 ____.",
-          ["ml", "cl", "dl", "l"], "ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
-        () => qMc("inhoud", "basic_normal",
-          "Kies de beste inhoudsmaat:\nEen jerrycan is 5 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("jerrycan_5l.svg", "Jerrycan")),
-        () => qMc("inhoud", "basic_normal",
-          "Kies de beste inhoudsmaat:\nEen kookpot kan 3 ____ bevatten.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("kookpot.svg", "Kookpot")),
-        () => qMc("inhoud","basic_normal",
-          "Kies de beste inhoudsmaat:\nEen waterkoker is 1,7 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("waterkoker.svg", "Waterkoker")),
-        () => qMc("inhoud","basic_normal",
-          "Kies de beste inhoudsmaat:\nEen waterzak is 2 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
-        () => qMc("inhoud","basic_normal",
-          "Kies de beste inhoudsmaat:\nHet reservoir van een koffiemachine is 1,2 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("koffiemachine.svg", "Koffiemachine")),
-
-      ],
+normal: [
+  () => qMc("inhoud", "basic_normal",
+    "Kies de beste inhoudsmaat:\nEen emmer is 10 ____.",
+    ["ml", "cl", "dl", "l"], "l", svgImgSafe("emmer.svg", "Emmer")),
+  () => qMc("inhoud", "basic_normal",
+    "Kies de beste inhoudsmaat:\nEen spuitje is 20 ____.",
+    ["ml", "cl", "dl", "l"], "ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
+  () => qMc("inhoud", "basic_normal",
+    "Kies de beste inhoudsmaat:\nEen jerrycan is 5 ____.",
+    ["ml", "cl", "dl", "l"], "l", svgImgSafe("jerrycan_5l.svg", "Jerrycan")),
+  () => qMc("inhoud", "basic_normal",
+    "Kies de beste inhoudsmaat:\nEen kookpot kan 3 ____ bevatten.",
+    ["ml", "cl", "dl", "l"], "l", svgImgSafe("kookpot.svg", "Kookpot")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen waterkoker is 1,7 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("waterkoker.svg", "Waterkoker")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen waterzak is 2 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nHet reservoir van een koffiemachine is 1,2 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("koffiemachine.svg", "Koffiemachine")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen maatbeker bevat 6 ____.",
+    ["ml","cl","dl","l"], "dl", svgImgSafe("maatbeker_6dl.svg", "Maatbeker")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen wijnfles is 75 ____.",
+    ["ml","cl","dl","l"], "cl", svgImgSafe("wijnfles_75cl.svg", "Wijnfles")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen fles limonade is 1,25 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("fles_125l.svg", "Fles")),
+  () => qMc("inhoud","basic_normal",
+    "Kies de beste inhoudsmaat:\nEen soepkom is 3 ____.",
+    ["ml","cl","dl","l"], "dl", svgImgSafe("soepkom_3dl.svg", "Soepkom")),
+]
+,
       hard: [
-        () => qMc("inhoud", "basic_hard",
-          "Kies de beste inhoudsmaat:\nEen sportbidon is 650 ____.",
-          ["ml", "cl", "dl", "l"], "ml", svgImgSafe("sportbidon.svg", "Sportbidon")),
-        () => qMc("inhoud", "basic_hard",
-          "Kies de beste inhoudsmaat:\nEen brik fruitsap is 1 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("brik_sap_1l.svg", "Brik sap")),
-        () => qMc("inhoud", "basic_hard",
-          "Kies de beste inhoudsmaat:\nEen theelepel is ongeveer 5 ____.",
-          ["ml", "cl", "dl", "l"], "ml", svgImgSafe("theelepel_5ml.svg", "Theelepel")),
-        () => qMc("inhoud", "basic_hard",
-          "Kies de beste inhoudsmaat:\nEen grote waterbidon is 5 ____.",
-          ["ml", "cl", "dl", "l"], "l", svgImgSafe("waterbidon_5l.svg", "Waterbidon")),
-        () => qMc("inhoud","basic_hard",
-          "Kies de beste inhoudsmaat:\nEen badkuip bevat 150 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("badkuip.svg", "Badkuip")),
-        () => qMc("inhoud","basic_hard",
-          "Kies de beste inhoudsmaat:\nEen aquarium bevat 60 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("aquarium.svg", "Aquarium")),
-        () => qMc("inhoud","basic_hard",
-          "Kies de beste inhoudsmaat:\nEen verfbeker is 10 ____.",
-          ["ml","cl","dl","l"], "l", svgImgSafe("verfbeker.svg", "Verf")),
-
-      ],
+  () => qMc("inhoud", "basic_hard",
+    "Kies de beste inhoudsmaat:\nEen sportbidon is 650 ____.",
+    ["ml", "cl", "dl", "l"], "ml", svgImgSafe("sportbidon.svg", "Sportbidon")),
+  () => qMc("inhoud", "basic_hard",
+    "Kies de beste inhoudsmaat:\nEen badkuip bevat 150 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("badkuip.svg", "Badkuip")),
+  () => qMc("inhoud", "basic_hard",
+    "Kies de beste inhoudsmaat:\nEen aquarium bevat 60 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("aquarium.svg", "Aquarium")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen klein flesje siroop is 2 ____.",
+    ["ml","cl","dl","l"], "dl", svgImgSafe("siroop_2dl.svg", "Siroop")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen sauskom bevat 12 ____.",
+    ["ml","cl","dl","l"], "cl", svgImgSafe("sauskom_12cl.svg", "Sauskom")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen jerrycan ruitenwisservloeistof is 40 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("jerrycan_40l.svg", "Jerrycan")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen infuuszak bevat 5 ____.",
+    ["ml","cl","dl","l"], "dl", svgImgSafe("infuus_5dl.svg", "Infuuszak")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen parfumtester is 7 ____.",
+    ["ml","cl","dl","l"], "ml", svgImgSafe("parfumtester_7ml.svg", "Parfumtester")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen koffietas (klein) is 9 ____.",
+    ["ml","cl","dl","l"], "cl", svgImgSafe("koffietas_9cl.svg", "Koffietas")),
+  () => qMc("inhoud","basic_hard",
+    "Kies de beste inhoudsmaat:\nEen maatbeker bevat 0,8 ____.",
+    ["ml","cl","dl","l"], "l", svgImgSafe("maatbeker_08l.svg", "Maatbeker")),
+]
+,
     },
 
     /* =========================
@@ -212,605 +270,1053 @@ const BANK = {
     ========================= */
     factor10: {
       easy: [
-        () => qMc("inhoud", "factor10_easy",
-          "10 keer meer dan 1 dl is ____ ml.",
-          ["10", "100", "1000"], "1000", svgImgSafe("pijl_maal.svg", "×10")),
-        () => qMc("inhoud", "factor10_easy",
-          "10 keer kleiner dan 1 l is ____ dl.",
-          ["0,1", "1", "10"], "1", svgImgSafe("pijl_gedeeld.svg", "÷10")),
-        () => qMc("inhoud", "factor10_easy",
-          "100 keer meer dan 1 cl is ____ ml.",
-          ["10", "100", "1000"], "1000", svgImgSafe("boog_maal.svg", "×100")),
-        () => qMc("inhoud", "factor10_easy",
-          "100 keer kleiner dan 1 l is ____ cl.",
-          ["1", "10", "100"], "1", svgImgSafe("boog_gedeeld.svg", "÷100")),
-() => qMc("inhoud", "factor10_easy",
-  "10 keer meer dan 2 dl is ____ ml.",
-  ["200", "2000", "20"], "2000", svgImgSafe("pijl_maal.svg", "×10")),
-() => qMc("inhoud", "factor10_easy",
-  "10 keer kleiner dan 300 ml is ____ ml.",
-  ["30", "3", "3000"], "30", svgImgSafe("pijl_gedeeld.svg", "÷10")),
-() => qMc("inhoud", "factor10_easy",
-  "100 keer meer dan 5 ml is ____ ml.",
-  ["50", "500", "5000"], "500", svgImgSafe("pijl_maal.svg", "×100")),
-() => qMc("inhoud", "factor10_easy",
-  "100 keer kleiner dan 2 l is ____ cl.",
-  ["0,2", "2", "20"], "2", svgImgSafe("pijl_gedeeld.svg", "÷100")),
+  () => qMc("inhoud","factor10_easy",
+    "10 keer meer dan 1 ml is 1 ____.",
+    ["cl","dl","l"], "cl", svgImgSafe("pijl_maal.svg","×10")),
+  () => qMc("inhoud","factor10_easy",
+    "10 keer meer dan 1 cl is 1 ____.",
+    ["ml","dl","l"], "dl", svgImgSafe("pijl_maal.svg","×10")),
+  () => qMc("inhoud","factor10_easy",
+    "10 keer meer dan 1 dl is 1 ____.",
+    ["cl","l","ml"], "l", svgImgSafe("pijl_maal.svg","×10")),
 
-      ],
+  () => qMc("inhoud","factor10_easy",
+    "10 keer kleiner dan 1 l is 1 ____.",
+    ["dl","cl","ml"], "dl", svgImgSafe("pijl_gedeeld.svg","÷10")),
+  () => qMc("inhoud","factor10_easy",
+    "10 keer kleiner dan 1 dl is 1 ____.",
+    ["cl","ml","l"], "cl", svgImgSafe("pijl_gedeeld.svg","÷10")),
+  () => qMc("inhoud","factor10_easy",
+    "10 keer kleiner dan 1 cl is 1 ____.",
+    ["ml","dl","l"], "ml", svgImgSafe("pijl_gedeeld.svg","÷10")),
+
+  // extra variatie (zelfde idee, andere formulering)
+  () => qMc("inhoud","factor10_easy",
+    "Vul aan: 1 dl = 10 ____.",
+    ["ml","cl","l"], "cl", svgImgSafe("boog_maal.svg","Relatie")),
+  () => qMc("inhoud","factor10_easy",
+    "Vul aan: 1 cl = 0,1 ____.",
+    ["ml","dl","l"], "dl", svgImgSafe("boog_gedeeld.svg","Relatie")),
+]
+,
       normal: [
-        () => qMc("inhoud", "factor10_normal",
-          "1000 keer meer dan 1 ml is ____ ml.",
-          ["100", "1000", "10000"], "1000", svgImgSafe("pijl_maal.svg", "×1000")),
+        
+  // ×100 (2 sprongen)
+  () => qMc("inhoud","factor10_normal",
+    "100 keer meer dan 1 ml is 1 ____.",
+    ["cl","dl","l"], "dl", svgImgSafe("boog_maal.svg","×100")),
+  () => qMc("inhoud","factor10_normal",
+    "100 keer meer dan 1 cl is 1 ____.",
+    ["ml","dl","l"], "l", svgImgSafe("boog_maal.svg","×100")),
 
-        () => qMc("inhoud", "factor10_normal",
-          "100 keer kleiner dan 1 l is ____ ml.",
-          ["1", "10", "100"], "10", svgImgSafe("pijl_gedeeld.svg", "÷100")),
-        () => qMc("inhoud", "factor10_normal",
-          "10 keer meer dan 25 cl is ____ l.",
-          ["0,25", "2,5", "25"], "2,5", svgImgSafe("boog_maal.svg", "×10")),
-        () => qMc("inhoud", "factor10_normal",
-          "10 keer kleiner dan 500 ml is ____ ml.",
-          ["5", "50", "500"], "50", svgImgSafe("boog_gedeeld.svg", "÷10")),
-() => qMc("inhoud", "factor10_normal",
-  "1000 keer meer dan 3 ml is ____ l.",
-  ["0,003", "0,3", "3"], "3", svgImgSafe("boog_maal.svg", "×1000")),
-() => qMc("inhoud", "factor10_normal",
-  "100 keer kleiner dan 4 dl is ____ ml.",
-  ["4", "40", "400"], "4", svgImgSafe("boog_gedeeld.svg", "÷100")),
-() => qMc("inhoud", "factor10_normal",
-  "10 keer meer dan 0,6 l is ____ l.",
-  ["0,06", "6", "60"], "6", svgImgSafe("boog_maal.svg", "×10")),
+  // ÷100 (2 sprongen)
+  () => qMc("inhoud","factor10_normal",
+    "100 keer kleiner dan 1 l is 1 ____.",
+    ["dl","cl","ml"], "cl", svgImgSafe("boog_gedeeld.svg","÷100")),
+  () => qMc("inhoud","factor10_normal",
+    "100 keer kleiner dan 1 dl is 1 ____.",
+    ["cl","ml","l"], "ml", svgImgSafe("boog_gedeeld.svg","÷100")),
 
-      ],
-      hard: [
-        () => qInput("inhoud", "factor10_hard",
-          "Vul in: 100× groter dan 0,07 l = ____ l", 7, "number", "l",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("pijl_maal.svg","×100")}
+  // mix met ×10/÷10 (blijft oefenen)
+  () => qMc("inhoud","factor10_normal",
+    "10 keer meer dan 1 cl is 1 ____.",
+    ["ml","dl","l"], "dl", svgImgSafe("pijl_maal.svg","×10")),
+  () => qMc("inhoud","factor10_normal",
+    "10 keer kleiner dan 1 dl is 1 ____.",
+    ["cl","ml","l"], "cl", svgImgSafe("pijl_gedeeld.svg","÷10")),
+]
+,
+   hard: [
+  // ×1000 (3 sprongen)
+  () => qMc("inhoud","factor10_hard",
+    "1000 keer meer dan 1 ml is 1 ____.",
+    ["cl","dl","l"], "l", svgImgSafe("pijl_maal.svg","×1000")),
+  () => qMc("inhoud","factor10_hard",
+    "1000 keer kleiner dan 1 l is 1 ____.",
+    ["dl","cl","ml"], "ml", svgImgSafe("pijl_gedeeld.svg","÷1000")),
 
-           </div>`, 0.01),
-        () => qInput("inhoud", "factor10_hard",
-          "Vul in: 1000× kleiner dan 2 l = ____ ml", 2, "number", "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("pijl_gedeeld.svg","÷1000")}
+  // gemengde richtingen (nog altijd 1 naar 1)
+  () => qMc("inhoud","factor10_hard",
+    "100 keer meer dan 1 ml is 1 ____.",
+    ["cl","dl","l"], "dl", svgImgSafe("boog_maal.svg","×100")),
+  () => qMc("inhoud","factor10_hard",
+    "100 keer kleiner dan 1 l is 1 ____.",
+    ["dl","cl","ml"], "cl", svgImgSafe("boog_gedeeld.svg","÷100")),
 
-           </div>`, 0.001),
-        () => qMc("inhoud", "factor10_hard",
-          "Welke is juist?",
-          ["1 dl = 100 ml", "1 dl = 10 ml", "1 dl = 1000 ml"], "1 dl = 100 ml",
-          svgImgSafe("boog_maal.svg","Relatie")),
-        () => qMc("inhoud", "factor10_hard",
-          "Welke is juist?",
-          ["1 cl = 0,1 l", "1 cl = 10 ml", "1 cl = 100 ml"], "1 cl = 10 ml",
-          svgImgSafe("boog_gedeeld.svg","Relatie")),
-        () => qInput("inhoud","factor10_hard",
-          "Vul in:\n100× kleiner dan 0,8 l = ____ ml.",
-          8, "number", "ml", svgImgSafe("boog_gedeeld.svg", "÷100")),
-        () => qInput("inhoud","factor10_hard",
-          "Vul in:\n1000× groter dan 0,004 l = ____ ml.",
-          4000, "number", "ml", svgImgSafe("boog_maal.svg", "×1000")),
-        () => qInput("inhoud","factor10_hard",
-          "Vul in:\n10× kleiner dan 3,5 l = ____ dl.",
-          3.5, "number", "dl", svgImgSafe("boog_gedeeld.svg", "÷10"), 0.02),
-
-      ],
+  () => qMc("inhoud","factor10_hard",
+    "10 keer kleiner dan 1 l is 1 ____.",
+    ["dl","cl","ml"], "dl", svgImgSafe("pijl_gedeeld.svg","÷10")),
+  () => qMc("inhoud","factor10_hard",
+    "10 keer meer dan 1 dl is 1 ____.",
+    ["cl","l","ml"], "l", svgImgSafe("pijl_maal.svg","×10")),
+]
+,
     },
 
     /* =========================
        MAATBEKER LEZEN
        Visual: inline maatbeker met ijking
     ========================= */
-    maatbeker: {
-      easy: [
-        () => qInput("inhoud", "maatbeker_easy",
-          "Lees af: hoeveel water zit er in de maatbeker? ____ ml", 300, "number", "ml",
-          svgMaatbekerLees({ value: 300, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
-        () => qInput("inhoud", "maatbeker_easy",
-          "Lees af: ____ ml", 150, "number", "ml",
-          svgMaatbekerLees({ value: 150, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
-        () => qInput("inhoud", "maatbeker_easy",
-          "Lees af: ____ ml", 700, "number", "ml",
-          svgMaatbekerLees({ value: 700, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
-        () => qMc("inhoud", "maatbeker_easy",
-          "Welke maatbeker past het best bij 1 liter?",
-          ["maatbeker tot 500 ml", "maatbeker tot 1000 ml"], "maatbeker tot 1000 ml",
-          svgImgSafe("maatbeker_1000ml.svg","Maatbeker 1L")),
-        () => qInput("inhoud","maatbeker_easy",
-          "Lees af op de maatbeker:\n____ ml.",
-          100, "number", "ml", svgMaatbekerLees({ value: 100, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" })),
-        () => qInput("inhoud","maatbeker_easy",
-          "Lees af op de maatbeker:\n____ ml.",
-          250, "number", "ml", svgMaatbekerLees({ value: 250, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" })),
-        () => qInput("inhoud","maatbeker_easy",
-          "Lees af op de maatbeker:\n____ ml.",
-          900, "number", "ml", svgMaatbekerLees({ value: 900, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qMc("inhoud","maatbeker_easy",
-          "Welke maatbeker is het handigst om 250 ml af te lezen?",
-          ["maatbeker 500 ml","maatbeker 1000 ml","maatbeker in dl"],
-          "maatbeker 500 ml",
-          `<div style="display:flex; gap:10px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
-             <div>${svgImgSafe("maatbeker_500ml.svg","500 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
-             <div>${svgImgSafe("maatbeker_1000ml.svg","1000 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
-             <div>${svgImgSafe("maatbeker_dl.svg","dl",90)}<div style="text-align:center;font-size:12px;opacity:.85">dl</div></div>
-           </div>`),
+maatbeker: {
+  easy: [
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: hoeveel water zit er in de maatbeker? ____ ml", 120, "number", "ml",
+      svgMaatbekerLees({ value: 120, max: 300, unit:"ml", majorStep:100, minorStep:10, title:"Maatbeker 300 ml" }), 0.5),
 
-      ],
-      normal: [
-        () => qInput("inhoud", "maatbeker_normal",
-          "Lees af: ____ ml", 450, "number", "ml",
-          svgMaatbekerLees({ value: 450, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
-        () => qInput("inhoud", "maatbeker_normal",
-          "Lees af en zet om: ____ ml", 600, "number", "ml",
-          svgMaatbekerLees({ value: 6, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.01),
-        () => qInput("inhoud", "maatbeker_normal",
-          "Lees af en zet om: ____ cl", 35, "number", "cl",
-          svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.01),
-        () => qInput("inhoud", "maatbeker_normal",
-          "Een glas is 25 cl.\nHoeveel ml is dat? ____ ml", 250, "number", "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("glas_water.svg","Glas")}
-           </div>`, 0.01),
-        () => qInput("inhoud","maatbeker_normal",
-          "Lees af op de maatbeker:\n____ ml.",
-          650, "number", "ml", svgMaatbekerLees({ value: 650, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud","maatbeker_normal",
-          "Lees af op de maatbeker:\n____ dl.",
-          8.5, "number", "dl", svgMaatbekerLees({ value: 8.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
-        () => qInput("inhoud","maatbeker_normal",
-          "Lees af en zet om:\n____ ml.",
-          350, "number", "ml", svgMaatbekerLees({ value: 3.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.5),
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 230, "number", "ml",
+      svgMaatbekerLees({ value: 230, max: 300, unit:"ml", majorStep:100, minorStep:10, title:"Maatbeker 300 ml" }), 0.5),
 
-      ],
-      hard: [
-        () => qInput("inhoud", "maatbeker_hard",
-          "Lees af: ____ ml", 850, "number", "ml",
-          svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" }), 0.01),
-        () => qInput("inhoud", "maatbeker_hard",
-          "Lees af: ____ ml", 350, "number", "ml",
-          svgMaatbekerLees({ value: 350, max: 500, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 500 ml" }), 0.01),
-        () => qInput("inhoud", "maatbeker_hard",
-          "Een wijnglas is 20 cl.\nHoeveel ml is dat? ____ ml", 200, "number", "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("wijnglas.svg","Wijnglas")}
-           </div>`, 0.01),
-        () => qInput("inhoud", "maatbeker_hard",
-          "In een kan zit 1,2 l water.\nHoeveel ml is dat? ____ ml", 1200, "number", "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("kan_water.svg","Kan water")}
-           </div>`, 0.01),
-        () => qInput("inhoud","maatbeker_hard",
-          "Lees af op de maatbeker:\n____ ml.",
-          950, "number", "ml", svgMaatbekerLees({ value: 950, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud","maatbeker_hard",
-          "Lees af op de maatbeker:\n____ ml.",
-          850, "number", "ml", svgMaatbekerLees({ value: 850, max: 1000, unit: "ml", majorStep: 100, minorStep: 50, title: "Maatbeker 1000 ml" })),
-        () => qInput("inhoud","maatbeker_hard",
-          "Lees af op de maatbeker:\n____ dl.",
-          6.5, "number", "dl", svgMaatbekerLees({ value: 6.5, max: 10, unit: "dl", majorStep: 1, minorStep: 0.2, title: "Maatbeker in dl" }), 0.02),
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 90, "number", "ml",
+      svgMaatbekerLees({ value: 90, max: 300, unit:"ml", majorStep:100, minorStep:10, title:"Maatbeker 300 ml" }), 0.5),
 
-      ],
-    },
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 260, "number", "ml",
+      svgMaatbekerLees({ value: 260, max: 300, unit:"ml", majorStep:100, minorStep:10, title:"Maatbeker 300 ml" }), 0.5),
+
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 140, "number", "ml",
+      svgMaatbekerLees({ value: 140, max: 500, unit:"ml", majorStep:100, minorStep:20, title:"Maatbeker 500 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 260, "number", "ml",
+      svgMaatbekerLees({ value: 260, max: 500, unit:"ml", majorStep:100, minorStep:20, title:"Maatbeker 500 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 340, "number", "ml",
+      svgMaatbekerLees({ value: 340, max: 500, unit:"ml", majorStep:100, minorStep:20, title:"Maatbeker 500 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_easy",
+      "Lees af: ____ ml", 420, "number", "ml",
+      svgMaatbekerLees({ value: 420, max: 500, unit:"ml", majorStep:100, minorStep:20, title:"Maatbeker 500 ml" }), 1),
+
+    () => qMc("inhoud","maatbeker_easy",
+      "Welke maatbeker past het best bij 1 liter?",
+      ["maatbeker tot 300 ml", "maatbeker tot 500 ml", "maatbeker tot 1000 ml"],
+      "maatbeker tot 1000 ml",
+      `<div style="display:flex; gap:10px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
+         <div>${svgImgSafe("maatbeker_300ml.svg","300 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">300 ml</div></div>
+         <div>${svgImgSafe("maatbeker_500ml.svg","500 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
+         <div>${svgImgSafe("maatbeker_1000ml.svg","1000 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
+       </div>`),
+
+    () => qMc("inhoud","maatbeker_easy",
+      "Welke maatbeker is het handigst om 250 ml af te lezen?",
+      ["maatbeker 300 ml","maatbeker 500 ml","maatbeker 1000 ml"],
+      "maatbeker 500 ml",
+      `<div style="display:flex; gap:10px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
+         <div>${svgImgSafe("maatbeker_300ml.svg","300 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">300 ml</div></div>
+         <div>${svgImgSafe("maatbeker_500ml.svg","500 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
+         <div>${svgImgSafe("maatbeker_1000ml.svg","1000 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
+       </div>`),
+  ],
+
+  normal: [
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af: ____ ml", 450, "number", "ml",
+      svgMaatbekerLees({ value: 450, max: 1000, unit:"ml", majorStep:200, minorStep:50, title:"Maatbeker 1000 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af: ____ ml", 650, "number", "ml",
+      svgMaatbekerLees({ value: 650, max: 1000, unit:"ml", majorStep:200, minorStep:50, title:"Maatbeker 1000 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af: ____ ml", 850, "number", "ml",
+      svgMaatbekerLees({ value: 850, max: 1000, unit:"ml", majorStep:200, minorStep:50, title:"Maatbeker 1000 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af en zet om: ____ ml", 600, "number", "ml",
+      svgMaatbekerLees({ value: 6, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af en zet om: ____ ml", 350, "number", "ml",
+      svgMaatbekerLees({ value: 3.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af en zet om: ____ cl", 35, "number", "cl",
+      svgMaatbekerLees({ value: 3.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Lees af: ____ dl", 8.5, "number", "dl",
+      svgMaatbekerLees({ value: 8.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Een glas is 25 cl.\nHoeveel ml is dat? ____ ml", 250, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("glas_water.svg","Glas")}
+       </div>`, 0.01),
+
+    () => qInput("inhoud","maatbeker_normal",
+      "Een blikje frisdrank is 33 cl.\nHoeveel ml is dat? ____ ml", 330, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("blikje_33cl.svg","Blikje")}
+       </div>`, 0.01),
+
+    () => qMc("inhoud","maatbeker_normal",
+      "Je wil 750 ml aflezen. Welke maatbeker is het handigst?",
+      ["maatbeker 500 ml","maatbeker 1000 ml","maatbeker 300 ml"],
+      "maatbeker 1000 ml",
+      `<div style="display:flex; gap:10px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
+         <div>${svgImgSafe("maatbeker_300ml.svg","300 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">300 ml</div></div>
+         <div>${svgImgSafe("maatbeker_500ml.svg","500 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">500 ml</div></div>
+         <div>${svgImgSafe("maatbeker_1000ml.svg","1000 ml",90)}<div style="text-align:center;font-size:12px;opacity:.85">1000 ml</div></div>
+       </div>`),
+  ],
+
+  hard: [
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af: ____ ml", 950, "number", "ml",
+      svgMaatbekerLees({ value: 950, max: 1000, unit:"ml", majorStep:200, minorStep:50, title:"Maatbeker 1000 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af: ____ ml", 725, "number", "ml",
+      svgMaatbekerLees({ value: 725, max: 1000, unit:"ml", majorStep:200, minorStep:50, title:"Maatbeker 1000 ml" }), 1),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af: ____ ml", 290, "number", "ml",
+      svgMaatbekerLees({ value: 290, max: 300, unit:"ml", majorStep:100, minorStep:10, title:"Maatbeker 300 ml" }), 0.5),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af en zet om: ____ ml", 850, "number", "ml",
+      svgMaatbekerLees({ value: 8.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af en zet om: ____ cl", 85, "number", "cl",
+      svgMaatbekerLees({ value: 8.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Een wijnglas is 20 cl.\nHoeveel ml is dat? ____ ml", 200, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("wijnglas.svg","Wijnglas")}
+       </div>`, 0.01),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "In een kan zit 1,2 l water.\nHoeveel ml is dat? ____ ml", 1200, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("kan_water.svg","Kan water")}
+       </div>`, 0.01),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Een flesje water is 0,75 l.\nHoeveel ml is dat? ____ ml", 750, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("sportfles.svg","Flesje")}
+       </div>`, 0.01),
+
+    () => qInput("inhoud","maatbeker_hard",
+      "Lees af: ____ dl", 6.5, "number", "dl",
+      svgMaatbekerLees({ value: 6.5, max: 10, unit:"dl", majorStep:2, minorStep:0.5, title:"Maatbeker in dl" }), 0.02),
+
+    () => qMc("inhoud","maatbeker_hard",
+      "Welke maatbeker is het handigst om 1200 ml af te meten?",
+      ["maatbeker 500 ml","maatbeker 1000 ml","je hebt twee keer nodig: 1000 ml + 200 ml"],
+      "je hebt twee keer nodig: 1000 ml + 200 ml",
+      svgImgSafe("maatbeker_1000ml.svg","Maatbeker 1000 ml")),
+  ],
+},
+
 
     /* =========================
        VERHOUDINGSTABEL
        Soms met factor (×/÷)
     ========================= */
-    ratio: {
-      easy: [
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal drinkbussen",
-            rightLabel: "ml",
-            rows: [
-              ["1", "500"],
-              ["4", null]
-            ]
-          },
-          2000,
-          "ml",
-          svgImgSafe("drinkbus.svg", "Drinkbus")
-        ),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal blikjes",
-            rightLabel: "cl",
-            rows: [
-              ["1", "50"],
-              ["3", null]
-            ]
-          },
-          150,
-          "cl",
-          svgImgSafe("blikje_50cl.svg", "Blikje 50 cl")
-        ),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal eetlepels",
-            rightLabel: "ml",
-            rows: [
-              ["1", "15"],
-              ["6", null]
-            ]
-          },
-          90,
-          "ml",
-          svgImgSafe("eetlepel_15ml.svg", "Eetlepel")
-        ),
-        () => qRatio("inhoud", "ratio_easy",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal theelepels",
-            rightLabel: "ml",
-            rows: [
-              ["1", "5"],
-              ["8", null]
-            ]
-          },
-          40,
-          "ml",
-          svgImgSafe("theelepel_5ml.svg", "Theelepel")
-        ),
-() => qRatio("inhoud", "ratio_easy",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal glazen", rightLabel: "inhoud (ml)", rows: [["1 glas", "200"],["3 glazen", null]] },
-  600, "ml",
-  `<div class="svgWrap">${svgImgSafe("glas_water.svg","Glas",120)}</div>`),
-() => qRatio("inhoud", "ratio_easy",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal mokken", rightLabel: "inhoud (cl)", rows: [["1 mok", "25"],["4 mokken", null]] },
-  100, "cl",
-  `<div class="svgWrap">${svgImgSafe("mok.svg","Mok",120)}</div>`),
-() => qRatio("inhoud", "ratio_easy",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal flessen", rightLabel: "inhoud (l)", rows: [["1 fles", "1,5"],["3 flessen", null]] },
-  4.5, "l",
-  `<div class="svgWrap">${svgImgSafe("petfles_1_5l.svg","Fles",120)}</div>` , 0.02),
-() => qRatio("inhoud", "ratio_easy",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal spuiten", rightLabel: "inhoud (ml)", rows: [["1 spuit", "20"],["5 spuiten", null]] },
-  100, "ml",
-  `<div class="svgWrap">${svgImgSafe("spuit_20ml.svg","Spuit",120)}</div>`),
+ratio: {
+  easy: [
+    // 2 -> 6 (×3)
+() => qRatioFill("inhoud","ratio_easy",
+  "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 2 personen",
+    rightLabel: "voor 6 personen",
+    rows: [
+      ["Limoensap (ml)", "20", null],
+      ["Appelsap (ml)", "200", null],
+      ["Spuitwater (ml)", "300", null],
+    ]
+  },
+  [60, 600, 900],
+  "ml",
+  svgImgSafe("cocktail.svg","Mocktail"),
+  { sub: "Tip: 2 → 6 is ×3." }
+),
 
-      ],
-      normal: [
-        () => qRatio("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal flesjes",
-            rightLabel: "ml",
-            rows: [
-              ["1", "250"],
-              ["5", null]
-            ]
-          },
-          1250,
-          "ml",
-          svgImgSafe("pak_chocomelk_250ml.svg", "Pakje")
-        ),
-        () => qRatioFill("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel volledig in.",
-          {
-            leftLabel: "dl",
-            rightLabel: "ml",
-            rows: [
-              ["1", "100"],
-              ["3", null],
-              [null, "500"]
-            ]
-          },
-          [300, 5],
-          " ",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("maatbeker_dl.svg","Maatbeker dl")}
-           </div>`,
-          { sub: "Tip: 1 dl = 100 ml" }
-        ),
-        () => qRatio("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal gieters",
-            rightLabel: "l",
-            rows: [
-              ["1", "5"],
-              ["3", null]
-            ]
-          },
-          15,
-          "l",
-          svgImgSafe("gieter.svg", "Gieter")
-        ),
-        () => qRatioFill("inhoud", "ratio_normal",
-          "Vul de verhoudingstabel aan (met factor).",
-          {
-            leftLabel: "aantal spuitjes",
-            rightLabel: "ml",
-            rows: [
-              ["1", "10"],
-              ["7", null]
-            ]
-          },
-          [70],
-          "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("spuit_10ml.svg","Spuit 10 ml")}
-           </div>`,
-          { factor: { op: "×", expected: 7 }, sub: "Je mag eerst ×7 gebruiken." }
-        ),
-() => qRatioFill("inhoud", "ratio_normal",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal flessen", rightLabel: "inhoud (ml)", rows: [["5", "2500"],["1", null]] },
-  [500], "ml",
-  `<div class="svgWrap">${svgImgSafe("petfles_500ml.svg","Fles",120)}</div>`,
-  { factor: { op: "÷", expected: 5 }, sub: "Eerst naar 1 fles: deel door 5." }),
-() => qRatioFill("inhoud", "ratio_normal",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "inhoud (dl)", rightLabel: "inhoud (ml)", rows: [["1", "100"],["6", null],[null, "350"]] },
-  [600, 3.5], " ",
-  `<div class="svgWrap">${svgImgSafe("maatbeker_dl.svg","dl",120)}</div>`,
-  { sub: "6 dl is 6× 100 ml. En 350 ml is 3,5 dl." , tol: 0.02 }),
-() => qRatioFill("inhoud", "ratio_normal",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "inhoud (l)", rightLabel: "inhoud (ml)", rows: [["0,5", "500"],["1,5", null],[null, "750"]] },
-  [1500, 0.75], " ",
-  `<div class="svgWrap">${svgImgSafe("thermos.svg","Thermos",120)}</div>`,
-  { sub: "Gebruik 1 l = 1000 ml." , tol: 0.02 }),
+// 4 -> 2 (÷2)
+() => qRatioFill("inhoud","ratio_easy",
+  "Mocktailrecept: van 4 personen naar 2 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 4 personen",
+    rightLabel: "voor 2 personen",
+    rows: [
+      ["Sinaasappelsap (ml)", "400", null],
+      ["Grenadine (ml)", "10", null],
+      ["IJsblokjes (aantal)", "8", null],
+    ]
+  },
+  [200, 5, 4],
+  " ",
+  svgImgSafe("ijsblokjes.svg","Ijs"),
+  { sub: "Tip: 4 → 2 is ÷2." }
+),
 
-      ],
-      hard: [
-        () => qRatioFill("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel volledig in.",
-          {
-            leftLabel: "l",
-            rightLabel: "cl",
-            rows: [
-              ["1", "100"],
-              ["2,5", null],
-              [null, "350"]
-            ]
-          },
-          [250, 3.5],
-          " ",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("petfles_1l.svg","Fles 1 l")}
-           </div>`,
-          { sub: "Tip: 1 l = 100 cl" }
-        ),
-        () => qRatioFill("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan (met factor).",
-          {
-            leftLabel: "aantal pompjes",
-            rightLabel: "ml",
-            rows: [
-              ["1", "250"],
-              ["4", null]
-            ]
-          },
-          [1000],
-          "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("handgel.svg","Handgel")}
-               </div>`,
-          { factor: { op: "×", expected: 4 }, sub: "Eerst ×4, dan invullen." }
-        ),
-        () => qRatio("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal shampooflessen",
-            rightLabel: "ml",
-            rows: [
-              ["1", "400"],
-              ["2", null]
-            ]
-          },
-          800,
-          "ml",
-          svgImgSafe("shampoo_fles.svg", "Shampoo")
-        ),
-        () => qRatio("inhoud", "ratio_hard",
-          "Vul de verhoudingstabel aan.",
-          {
-            leftLabel: "aantal siroopflessen",
-            rightLabel: "ml",
-            rows: [
-              ["1", "100"],
-              ["9", null]
-            ]
-          },
-          900,
-          "ml",
-          svgImgSafe("medicijnsiroop.svg", "Siroop")
-        ),
-() => qRatioFill("inhoud", "ratio_hard",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "aantal brikken", rightLabel: "inhoud (l)", rows: [["3", "3"],["5", null],[null, "7"]] },
-  [5, 7], " ",
-  `<div class="svgWrap">${svgImgSafe("brik_melk_1l.svg","Brik",120)}</div>`,
-  { factor: { op: "×", expected: 1 }, sub: "Hier is 1 brik = 1 l. Denk in stappen." }),
-() => qRatioFill("inhoud", "ratio_hard",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "inhoud (cl)", rightLabel: "inhoud (ml)", rows: [["1", "10"],["12,5", null],[null, "275"]] },
-  [125, 27.5], " ",
-  `<div class="svgWrap">${svgImgSafe("yoghurt_drink_200ml.svg","Drink",120)}</div>`,
-  { sub: "1 cl = 10 ml. Let op met kommagetallen." , tol: 0.05 }),
-() => qRatioFill("inhoud", "ratio_hard",
-  "Vul de verhoudingstabel aan.",
-  { leftLabel: "inhoud (l)", rightLabel: "inhoud (cl)", rows: [["1", "100"],["0,35", null],[null, "18"]] },
-  [35, 0.18], " ",
-  `<div class="svgWrap">${svgImgSafe("petfles_1l.svg","Fles",120)}</div>`,
-  { sub: "1 l = 100 cl." , tol: 0.02 }),
 
-      ],
-    },
+    // 6 -> 3 (÷2)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 6 personen naar 3 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 3 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", "450", null],
+          ["Limoensap (ml)", "60", null],
+        ]
+      },
+      [225, 30],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 6 → 3 is ÷2." }
+    ),
+
+    // 2 -> 6 (×3) met cl (maar netjes)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Muntsiroop (cl)", "2", null],
+          ["Spuitwater (ml)", "200", null],
+        ]
+      },
+      [6, 600],
+      " ",
+      svgImgSafe("munt.svg","Munt"),
+      { sub: "2 → 6 is ×3." }
+    ),
+
+    // 4 -> 2 (÷2) één ingrediënt
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 4 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Grenadine (ml)", "16", null],
+          ["Appelsap (ml)", "500", null],
+        ]
+      },
+      [8, 250],
+      "ml",
+      svgImgSafe("grenadine.svg","Grenadine"),
+      { sub: "Tip: ÷2." }
+    ),
+
+    // 3 -> 9 (×3)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 3 personen naar 9 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 3 personen",
+        rightLabel: "voor 9 personen",
+        rows: [
+          ["Spuitwater (ml)", "300", null],
+          ["Citroensap (ml)", "15", null],
+        ]
+      },
+      [900, 45],
+      "ml",
+      svgImgSafe("spuitwater.svg","Spuitwater"),
+      { sub: "Tip: 3 → 9 is ×3." }
+    ),
+  ],
+
+  normal: [
+    // 4 -> 6 (×1,5)
+() => qRatioFill("inhoud","ratio_normal",
+  "Mocktailrecept: van 4 personen naar 6 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 4 personen",
+    rightLabel: "voor 6 personen",
+    rows: [
+      ["Sinaasappelsap (ml)", "400", null],
+      ["Spuitwater (ml)", "600", null],
+      ["Grenadine (ml)", "12", null],
+    ]
+  },
+  [600, 900, 18],
+  "ml",
+  svgImgSafe("sinaasappel.svg","Sinaasappel"),
+  { sub: "Tip: 4 → 6 is ×1,5.", tol: 0.05 }
+),
+
+// 2 -> 5 (×2,5)
+() => qRatioFill("inhoud","ratio_normal",
+  "Mocktailrecept: van 2 personen naar 5 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 2 personen",
+    rightLabel: "voor 5 personen",
+    rows: [
+      ["Limoensap (ml)", "20", null],
+      ["Appelsap (ml)", "200", null],
+      ["Spuitwater (ml)", "300", null],
+    ]
+  },
+  [50, 500, 750],
+  "ml",
+  svgImgSafe("cocktail.svg","Mocktail"),
+  { sub: "Tip: 2 → 5 is ×2,5.", tol: 0.05 }
+),
+
+    // 2 -> 5 (×2,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 2 personen naar 5 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 5 personen",
+        rows: [
+          ["Spuitwater (ml)", "200", null],
+          ["Limoensap (ml)", "20", null],
+        ]
+      },
+      [500, 50],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 2 → 5 is ×2,5." , tol: 0.05 }
+    ),
+
+    // 4 -> 6 (×1,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 4 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", "400", null],
+          ["Grenadine (ml)", "12", null],
+        ]
+      },
+      [600, 18],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 4 → 6 is ×1,5." , tol: 0.05 }
+    ),
+
+    // 6 -> 4 (÷1,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 6 personen naar 4 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 4 personen",
+        rows: [
+          ["Spuitwater (ml)", "600", null],
+          ["Citroensap (ml)", "30", null],
+        ]
+      },
+      [400, 20],
+      "ml",
+      svgImgSafe("citroen.svg","Citroen"),
+      { sub: "Tip: 6 → 4 is ÷1,5." , tol: 0.05 }
+    ),
+
+    // dl schaal: 2 -> 6 (×3)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept (dl): van 2 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Appelsap (dl)", "3", null],
+          ["Spuitwater (dl)", "2", null],
+        ]
+      },
+      [9, 6],
+      "dl",
+      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
+      { sub: "Tip: ×3." , tol: 0.02 }
+    ),
+
+    // 3 -> 2 (÷1,5) kleine getallen
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 3 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 3 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Muntsiroop (ml)", "15", null],
+          ["Limoensap (ml)", "30", null],
+        ]
+      },
+      [10, 20],
+      "ml",
+      svgImgSafe("munt.svg","Munt"),
+      { sub: "Tip: 3 → 2 is ÷1,5." , tol: 0.05 }
+    ),
+
+    // 8 -> 3 (÷2,666...) maken we “net” door startwaarden te kiezen die mooi delen
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 8 personen naar 3 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 8 personen",
+        rightLabel: "voor 3 personen",
+        rows: [
+          ["Spuitwater (ml)", "800", null],
+          ["Citroensap (ml)", "40", null],
+        ]
+      },
+      [300, 15],
+      "ml",
+      svgImgSafe("spuitwater.svg","Spuitwater"),
+      { sub: "Tip: deel door 8 en vermenigvuldig met 3." , tol: 0.05 }
+    ),
+
+    // 5 -> 2 (÷2,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 5 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 5 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", "500", null],
+          ["Grenadine (ml)", "20", null],
+        ]
+      },
+      [200, 8],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 5 → 2 is ÷2,5." , tol: 0.05 }
+    ),
+
+    // cl naar ml binnen ratio (een extra laag)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan (let op: cl).",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Limoensap (cl)", "3", null],
+          ["Spuitwater (ml)", "200", null],
+        ]
+      },
+      [9, 600],
+      " ",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: ×3. (En 1 cl = 10 ml, maar hier blijft het in cl.)", tol: 0.05 }
+    ),
+
+    // 4 -> 10 (×2,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 4 personen naar 10 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 10 personen",
+        rows: [
+          ["Appelsap (ml)", "400", null],
+          ["IJsblokjes (aantal)", "8", null],
+        ]
+      },
+      [1000, 20],
+      " ",
+      svgImgSafe("ijsblokjes.svg","Ijs"),
+      { sub: "Tip: 4 → 10 is ×2,5." , tol: 0.05 }
+    ),
+  ],
+
+  hard: [
+    // 3 -> 8 (÷3, ×8)
+() => qRatioFill("inhoud","ratio_hard",
+  "Mocktailrecept: van 3 personen naar 8 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 3 personen",
+    rightLabel: "voor 8 personen",
+    rows: [
+      ["Spuitwater (ml)", "300", null],
+      ["Limoensap (ml)", "30", null],
+      ["Grenadine (ml)", "6", null],
+    ]
+  },
+  [800, 80, 16],
+  "ml",
+  svgImgSafe("cocktail.svg","Mocktail"),
+  { sub: "Tip: eerst naar 1 persoon (÷3), dan ×8.", tol: 0.05 }
+),
+
+// 7 -> 4 (÷7, ×4)
+() => qRatioFill("inhoud","ratio_hard",
+  "Mocktailrecept: van 7 personen naar 4 personen.\nVul de tabel aan.",
+  {
+    leftLabel: "voor 7 personen",
+    rightLabel: "voor 4 personen",
+    rows: [
+      ["Sinaasappelsap (ml)", "700", null],
+      ["Spuitwater (ml)", "350", null],
+      ["Grenadine (ml)", "21", null],
+    ]
+  },
+  [400, 200, 12],
+  "ml",
+  svgImgSafe("sinaasappel.svg","Sinaasappel"),
+  { sub: "Tip: eerst naar 1 persoon (÷7), dan ×4.", tol: 0.05 }
+),
+
+    // 3 -> 8 (×2,666...) met mooie deling
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 3 personen naar 8 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 3 personen",
+        rightLabel: "voor 8 personen",
+        rows: [
+          ["Spuitwater (ml)", "300", null],
+          ["Limoensap (ml)", "30", null],
+        ]
+      },
+      [800, 80],
+      "ml",
+      svgImgSafe("spuitwater.svg","Spuitwater"),
+      { sub: "Tip: eerst naar 1 persoon (÷3), dan naar 8 (×8)." , tol: 0.05 }
+    ),
+
+    // 7 -> 4 (÷1,75) met nette getallen
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 7 personen naar 4 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 7 personen",
+        rightLabel: "voor 4 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", "700", null],
+          ["Grenadine (ml)", "21", null],
+        ]
+      },
+      [400, 12],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: eerst naar 1 persoon (÷7), dan ×4." , tol: 0.05 }
+    ),
+
+    // 9 -> 2 (÷4,5) met kommagetal als uitkomst (ml blijft netjes)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 9 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 9 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Citroensap (ml)", "45", null],
+          ["Spuitwater (ml)", "900", null],
+        ]
+      },
+      [10, 200],
+      "ml",
+      svgImgSafe("citroen.svg","Citroen"),
+      { sub: "Tip: ÷9, dan ×2." , tol: 0.05 }
+    ),
+
+    // dl met kommagetallen (maar overzichtelijk)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept (dl): van 4 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Appelsap (dl)", "5", null],
+          ["Spuitwater (dl)", "3", null],
+        ]
+      },
+      [7.5, 4.5],
+      "dl",
+      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
+      { sub: "Tip: ×1,5." , tol: 0.02 }
+    ),
+
+    // 5 -> 12 (×2,4)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 5 personen naar 12 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 5 personen",
+        rightLabel: "voor 12 personen",
+        rows: [
+          ["Spuitwater (ml)", "500", null],
+          ["Muntsiroop (ml)", "10", null],
+        ]
+      },
+      [1200, 24],
+      "ml",
+      svgImgSafe("munt.svg","Munt"),
+      { sub: "Tip: eerst ÷5, dan ×12." , tol: 0.05 }
+    ),
+
+    // 6 -> 5 (÷1,2) met nette resultaten
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 6 personen naar 5 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 5 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", "600", null],
+          ["Limoensap (ml)", "60", null],
+        ]
+      },
+      [500, 50],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: ÷6, dan ×5." , tol: 0.05 }
+    ),
+
+    // 2 -> 7 (×3,5)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 2 personen naar 7 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 7 personen",
+        rows: [
+          ["Spuitwater (ml)", "200", null],
+          ["Citroensap (ml)", "20", null],
+        ]
+      },
+      [700, 70],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: ×3,5." , tol: 0.05 }
+    ),
+
+    // combinatie: geef één ingrediënt rechts, vraag links (terugrekenen)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: terugrekenen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 10 personen",
+        rows: [
+          ["Spuitwater (ml)", "400", null],
+          ["Grenadine (ml)", null, "25"],
+        ]
+      },
+      [1000, 10],
+      "ml",
+      svgImgSafe("grenadine.svg","Grenadine"),
+      { sub: "Tip: 4 → 10 is ×2,5. Dus ook terug: ÷2,5." , tol: 0.05 }
+    ),
+
+    // nog een “omgekeerd” voorbeeld
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 6 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Appelsap (ml)", "900", null],
+          ["Spuitwater (ml)", "600", null],
+        ]
+      },
+      [300, 200],
+      "ml",
+      svgImgSafe("appel.svg","Appel"),
+      { sub: "Tip: 6 → 2 is ÷3." , tol: 0.05 }
+    ),
+  ],
+},
+
 
     /* =========================
        VRAAGSTUKKEN
        Altijd komma in tekst
     ========================= */
-    story: {
-      easy: [
-        () => qInput("inhoud", "story_easy",
-          "Op de picknicktafel staan 2 flessen van 1,5 l.\nSamen is dat ____ l.", 3, "number", "l",
-          svgImgSafe("picknick.svg", "Picknick"), 0.01),
-        () => qInput("inhoud", "story_easy",
-          "Je vult 3 mokken van 25 cl.\nSamen is dat ____ cl.", 75, "number", "cl",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("mok.svg","Mok")}
-           </div>`, 0.01),
-        () => qInput("inhoud", "story_easy",
-          "Je maakt limonade: 4 glazen van 250 ml.\nSamen is dat ____ ml.", 1000, "number", "ml",
-          svgImgSafe("limonade.svg", "Limonade"), 0.01),
-        () => qInput("inhoud", "story_easy",
-          "In de koelkast staan 6 blikjes van 33 cl.\nSamen is dat ____ cl.", 198, "number", "cl",
-          svgImgSafe("koelkast.svg", "Koelkast"), 0.01),
-() => qInput("inhoud","story_easy",
-  "Oscar drinkt 2 glazen van 20 cl. Hoeveel cl drinkt hij? ____ cl.",
-  40, "number", "cl", svgImgSafe("glas_water.svg", "Glas")),
-() => qInput("inhoud","story_easy",
-  "Ella vult 3 spuiten van 20 ml. Hoeveel ml is dat? ____ ml.",
-  60, "number", "ml", svgImgSafe("spuit_20ml.svg", "Spuit")),
-() => qInput("inhoud","story_easy",
-  "Er gaan 5 lepels van 5 ml in een potje. Hoeveel ml is dat? ____ ml.",
-  25, "number", "ml", svgImgSafe("theelepel_5ml.svg", "Lepel")),
-() => qInput("inhoud","story_easy",
-  "In een fles zit 1,5 l water. Hoeveel ml is dat? ____ ml.",
-  1500, "number", "ml", svgImgSafe("petfles_1_5l.svg", "Fles")),
+story: {
+  easy: [
+    () => qInput("inhoud","story_easy",
+      "Je vult 2 flessen met elk 1,5 l.\nSamen is dat ____ l.", 3, "number", "l",
+      svgImgSafe(SVG.jerrycan, "Flessen"), 0.01),
 
-      ],
-      normal: [
-        () => qInput("inhoud", "story_normal",
-          "Bij een voetbaltoernooi krijgt elke speler 1 bidon van 650 ml.\nEr zijn 12 spelers.\nSamen ____ ml.", 7800, "number", "ml",
-          svgImgSafe("voetbal_toernooi.svg", "Toernooi"), 0.01),
-        () => qInput("inhoud", "story_normal",
-          "Je giet 0,6 l water in een pan.\nHoeveel ml is dat? ____ ml.", 600, "number", "ml",
-          svgImgSafe("sauspan.svg", "Sauspan"), 0.01),
-        () => qInput("inhoud", "story_normal",
-          "Een verfbeker bevat 200 ml verf.\nJe gebruikt 3 bekers.\nSamen ____ ml.", 600, "number", "ml",
-          svgImgSafe("verfbeker.svg", "Verf"), 0.01),
-        () => qInput("inhoud", "story_normal",
-          "Een lijmfles bevat 100 ml.\nJe hebt 5 lijmflessen.\nSamen ____ ml.", 500, "number", "ml",
-          svgImgSafe("lijmfles.svg", "Lijm"), 0.01),
-() => qInput("inhoud","story_normal",
-  "In de soepkeuken wordt 6 l soep verdeeld over kommen van 3 dl. Hoeveel kommen zijn dat? ____ kommen.",
-  20, "number", "kommen", svgImgSafe("soepkeuken.svg", "Soep")),
-() => qInput("inhoud","story_normal",
-  "Een limonadefles bevat 75 cl. Oscar drinkt 3/5 van de fles. Hoeveel cl drinkt hij? ____ cl.",
-  45, "number", "cl", svgImgSafe("limonade.svg", "Limonade")),
-() => qInput("inhoud","story_normal",
-  "Een brik sap is 1 l. Ella schenkt 4 glazen van 20 cl in. Hoeveel cl blijft over? ____ cl.",
-  20, "number", "cl", svgImgSafe("brik_sap_1l.svg", "Brik")),
+    () => qInput("inhoud","story_easy",
+      "Je schenkt 4 glazen van 250 ml.\nSamen is dat ____ ml.", 1000, "number", "ml",
+      svgImgSafe(SVG.spuitwater, "Spuitwater"), 0.01),
 
-      ],
-      hard: [
-        () => qInput("inhoud", "story_hard",
-          "Op camping neem je 2 jerrycans van 10 l mee.\nSamen ____ l.", 20, "number", "l",
-          svgImgSafe("camping.svg", "Camping"), 0.01),
-        () => qInput("inhoud", "story_hard",
-          "In de soepkeuken maak je 3 potten van 4 l.\nSamen ____ l.", 12, "number", "l",
-          svgImgSafe("soepkeuken.svg", "Soepkeuken"), 0.01),
-        () => qInput("inhoud", "story_hard",
-          "In de supermarkt koop je 8 flesjes van 0,5 l.\nSamen ____ l.", 4, "number", "l",
-          svgImgSafe("supermarkt_rek.svg", "Rek"), 0.01),
-        () => qInput("inhoud", "story_hard",
-          "Aan de drinkfontein vul je 5 drinkbussen van 500 ml.\nSamen ____ l.", 2.5, "number", "l",
-          svgImgSafe("drinkfontein.svg", "Drinkfontein"), 0.01),
-() => qInput("inhoud","story_hard",
-  "Oscar maakt sportdrank: 1,2 l water + 35 cl siroop. Hoeveel ml is dat samen? ____ ml.",
-  1550, "number", "ml", svgImgSafe("sportbidon.svg", "Bidon")),
-() => qInput("inhoud","story_hard",
-  "In de campingpot zit 2,5 l water. Ella giet er nog 750 ml bij. Hoeveel liter is dat samen? ____ l.",
-  3.25, "number", "l", svgImgSafe("camping.svg", "Camping"), 0.02),
-() => qInput("inhoud","story_hard",
-  "Een vat bevat 20 l. Oscar tapt 8 keer 7,5 dl. Hoeveel liter zit er nog in het vat? ____ l.",
-  14, "number", "l", svgImgSafe("vat_20l.svg", "Vat"), 0.02),
+    () => qInput("inhoud","story_easy",
+      "In een brik zit 1 l melk.\nHoeveel ml is dat? ____ ml.", 1000, "number", "ml",
+      svgImgSafe(SVG.brik, "Brik"), 0.01),
 
-      ],
-    },
+    () => qInput("inhoud","story_easy",
+      "Je gebruikt 6 eetlepels van 15 ml.\nSamen is dat ____ ml.", 90, "number", "ml",
+      svgImgSafe(SVG.lepel, "Lepel"), 0.01),
+
+    () => qInput("inhoud","story_easy",
+      "Een spuitje bevat 20 ml.\nJe vult er 3.\nSamen ____ ml.", 60, "number", "ml",
+      svgImgSafe(SVG.spuit, "Spuit"), 0.01),
+
+    () => qInput("inhoud","story_easy",
+      "Een parfumflesje is 50 ml.\nJe hebt er 2.\nSamen ____ ml.", 100, "number", "ml",
+      svgImgSafe(SVG.parfum, "Parfum"), 0.01),
+
+    () => qInput("inhoud","story_easy",
+      "Een shampoofles bevat 400 ml.\nHoeveel liter is dat? ____ l.", 0.4, "number", "l",
+      svgImgSafe(SVG.shampoo, "Shampoo"), 0.02),
+
+    () => qInput("inhoud","story_easy",
+      "Een emmer bevat 10 l.\nHoeveel dl is dat? ____ dl.", 100, "number", "dl",
+      svgImgSafe(SVG.emmer, "Emmer"), 0.02),
+
+    () => qInput("inhoud","story_easy",
+      "Je giet 500 ml water in een kookpot.\nHoeveel cl is dat? ____ cl.", 50, "number", "cl",
+      svgImgSafe(SVG.kookpot, "Kookpot"), 0.01),
+
+    () => qInput("inhoud","story_easy",
+      "Je vult een gieter met 5 l.\nHoeveel ml is dat? ____ ml.", 5000, "number", "ml",
+      svgImgSafe(SVG.gieter, "Gieter"), 0.01),
+  ],
+
+  normal: [
+    () => qInput("inhoud","story_normal",
+      "Je kookt soep: je giet 0,6 l water in een pan.\nHoeveel ml is dat? ____ ml.", 600, "number", "ml",
+      svgImgSafe(SVG.sauspan, "Sauspan"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "In een aquarium zit 60 l water.\nJe vervangt 15 l.\nHoeveel l blijft er? ____ l.", 45, "number", "l",
+      svgImgSafe(SVG.aquarium, "Aquarium"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Een jerrycan bevat 5 l.\nJe vult flesjes van 250 ml.\nHoeveel flesjes kan je vullen? ____", 20, "number", "flesjes",
+      svgImgSafe(SVG.jerrycan, "Jerrycan"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "In de badkuip zit 150 l water.\nHoeveel dl is dat? ____ dl.", 1500, "number", "dl",
+      svgImgSafe(SVG.badkuip, "Badkuip"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Je maakt limonade: 75 cl spuitwater.\nHoeveel ml is dat? ____ ml.", 750, "number", "ml",
+      svgImgSafe(SVG.spuitwater, "Spuitwater"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Je gebruikt 3 verfpotten van 200 ml.\nSamen ____ ml.", 600, "number", "ml",
+      svgImgSafe(SVG.verfemmer, "Verf"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Een koffiekannetje bevat 1,2 l.\nHoeveel cl is dat? ____ cl.", 120, "number", "cl",
+      svgImgSafe(SVG.koffiekannetje, "Koffie"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Een thermos bevat 0,75 l.\nHoeveel ml is dat? ____ ml.", 750, "number", "ml",
+      svgImgSafe(SVG.thermos ?? SVG.koffiekannetje, "Thermos"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Je hebt 1 l melk (= 100 cl).\nJe schenkt 4 keer 20 cl.\nHoeveel cl blijft over? ____ cl.", 20, "number", "cl",
+      svgImgSafe(SVG.brik, "Brik"), 0.01),
+
+    () => qInput("inhoud","story_normal",
+      "Je vult 6 bekertjes van 3 dl uit een pot van 2 l.\nHoeveel ml heb je te weinig? ____ ml.",  (6*300-2000), "number", "ml",
+      svgImgSafe(SVG.kookpot, "Pot"), 0.01),
+  ],
+
+  hard: [
+    () => qInput("inhoud","story_hard",
+      "Oscar mixt: 1,2 l water + 35 cl siroop.\nHoeveel ml is dat samen? ____ ml.", 1550, "number", "ml",
+      svgImgSafe(SVG.spuitwater, "Mix"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "In een kookpot zit 2,5 l water.\nJe giet er 750 ml bij.\nHoeveel liter is dat samen? ____ l.", 3.25, "number", "l",
+      svgImgSafe(SVG.kookpot, "Kookpot"), 0.02),
+
+    () => qInput("inhoud","story_hard",
+      "Een jerrycan bevat 5 l (= 5000 ml).\nJe vult 6 drinkbussen van 650 ml.\nHoeveel ml blijft over? ____ ml.", 1100, "number", "ml",
+      svgImgSafe(SVG.jerrycan, "Jerrycan"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "In een maatbeker zit 8 dl water.\nJe giet er 25 cl bij.\nHoeveel ml is dat samen? ____ ml.", 1050, "number", "ml",
+      svgImgSafe(SVG.koffiekannetje, "Maatbeker"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "Een badkuip bevat 150 l.\nJe laat 35 l weglopen.\nHoeveel cl blijft er? ____ cl.", 11500, "number", "cl",
+      svgImgSafe(SVG.badkuip, "Badkuip"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "Een aquarium heeft 60 l.\nJe voegt 7,5 dl bij.\nHoeveel ml is dat totaal? ____ ml.", 60750, "number", "ml",
+      svgImgSafe(SVG.aquarium, "Aquarium"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "Je hebt 2 l soep.\nJe schept kommen van 25 cl.\nHoeveel volle kommen kan je scheppen? ____ kommen.", 8, "number", "kommen",
+      svgImgSafe(SVG.bowl ?? SVG.kookpot, "Soep"), 0.01),
+
+    () => qInput("inhoud","story_hard",
+      "Een spuitbus bevat 400 ml.\nJe gebruikt 35 cl.\nHoeveel ml blijft over? ____ ml.", 50, "number", "ml",
+      svgImgSafe(SVG.spuitbus, "Spuitbus"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "Een oogdruppelflesje bevat 10 ml.\nJe geeft 8 keer 5 druppels van 0,05 ml.\nHoeveel ml blijft over? ____ ml.", 8, "number", "ml",
+      svgImgSafe(SVG.oogdruppel, "Oogdruppels"), 0.05),
+
+    () => qInput("inhoud","story_hard",
+      "Je hebt 1,5 l limonade.\nJe vult bekertjes van 12,5 cl.\nHoeveel bekertjes kan je vullen? ____ bekertjes.", 12, "number", "bekertjes",
+      svgImgSafe(SVG.spuitwater, "Limonade"), 0.05),
+  ],
+},
+
 
     /* =========================
        SCHATTEN
     ========================= */
-    schatting: {
-      easy: [
-        () => qMc("inhoud", "schatting_easy",
-          "Welke schatting past het best bij een badkuip?",
-          ["15 l", "150 l", "1500 l"], "150 l", svgImgSafe("badkuip.svg","Badkuip")),
-        () => qMc("inhoud", "schatting_easy",
-          "Welke schatting past het best bij een aquarium?",
-          ["6 l", "60 l", "600 l"], "60 l", svgImgSafe("aquarium.svg","Aquarium")),
-        () => qMc("inhoud", "schatting_easy",
-          "Welke schatting past het best bij een waterkoker?",
-          ["0,15 l", "1,5 l", "15 l"], "1,5 l", svgImgSafe("waterkoker.svg","Waterkoker")),
-        () => qMc("inhoud", "schatting_easy",
-          "Welke schatting past het best bij een koffiemachine-reservoir?",
-          ["0,1 l", "1 l", "10 l"], "1 l", svgImgSafe("koffiemachine.svg","Koffiemachine")),
-() => qMc("inhoud","schatting_easy",
-  "Schat: hoeveel past er in een waterkoker?",
-  ["0,2 l","1,7 l","20 l"], "1,7 l", svgImgSafe("waterkoker.svg", "Waterkoker")),
-() => qMc("inhoud","schatting_easy",
-  "Schat: hoeveel past er in een glas water?",
-  ["20 cl","2 l","200 l"], "20 cl", svgImgSafe("glas_water.svg", "Glas")),
-() => qMc("inhoud","schatting_easy",
-  "Schat: hoeveel is een eetlepel?",
-  ["15 ml","15 cl","15 l"], "15 ml", svgImgSafe("eetlepel_15ml.svg", "Eetlepel")),
-() => qMc("inhoud","schatting_easy",
-  "Schat: hoeveel past er in een waterzak?",
-  ["2 l","20 cl","200 l"], "2 l", svgImgSafe("waterzak_2l.svg", "Waterzak")),
+schatting: {
+  easy: [
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een badkuip?",
+      ["15 l","150 l","1500 l"], "150 l",
+      svgImgSafe("bathtub-bath-svgrepo-com.svg","Badkuip")),
 
-      ],
-      normal: [
-        () => qMc("inhoud", "schatting_normal",
-          "Welke schatting past het best bij een klein opblaaszwembad?",
-          ["80 l", "800 l", "8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg","Zwembadje")),
-        () => qMc("inhoud", "schatting_normal",
-          "Welke is het meest realistisch?",
-          ["Een drinkyoghurt: 2 l", "Een drinkyoghurt: 200 ml", "Een drinkyoghurt: 20 ml"], "Een drinkyoghurt: 200 ml",
-          svgImgSafe("yoghurt_drink_200ml.svg","Drinkyoghurt")),
-        () => qMc("inhoud", "schatting_normal",
-          "Welke is het meest realistisch?",
-          ["Handgel: 250 ml", "Handgel: 25 l", "Handgel: 2 ml"], "Handgel: 250 ml", svgImgSafe("handgel.svg","Handgel")),
-        () => qMc("inhoud", "schatting_normal",
-          "Welke is het meest realistisch?",
-          ["Shampoo: 400 ml", "Shampoo: 4 l", "Shampoo: 40 ml"], "Shampoo: 400 ml", svgImgSafe("shampoo_fles.svg","Shampoo")),
-() => qMc("inhoud","schatting_normal",
-  "Schat: hoeveel water zit er in een aquarium?",
-  ["6 l","60 l","600 l"], "60 l", svgImgSafe("aquarium.svg", "Aquarium")),
-() => qMc("inhoud","schatting_normal",
-  "Schat: hoeveel frisdrank zit er in een grote fles?",
-  ["1,5 l","15 l","150 ml"], "1,5 l", svgImgSafe("petfles_1_5l.svg", "Fles")),
-() => qMc("inhoud","schatting_normal",
-  "Schat: hoeveel past er in een verfbeker?",
-  ["10 l","1 dl","10 ml"], "10 l", svgImgSafe("verfbeker.svg", "Verf")),
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een aquarium?",
+      ["6 l","60 l","600 l"], "60 l",
+      svgImgSafe("aquarium-fish-svgrepo-com.svg","Aquarium")),
 
-      ],
-      hard: [
-        () => qMc("inhoud", "schatting_hard",
-          "Welke is het meest realistisch?",
-          ["Een vat: 50 cl", "Een vat: 50 l", "Een vat: 50 ml"], "Een vat: 50 l", svgImgSafe("vat_50l.svg","Vat")),
-        () => qMc("inhoud", "schatting_hard",
-          "Welke is het meest realistisch?",
-          ["Een jerrycan: 10 l", "Een jerrycan: 10 ml", "Een jerrycan: 10 cl"], "Een jerrycan: 10 l", svgImgSafe("jerrycan_10l.svg","Jerrycan")),
-        () => qMc("inhoud", "schatting_hard",
-          "Welke is het meest realistisch?",
-          ["Een spuit: 20 ml", "Een spuit: 2 l", "Een spuit: 200 cl"], "Een spuit: 20 ml", svgImgSafe("spuit_20ml.svg","Spuit")),
-        () => qMc("inhoud", "schatting_hard",
-          "Welke is het meest realistisch?",
-          ["Een waterzak: 2 l", "Een waterzak: 2 ml", "Een waterzak: 20 l"], "Een waterzak: 2 l", svgImgSafe("waterzak_2l.svg","Waterzak")),
-() => qMc("inhoud","schatting_hard",
-  "Schat: hoeveel water past er in een badkuip?",
-  ["15 l","150 l","1500 l"], "150 l", svgImgSafe("badkuip.svg", "Badkuip")),
-() => qMc("inhoud","schatting_hard",
-  "Schat: hoeveel water past er in een kleine opblaas-zwembad?",
-  ["80 l","800 l","8000 l"], "800 l", svgImgSafe("zwembad_opblaas.svg", "Zwembad")),
-() => qMc("inhoud","schatting_hard",
-  "Schat: hoeveel water past er in een drinkfonteinreservoir?",
-  ["5 l","50 l","500 l"], "50 l", svgImgSafe("drinkfontein.svg", "Drinkfontein")),
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een waterkoker?",
+      ["0,15 l","1,5 l","15 l"], "1,5 l",
+      svgImgSafe("kettle-svgrepo-com.svg","Waterkoker")),
 
-      ],
-    },
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een thermos?",
+      ["0,2 l","1 l","10 l"], "1 l",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Thermos")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een eetlepel?",
+      ["15 ml","15 cl","15 l"], "15 ml",
+      svgImgSafe("spoon-svgrepo-com.svg","Lepel")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een spuitje?",
+      ["2 ml","20 ml","2 l"], "20 ml",
+      svgImgSafe("syringe-svgrepo-com.svg","Spuit")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een oogdruppelflesje?",
+      ["1 ml","10 ml","1 l"], "10 ml",
+      svgImgSafe("eye-drop-solid-svgrepo-com.svg","Oogdruppels")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een brik melk?",
+      ["1 cl","1 l","10 l"], "1 l",
+      svgImgSafe("milk-carton-svgrepo-com.svg","Brik")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een spuitbus?",
+      ["40 ml","400 ml","40 l"], "400 ml",
+      svgImgSafe("spray-can-svgrepo-com.svg","Spuitbus")),
+
+    () => qMc("inhoud","schatting_easy",
+      "Welke schatting past het best bij een emmer?",
+      ["1 l","10 l","100 l"], "10 l",
+      svgImgSafe("bucket-svgrepo-com.svg","Emmer")),
+  ],
+
+  normal: [
+    () => qMc("inhoud","schatting_normal",
+      "Welke schatting past het best bij een klein opblaaszwembad?",
+      ["80 l","800 l","8000 l"], "800 l",
+      svgImgSafe("bathtub-bath-svgrepo-com.svg","Zwembadje (denk badkuip-formaat)")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Een drinkyoghurt: 2 l","Een drinkyoghurt: 200 ml","Een drinkyoghurt: 20 ml"],
+      "Een drinkyoghurt: 200 ml",
+      svgImgSafe("can-juice-2-svgrepo-com.svg","Drankje")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Shampoo: 400 ml","Shampoo: 4 l","Shampoo: 40 ml"],
+      "Shampoo: 400 ml",
+      svgImgSafe("shampoo-svgrepo-com.svg","Shampoo")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Nagellak: 5 ml","Nagellak: 50 ml","Nagellak: 0,5 l"],
+      "Nagellak: 5 ml",
+      svgImgSafe("nail-polish-beauty-svgrepo-com.svg","Nagellak")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Parfum: 50 ml","Parfum: 5 l","Parfum: 5 ml"],
+      "Parfum: 50 ml",
+      svgImgSafe("perfume-bottle-with-heart-svgrepo-com.svg","Parfum")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Schat: hoeveel past er in een verfbeker?",
+      ["200 ml","2 l","20 l"], "200 ml",
+      svgImgSafe("paint-bucket-bucket-svgrepo-com.svg","Verf")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Schat: hoeveel water past er in een gieter?",
+      ["0,5 l","5 l","50 l"], "5 l",
+      svgImgSafe("watering-can-with-water-drops-svgrepo-com.svg","Gieter")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Schat: hoeveel past er in een jerrycan (klein)?",
+      ["1 l","5 l","50 l"], "5 l",
+      svgImgSafe("jerrycan-svgrepo-com.svg","Jerrycan")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Een espressokopje: 50 ml","Een espressokopje: 50 cl","Een espressokopje: 5 l"],
+      "Een espressokopje: 50 ml",
+      svgImgSafe("espresso-cup-3-svgrepo-com.svg","Espresso")),
+
+    () => qMc("inhoud","schatting_normal",
+      "Welke is het meest realistisch?",
+      ["Een koffiekan: 1,2 l","Een koffiekan: 12 l","Een koffiekan: 12 ml"],
+      "Een koffiekan: 1,2 l",
+      svgImgSafe("coffee-pot-svgrepo-com.svg","Koffiekan")),
+  ],
+
+  hard: [
+    () => qMc("inhoud","schatting_hard",
+      "Welke is het meest realistisch?",
+      ["Een jerrycan: 10 l","Een jerrycan: 10 ml","Een jerrycan: 10 cl"],
+      "Een jerrycan: 10 l",
+      svgImgSafe("jerrycan-svgrepo-com.svg","Jerrycan")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Welke is het meest realistisch?",
+      ["Een spuit: 20 ml","Een spuit: 2 l","Een spuit: 200 cl"],
+      "Een spuit: 20 ml",
+      svgImgSafe("syringe-svgrepo-com.svg","Spuit")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Welke is het meest realistisch?",
+      ["Een thermos: 0,75 l","Een thermos: 7,5 l","Een thermos: 75 ml"],
+      "Een thermos: 0,75 l",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Thermos")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Welke is het meest realistisch?",
+      ["Een theepot: 1 l","Een theepot: 10 l","Een theepot: 10 ml"],
+      "Een theepot: 1 l",
+      svgImgSafe("teapot-svgrepo-com.svg","Theepot")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Welke is het meest realistisch?",
+      ["Een kookpot: 3 l","Een kookpot: 30 l","Een kookpot: 0,3 l"],
+      "Een kookpot: 3 l",
+      svgImgSafe("pot-svgrepo-com.svg","Kookpot")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Schat: hoeveel past er in een sauspan?",
+      ["0,5 l","2 l","5 l"], "2 l",
+      svgImgSafe("saucepan-cook-svgrepo-com.svg","Sauspan")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Schat: hoeveel vloeistof zit er in een spraybus (spuitbus)?",
+      ["150 ml","400 ml","900 ml"], "400 ml",
+      svgImgSafe("spray-can-svgrepo-com.svg","Spuitbus")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Schat: hoeveel past er in een kleine medicijnfles (vial)?",
+      ["5 ml","50 ml","0,5 l"], "50 ml",
+      svgImgSafe("vial-svgrepo-com.svg","Vial")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Schat: hoeveel zit er in een fles spuitwater?",
+      ["75 ml","0,75 l","7,5 l"], "0,75 l",
+      svgImgSafe("soda-water-svgrepo-com.svg","Spuitwater")),
+
+    () => qMc("inhoud","schatting_hard",
+      "Schat: hoeveel is een grote vuilbak ongeveer?",
+      ["15 l","150 l","1500 l"], "150 l",
+      svgImgSafe("wastebasket-svgrepo-com.svg","Vuilbak")),
+  ],
+},
+
 
     /* =========================
        MASS (water: 1 l ≈ 1 kg)
@@ -885,167 +1391,317 @@ const BANK = {
     /* =========================
        COMPARE
     ========================= */
-    compare: {
-      easy: [
-        () => qMc("inhoud", "compare_easy", "Wat is meer?",
-          ["500 ml", "2 l"], "2 l",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("drinkbus.svg","500 ml")}
-           </div>`),
-        () => qMc("inhoud", "compare_easy", "Wat is meer?",
-          ["75 cl", "500 ml"], "75 cl",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("sportfles.svg","75 cl")}
-           </div>`),
-        () => qInput("inhoud", "compare_easy", "Verschil: 2 l − 500 ml = ____ ml", 1500, "number", "ml",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("kan_water.svg","2 l")}
-             ${svgImgSafe("petfles_500ml.svg","500 ml")}
-           </div>`, 0.01),
-        () => qInput("inhoud", "compare_easy", "Verschil: 1 l − 25 cl = ____ cl", 75, "number", "cl",
-          `<div style="display:grid;gap:10px;justify-items:center">
-             ${svgImgSafe("petfles_1l.svg","1 l")}
-             ${svgImgSafe("glas_water.svg","25 cl")}
-           </div>`, 0.01),
-        () => qMc("inhoud","compare_easy",
-          "Wat is meer?",
-          ["1 l","85 cl"], "1 l", svgImgSafe("brik_melk_1l.svg", "Brik")),
-        () => qMc("inhoud","compare_easy",
-          "Wat is meer?",
-          ["250 ml","30 cl"], "30 cl", svgImgSafe("glas_water.svg", "Glas")),
-        () => qInput("inhoud","compare_easy",
-          "Verschil:\n750 ml − 25 cl = ____ ml.",
-          500, "number", "ml", svgImgSafe("sportfles.svg", "Fles")),
-        () => qInput("inhoud","compare_easy",
-          "Som:\n200 ml + 3 dl = ____ ml.",
-          500, "number", "ml", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
+compare: {
+  easy: [
+    () => qMc("inhoud","compare_easy","Wat is meer?",
+      ["500 ml","2 l"], "2 l",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("drinkbus.svg","500 ml")}
+       </div>`),
 
-      ],
-      normal: [
-        () => qMc("inhoud", "compare_normal", "Wat is het kleinste?",
-          ["0,75 l", "80 cl", "700 ml"], "700 ml",
-          svgImgSafe("supermarkt_rek.svg","Vergelijk")),
-        () => qInput("inhoud", "compare_normal",
-          "Som: 350 ml + 0,4 l = ____ ml", 750, "number", "ml",
-          svgImgSafe("limonade.svg","Som"), 0.01),
-        () => qInput("inhoud", "compare_normal",
-          "Som: 2 dl + 15 cl = ____ cl", 35, "number", "cl",
-          svgImgSafe("soepkom.svg","Som"), 0.01),
-        () => qInput("inhoud", "compare_normal",
-          "Noor heeft 0,9 l.\nYassin heeft 8,5 dl.\nNoor heeft ____ ml meer.", 50, "number", "ml",
-          svgImgSafe("drinkfontein.svg","Flessen"), 0.01),
-        () => qInput("inhoud","compare_normal",
-          "Som:\n1,2 l + 35 cl = ____ ml.",
-          1550, "number", "ml", svgImgSafe("sportbidon.svg", "Bidon")),
-        () => qMc("inhoud","compare_normal",
-          "Wat is het grootste?",
-          ["0,6 l","65 cl","550 ml"], "65 cl", svgImgSafe("thermos.svg", "Thermos")),
-        () => qInput("inhoud","compare_normal",
-          "Verschil:\n1,8 l − 9 dl = ____ ml.",
-          900, "number", "ml", svgImgSafe("petfles_1_5l.svg", "Fles")),
+    () => qMc("inhoud","compare_easy","Wat is meer?",
+      ["75 cl","500 ml"], "75 cl",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("sportfles.svg","75 cl")}
+       </div>`),
 
-      ],
-      hard: [
-        () => qInput("inhoud", "compare_hard",
-          "Verschil: 1,75 l − 650 ml = ____ ml", 1100, "number", "ml",
-          svgImgSafe("sportbidon.svg","Verschil"), 0.01),
-        () => qInput("inhoud", "compare_hard",
-          "Som: 0,8 l + 2 dl + 35 cl = ____ ml", 1350, "number", "ml",
-          svgImgSafe("koelkast.svg","Som"), 0.01),
-        () => qMc("inhoud", "compare_hard",
-          "Wat is het grootste?", ["12 dl", "1,05 l", "980 ml"], "12 dl",
-          svgImgSafe("supermarkt_rek.svg","Grootste")),
-        () => qInput("inhoud", "compare_hard",
-          "Er zijn 9 siroopflessen van 100 ml.\nSamen ____ ml.", 900, "number", "ml",
-          svgImgSafe("medicijnsiroop.svg","Siroop"), 0.01),
-        () => qInput("inhoud","compare_hard",
-          "Som:\n1,25 l + 750 ml + 8 dl = ____ ml.",
-          2800, "number", "ml", svgImgSafe("jerrycan_5l.svg", "Jerrycan")),
-        () => qInput("inhoud","compare_hard",
-          "Verschil:\n2,4 l − 1350 ml = ____ cl.",
-          105, "number", "cl", svgImgSafe("kookpot.svg", "Pot")),
-        () => qMc("inhoud","compare_hard",
-          "Wat is het kleinste?",
-          ["0,95 l","9,2 dl","900 ml"], "900 ml", svgImgSafe("glas_water.svg", "Glas")),
+    () => qInput("inhoud","compare_easy","Verschil: 2 l − 500 ml = ____ ml",
+      1500, "number", "ml",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("kan_water.svg","2 l")}
+         ${svgImgSafe("petfles_500ml.svg","500 ml")}
+       </div>`, 0.01),
 
-      ],
-    },
+    () => qInput("inhoud","compare_easy","Verschil: 1 l − 25 cl = ____ cl",
+      75, "number", "cl",
+      `<div style="display:grid;gap:10px;justify-items:center">
+         ${svgImgSafe("petfles_1l.svg","1 l")}
+         ${svgImgSafe("glas_water.svg","25 cl")}
+       </div>`, 0.01),
+
+    () => qMc("inhoud","compare_easy","Wat is meer?",
+      ["1 l","85 cl"], "1 l",
+      svgImgSafe("brik_melk_1l.svg","Brik")),
+
+    () => qMc("inhoud","compare_easy","Wat is meer?",
+      ["250 ml","30 cl"], "30 cl",
+      svgImgSafe("glas_water.svg","Glas")),
+
+    () => qInput("inhoud","compare_easy",
+      "Verschil:\n750 ml − 25 cl = ____ ml.",
+      500, "number", "ml", svgImgSafe("sportfles.svg","Fles"), 0.01),
+
+    () => qInput("inhoud","compare_easy",
+      "Som:\n200 ml + 3 dl = ____ ml.",
+      500, "number", "ml", svgImgSafe("maatbeker_dl.svg","Maatbeker"), 0.01),
+
+    // +1 (easy) duidelijke vergelijking
+    () => qMc("inhoud","compare_easy","Wat is meer?",
+      ["4 dl","350 ml"], "4 dl",
+      svgImgSafe("maatbeker_dl.svg","Maatbeker")),
+
+    // +1 (easy) simpel verschil met cl->ml
+    () => qInput("inhoud","compare_easy",
+      "Verschil:\n60 cl − 400 ml = ____ ml.",
+      200, "number", "ml", svgImgSafe("limonade.svg","Fles"), 0.01),
+  ],
+
+  normal: [
+    () => qMc("inhoud","compare_normal","Wat is het kleinste?",
+      ["0,75 l","80 cl","700 ml"], "700 ml",
+      svgImgSafe("supermarkt_rek.svg","Vergelijk")),
+
+    () => qInput("inhoud","compare_normal",
+      "Som: 350 ml + 0,4 l = ____ ml",
+      750, "number", "ml", svgImgSafe("limonade.svg","Som"), 0.01),
+
+    () => qInput("inhoud","compare_normal",
+      "Som: 2 dl + 15 cl = ____ cl",
+      35, "number", "cl", svgImgSafe("soepkom.svg","Som"), 0.01),
+
+    () => qInput("inhoud","compare_normal",
+      "Noor heeft 0,9 l.\nYassin heeft 8,5 dl.\nNoor heeft ____ ml meer.",
+      50, "number", "ml", svgImgSafe("drinkfontein.svg","Flessen"), 0.01),
+
+    () => qInput("inhoud","compare_normal",
+      "Som:\n1,2 l + 35 cl = ____ ml.",
+      1550, "number", "ml", svgImgSafe("sportbidon.svg","Bidon"), 0.01),
+
+    () => qMc("inhoud","compare_normal","Wat is het grootste?",
+      ["0,6 l","65 cl","550 ml"], "65 cl",
+      svgImgSafe("thermos.svg","Thermos")),
+
+    () => qInput("inhoud","compare_normal",
+      "Verschil:\n1,8 l − 9 dl = ____ ml.",
+      900, "number", "ml", svgImgSafe("petfles_1_5l.svg","Fles"), 0.01),
+
+    // +1 normal: kleinste met 3 opties, dichte distractors
+    () => qMc("inhoud","compare_normal","Wat is het kleinste?",
+      ["45 cl","0,5 l","480 ml"], "45 cl",
+      svgImgSafe("glas_water.svg","Vergelijk")),
+
+    // +1 normal: som met cl en ml, antwoord in ml
+    () => qInput("inhoud","compare_normal",
+      "Som:\n250 ml + 30 cl = ____ ml.",
+      550, "number", "ml", svgImgSafe("brik_sap_1l.svg","Brik"), 0.01),
+
+    // +1 normal: verschil met l en cl, antwoord in cl
+    () => qInput("inhoud","compare_normal",
+      "Verschil:\n2 l − 75 cl = ____ cl.",
+      125, "number", "cl", svgImgSafe("kan_water.svg","Kan"), 0.01),
+  ],
+
+  hard: [
+    () => qInput("inhoud","compare_hard",
+      "Verschil: 1,75 l − 650 ml = ____ ml",
+      1100, "number", "ml", svgImgSafe("sportbidon.svg","Verschil"), 0.01),
+
+    () => qInput("inhoud","compare_hard",
+      "Som: 0,8 l + 2 dl + 35 cl = ____ ml",
+      1350, "number", "ml", svgImgSafe("koelkast.svg","Som"), 0.01),
+
+    () => qMc("inhoud","compare_hard",
+      "Wat is het grootste?",
+      ["12 dl","1,05 l","980 ml"], "12 dl",
+      svgImgSafe("supermarkt_rek.svg","Grootste")),
+
+    () => qInput("inhoud","compare_hard",
+      "Er zijn 9 siroopflessen van 100 ml.\nSamen ____ ml.",
+      900, "number", "ml", svgImgSafe("medicijnsiroop.svg","Siroop"), 0.01),
+
+    () => qInput("inhoud","compare_hard",
+      "Som:\n1,25 l + 750 ml + 8 dl = ____ ml.",
+      2800, "number", "ml", svgImgSafe("jerrycan_5l.svg","Jerrycan"), 0.01),
+
+    () => qInput("inhoud","compare_hard",
+      "Verschil:\n2,4 l − 1350 ml = ____ cl.",
+      105, "number", "cl", svgImgSafe("kookpot.svg","Pot"), 0.02),
+
+    () => qMc("inhoud","compare_hard",
+      "Wat is het kleinste?",
+      ["0,95 l","9,2 dl","900 ml"], "900 ml",
+      svgImgSafe("glas_water.svg","Glas")),
+
+    // +1 hard: drie units, antwoord in dl (extra omzetten)
+    () => qInput("inhoud","compare_hard",
+      "Som:\n1,6 l + 250 ml = ____ dl.",
+      18.5, "number", "dl", svgImgSafe("thermos.svg","Thermos"), 0.05),
+
+    // +1 hard: verschil met dl en ml, antwoord in ml
+    () => qInput("inhoud","compare_hard",
+      "Verschil:\n15 dl − 850 ml = ____ ml.",
+      650, "number", "ml", svgImgSafe("maatbeker_dl.svg","Maatbeker"), 0.05),
+
+    // +1 hard: kleinste met dichte keuzes
+    () => qMc("inhoud","compare_hard",
+      "Wat is het kleinste?",
+      ["1,02 l","10 dl","980 ml"], "980 ml",
+      svgImgSafe("petfles_1l.svg","Vergelijk")),
+  ],
+},
+
 
     /* =========================
        ERROR
     ========================= */
-    error: {
-      easy: [
-        () => qMc("inhoud", "error_easy", "Iemand zegt: 1 l = 100 ml.\nKlopt dat?", ["ja", "nee"], "nee",
-          svgImgSafe("boog_gedeeld.svg", "Fout?")),
-        () => qMc("inhoud", "error_easy", "Iemand zegt: 1 l = 1000 ml.\nKlopt dat?", ["ja", "nee"], "ja",
-          svgImgSafe("boog_maal.svg", "Juist?")),
-        () => qMc("inhoud", "error_easy", "Iemand zegt: 1 dl = 10 ml.\nKlopt dat?", ["ja", "nee"], "nee",
-          svgImgSafe("pijl_gedeeld.svg", "Fout?")),
-        () => qMc("inhoud", "error_easy", "Iemand zegt: 1 dl = 100 ml.\nKlopt dat?", ["ja", "nee"], "ja",
-          svgImgSafe("pijl_maal.svg", "Juist?")),
-        () => qMc("inhoud","error_easy",
-          "Iemand zegt: 1 cl = 100 ml.\nKlopt dat?",
-          ["ja","nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
-        () => qMc("inhoud","error_easy",
-          "Iemand zegt: 5 dl = 0,5 l.\nKlopt dat?",
-          ["ja","nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
-        () => qMc("inhoud","error_easy",
-          "Iemand zegt: 250 ml = 2,5 cl.\nKlopt dat?",
-          ["ja","nee"], "nee", svgImgSafe("pijl_maal.svg", "")),
-        () => qMc("inhoud","error_easy",
-          "Iemand zegt: 10 dl = 1 l.\nKlopt dat?",
-          ["ja","nee"], "ja", svgImgSafe("pijl_gedeeld.svg", "")),
+error: {
+  easy: [
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 l = 100 ml.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("kettle-svgrepo-com.svg","Waterkoker")),
 
-      ],
-      normal: [
-        () => qMc("inhoud", "error_normal", "Welke is juist?",
-          ["1 cl = 100 ml", "1 cl = 10 ml"], "1 cl = 10 ml",
-          svgImgSafe("boog_gedeeld.svg", "Kies")),
-        () => qMc("inhoud", "error_normal", "Welke is juist?",
-          ["1 l = 10 dl", "1 l = 100 dl"], "1 l = 10 dl",
-          svgImgSafe("boog_maal.svg", "Kies")),
-        () => qMc("inhoud", "error_normal", "Welke is fout?",
-          ["1 l = 100 cl", "1 l = 1000 ml", "1 l = 100 dl"], "1 l = 100 dl",
-          svgImgSafe("supermarkt_rek.svg", "Eén is fout")),
-        () => qMc("inhoud", "error_normal", "Welke is fout?",
-          ["1 dl = 0,1 l", "1 cl = 0,1 l", "1 ml = 0,001 l"], "1 cl = 0,1 l",
-          svgImgSafe("supermarkt_rek.svg", "Eén is fout")),
-() => qMc("inhoud","error_normal",
-  "Welke is juist?",
-  ["1 dl = 10 cl","1 dl = 100 cl"],
-  "1 dl = 10 cl", svgImgSafe("maatbeker_dl.svg", "Maatbeker")),
-() => qMc("inhoud","error_normal",
-  "Welke uitspraak is fout?",
-  ["1 l = 1000 ml","1 l = 100 cl","1 l = 10 000 ml"],
-  "1 l = 10 000 ml", svgImgSafe("brik_melk_1l.svg", "Brik")),
-() => qMc("inhoud","error_normal",
-  "Welke is juist?",
-  ["1 cl = 10 ml","1 cl = 100 ml"],
-  "1 cl = 10 ml", svgImgSafe("wijnglas.svg", "Glas")),
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 l = 1000 ml.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Thermos")),
 
-      ],
-      hard: [
-        () => qMc("inhoud", "error_hard", "Iemand rekent: 0,8 l = 80 ml.\nKlopt dit?", ["ja", "nee"], "nee",
-          svgImgSafe("pijl_gedeeld.svg", "Fout?")),
-        () => qMc("inhoud", "error_hard", "Iemand rekent: 350 ml = 3,5 dl.\nKlopt dit?", ["ja", "nee"], "ja",
-          svgImgSafe("pijl_maal.svg", "Juist?")),
-        () => qMc("inhoud", "error_hard", "Iemand zegt: 2,5 l = 25 cl.\nKlopt dit?", ["ja", "nee"], "nee",
-          svgImgSafe("boog_gedeeld.svg", "Fout?")),
-        () => qMc("inhoud", "error_hard", "Iemand zegt: 75 cl = 0,75 l.\nKlopt dit?", ["ja", "nee"], "ja",
-          svgImgSafe("boog_maal.svg", "Juist?")),
-        () => qMc("inhoud","error_hard",
-          "Iemand rekent: 2 dl = 20 ml.\nKlopt dit?",
-          ["ja","nee"], "nee", svgImgSafe("maatbeker_dl.svg", "")),
-        () => qMc("inhoud","error_hard",
-          "Iemand zegt: 1,2 l = 120 cl.\nKlopt dat?",
-          ["ja","nee"], "ja", svgImgSafe("petfles_1l.svg", "")),
-        () => qMc("inhoud","error_hard",
-          "Iemand zegt: 0,35 l = 35 dl.\nKlopt dat?",
-          ["ja","nee"], "nee", svgImgSafe("thermos.svg", "")),
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 dl = 10 ml.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("bucket-svgrepo-com.svg","Emmer")),
 
-      ],
-    },
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 dl = 100 ml.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("milk-carton-svgrepo-com.svg","Brik")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 cl = 100 ml.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("perfume-bottle-with-heart-svgrepo-com.svg","Parfum")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 1 cl = 10 ml.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("nail-polish-beauty-svgrepo-com.svg","Nagellak")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 5 dl = 0,5 l.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("soda-water-svgrepo-com.svg","Spuitwater")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 250 ml = 2,5 cl.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("coffee-pot-svgrepo-com.svg","Koffiekan")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 10 dl = 1 l.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("jerrycan-svgrepo-com.svg","Jerrycan")),
+
+    () => qMc("inhoud","error_easy",
+      "Iemand zegt: 500 ml = 5 dl.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("syringe-svgrepo-com.svg","Spuit")),
+  ],
+
+  normal: [
+    () => qMc("inhoud","error_normal",
+      "Welke is juist?",
+      ["1 cl = 100 ml","1 cl = 10 ml"], "1 cl = 10 ml",
+      svgImgSafe("vial-svgrepo-com.svg","Kies")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is juist?",
+      ["1 l = 10 dl","1 l = 100 dl"], "1 l = 10 dl",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Kies")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke uitspraak is fout?",
+      ["1 l = 100 cl","1 l = 1000 ml","1 l = 100 dl"], "1 l = 100 dl",
+      svgImgSafe("milk-carton-svgrepo-com.svg","Brik")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke uitspraak is fout?",
+      ["1 dl = 0,1 l","1 cl = 0,01 l","1 ml = 0,001 l"], "1 cl = 0,01 l",
+      svgImgSafe("kettle-svgrepo-com.svg","Waterkoker")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is juist?",
+      ["1 dl = 10 cl","1 dl = 100 cl"], "1 dl = 10 cl",
+      svgImgSafe("bucket-svgrepo-com.svg","Emmer")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke uitspraak is fout?",
+      ["1 l = 1000 ml","1 l = 100 cl","1 l = 10 000 ml"], "1 l = 10 000 ml",
+      svgImgSafe("jerrycan-svgrepo-com.svg","Jerrycan")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is juist?",
+      ["75 cl = 750 ml","75 cl = 75 ml"], "75 cl = 750 ml",
+      svgImgSafe("soda-water-svgrepo-com.svg","Spuitwater")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is fout?",
+      ["500 ml = 0,5 l","500 ml = 5 dl","500 ml = 50 l"], "500 ml = 50 l",
+      svgImgSafe("coffee-pot-svgrepo-com.svg","Koffiekan")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is juist?",
+      ["2 l = 200 cl","2 l = 20 cl"], "2 l = 200 cl",
+      svgImgSafe("aquarium-fish-svgrepo-com.svg","Aquarium")),
+
+    () => qMc("inhoud","error_normal",
+      "Welke is fout?",
+      ["300 ml = 30 cl","300 ml = 3 dl","300 ml = 300 cl"], "300 ml = 300 cl",
+      svgImgSafe("paint-bucket-bucket-svgrepo-com.svg","Verf")),
+  ],
+
+  hard: [
+    () => qMc("inhoud","error_hard",
+      "Iemand rekent: 0,8 l = 80 ml.\nKlopt dit?",
+      ["ja","nee"], "nee",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Fout?")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand rekent: 350 ml = 3,5 dl.\nKlopt dit?",
+      ["ja","nee"], "ja",
+      svgImgSafe("coffee-pot-svgrepo-com.svg","Juist?")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand zegt: 2,5 l = 25 cl.\nKlopt dit?",
+      ["ja","nee"], "nee",
+      svgImgSafe("jerrycan-svgrepo-com.svg","Fout?")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand zegt: 75 cl = 0,75 l.\nKlopt dit?",
+      ["ja","nee"], "ja",
+      svgImgSafe("soda-water-svgrepo-com.svg","Juist?")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand rekent: 2 dl = 20 ml.\nKlopt dit?",
+      ["ja","nee"], "nee",
+      svgImgSafe("bucket-svgrepo-com.svg","Fout?")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand zegt: 1,2 l = 120 cl.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Thermos")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand zegt: 0,35 l = 35 dl.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("kettle-svgrepo-com.svg","Waterkoker")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand rekent: 1,5 l = 150 cl.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("milk-carton-svgrepo-com.svg","Brik")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand zegt: 0,75 l = 7,5 dl.\nKlopt dat?",
+      ["ja","nee"], "ja",
+      svgImgSafe("thermos-thermo-svgrepo-com.svg","Thermos")),
+
+    () => qMc("inhoud","error_hard",
+      "Iemand rekent: 1250 ml = 12,5 l.\nKlopt dat?",
+      ["ja","nee"], "nee",
+      svgImgSafe("paint-spray-spray-svgrepo-com.svg","Verf")),
+  ],
+},
+
 
   },  grafieken: {
     line_read: {
