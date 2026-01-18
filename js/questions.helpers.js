@@ -170,22 +170,36 @@ function qRatioFill(
   const tol = options.tol ?? 0.01;
   const askFactor = options.factor ?? null; // { op:"×"|"÷", expected:number } of null
 
-  let exp = Array.isArray(expectedList) ? expectedList.slice() : [];
-  let factorExpected = askFactor?.expected;
+  const rows = Array.isArray(table?.rows) ? table.rows : [];
+  const is3Col = rows.some(r => Array.isArray(r) && r.length === 3); // recipe-mode
 
-  const rowsHtml = table.rows.map(([left, right]) => {
-    const cell = (v) => {
-      if (v === null) {
-        const idx = exp.length ? (expectedList.length - exp.length) : 0;
-        // we don't pop here; we just render and check later in DOM order
-        return `<input class="ratioInput" data-ratio-input inputmode="decimal" placeholder="" />`;
-      }
-      return `<span>${v}</span>`;
-    };
+  function cell(v, wantsInput) {
+    if (wantsInput) {
+      return `<input class="ratioInput" data-ratio-input inputmode="decimal" autocomplete="off" />`;
+    }
+    return `<span>${v ?? ""}</span>`;
+  }
+
+  // Render rows
+  const rowsHtml = rows.map((row) => {
+    // 3-koloms: [label, left, right]
+    if (Array.isArray(row) && row.length === 3) {
+      const [label, left, right] = row;
+      return `
+        <tr>
+          <td class="ratioCell ratioLabel">${label ?? ""}</td>
+          <td class="ratioCell">${cell(left, left === null)}</td>
+          <td class="ratioCell">${cell(right, right === null)}</td>
+        </tr>
+      `;
+    }
+
+    // 2-koloms legacy: [left, right]
+    const [left, right] = row;
     return `
       <tr>
-        <td class="ratioCell">${cell(left)}</td>
-        <td class="ratioCell">${cell(right)}</td>
+        <td class="ratioCell">${cell(left, left === null)}</td>
+        <td class="ratioCell">${cell(right, right === null)}</td>
       </tr>
     `;
   }).join("");
@@ -193,7 +207,7 @@ function qRatioFill(
   const factorHtml = askFactor ? `
     <div class="ratioFactorLine">
       <span class="ratioFactorOp">${askFactor.op}</span>
-      <input class="ratioInput ratioFactorIn" data-ratio-input inputmode="decimal" placeholder="..." />
+      <input class="ratioInput ratioFactorIn" data-ratio-input inputmode="decimal" placeholder="..." autocomplete="off" />
     </div>
   ` : "";
 
@@ -203,6 +217,7 @@ function qRatioFill(
       <table class="ratioTable">
         <thead>
           <tr>
+            ${is3Col ? `<th></th>` : ``}
             <th>${table.leftLabel}</th>
             <th>${table.rightLabel}</th>
           </tr>
@@ -217,21 +232,23 @@ function qRatioFill(
   function parseNL(x) {
     const s = String(x ?? "").trim();
     if (!s) return NaN;
-    const n = Number(String(s).replace(",", "."));
-    return n;
+    return Number(s.replace(",", "."));
   }
 
   const check = () => {
     const inputs = Array.from(document.querySelectorAll(".ratioWrap input[data-ratio-input]"));
+
     // factor input staat (als aanwezig) altijd eerst
     let offset = 0;
     if (askFactor) {
       const f = parseNL(inputs[0]?.value);
-      if (Number.isNaN(f) || Math.abs(f - factorExpected) > tol) return false;
+      if (Number.isNaN(f) || Math.abs(f - askFactor.expected) > tol) return false;
       offset = 1;
     }
+
     const blanks = inputs.slice(offset);
     if (blanks.length !== expectedList.length) return false;
+
     for (let i = 0; i < blanks.length; i++) {
       const v = parseNL(blanks[i].value);
       const e = expectedList[i];
@@ -258,6 +275,7 @@ function qRatioFill(
     `
   };
 }
+
 
 function checkPercentGrid(expectedCount) {
   const cells = document.querySelectorAll(".percent-cell.active");

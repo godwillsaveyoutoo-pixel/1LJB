@@ -523,41 +523,40 @@ maatbeker: {
 ratio: {
   easy: [
     // 2 -> 6 (×3)
-() => qRatioFill("inhoud","ratio_easy",
-  "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 2 personen",
-    rightLabel: "voor 6 personen",
-    rows: [
-      ["Limoensap (ml)", "20", null],
-      ["Appelsap (ml)", "200", null],
-      ["Spuitwater (ml)", "300", null],
-    ]
-  },
-  [60, 600, 900],
-  "ml",
-  svgImgSafe("cocktail.svg","Mocktail"),
-  { sub: "Tip: 2 → 6 is ×3." }
-),
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Limoensap (ml)", 20, null],
+          ["Appelsap (ml)", 200, null],
+          ["Spuitwater (ml)", 300, null],
+        ]
+      },
+      [60, 600, 900],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 2 → 6 is ×3." }
+    ),
 
-// 4 -> 2 (÷2)
-() => qRatioFill("inhoud","ratio_easy",
-  "Mocktailrecept: van 4 personen naar 2 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 4 personen",
-    rightLabel: "voor 2 personen",
-    rows: [
-      ["Sinaasappelsap (ml)", "400", null],
-      ["Grenadine (ml)", "10", null],
-      ["IJsblokjes (aantal)", "8", null],
-    ]
-  },
-  [200, 5, 4],
-  " ",
-  svgImgSafe("ijsblokjes.svg","Ijs"),
-  { sub: "Tip: 4 → 2 is ÷2." }
-),
-
+    // 4 -> 2 (÷2)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 4 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 400, null],
+          ["Grenadine (ml)", 10, null],
+          ["IJsblokjes (aantal)", 8, null],
+        ]
+      },
+      [200, 5, 4],
+      " ",
+      svgImgSafe("ijsblokjes.svg","IJs"),
+      { sub: "Tip: 4 → 2 is ÷2." }
+    ),
 
     // 6 -> 3 (÷2)
     () => qRatioFill("inhoud","ratio_easy",
@@ -566,48 +565,15 @@ ratio: {
         leftLabel: "voor 6 personen",
         rightLabel: "voor 3 personen",
         rows: [
-          ["Sinaasappelsap (ml)", "450", null],
-          ["Limoensap (ml)", "60", null],
+          ["Sinaasappelsap (ml)", 450, null],
+          ["Limoensap (ml)", 60, null],
+          ["Spuitwater (ml)", 300, null],
         ]
       },
-      [225, 30],
+      [225, 30, 150],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
       { sub: "Tip: 6 → 3 is ÷2." }
-    ),
-
-    // 2 -> 6 (×3) met cl (maar netjes)
-    () => qRatioFill("inhoud","ratio_easy",
-      "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 2 personen",
-        rightLabel: "voor 6 personen",
-        rows: [
-          ["Muntsiroop (cl)", "2", null],
-          ["Spuitwater (ml)", "200", null],
-        ]
-      },
-      [6, 600],
-      " ",
-      svgImgSafe("munt.svg","Munt"),
-      { sub: "2 → 6 is ×3." }
-    ),
-
-    // 4 -> 2 (÷2) één ingrediënt
-    () => qRatioFill("inhoud","ratio_easy",
-      "Mocktailrecept: van 4 personen naar 2 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 4 personen",
-        rightLabel: "voor 2 personen",
-        rows: [
-          ["Grenadine (ml)", "16", null],
-          ["Appelsap (ml)", "500", null],
-        ]
-      },
-      [8, 250],
-      "ml",
-      svgImgSafe("grenadine.svg","Grenadine"),
-      { sub: "Tip: ÷2." }
     ),
 
     // 3 -> 9 (×3)
@@ -617,53 +583,144 @@ ratio: {
         leftLabel: "voor 3 personen",
         rightLabel: "voor 9 personen",
         rows: [
-          ["Spuitwater (ml)", "300", null],
-          ["Citroensap (ml)", "15", null],
+          ["Spuitwater (ml)", 300, null],
+          ["Citroensap (ml)", 15, null],
+          ["Grenadine (ml)", 6, null],
         ]
       },
-      [900, 45],
+      [900, 45, 18],
       "ml",
       svgImgSafe("spuitwater.svg","Spuitwater"),
       { sub: "Tip: 3 → 9 is ×3." }
+    ),
+
+    // 1 -> 4 (×4)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 1 persoon naar 4 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 1 persoon",
+        rightLabel: "voor 4 personen",
+        rows: [
+          ["Appelsap (ml)", 120, null],
+          ["Spuitwater (ml)", 180, null],
+          ["Limoensap (ml)", 10, null],
+        ]
+      },
+      [480, 720, 40],
+      "ml",
+      svgImgSafe("appel.svg","Appel"),
+      { sub: "Tip: 1 → 4 is ×4." }
+    ),
+
+    // 8 -> 4 (÷2)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 8 personen naar 4 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 8 personen",
+        rightLabel: "voor 4 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 800, null],
+          ["Spuitwater (ml)", 600, null],
+          ["IJsblokjes (aantal)", 16, null],
+        ]
+      },
+      [400, 300, 8],
+      " ",
+      svgImgSafe("ijsblokjes.svg","IJs"),
+      { sub: "Tip: 8 → 4 is ÷2." }
+    ),
+
+    // 2 -> 8 (×4)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 2 personen naar 8 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 8 personen",
+        rows: [
+          ["Spuitwater (ml)", 250, null],
+          ["Sinaasappelsap (ml)", 200, null],
+          ["Grenadine (ml)", 8, null],
+        ]
+      },
+      [1000, 800, 32],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 2 → 8 is ×4." }
+    ),
+
+    // 10 -> 5 (÷2)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 10 personen naar 5 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 10 personen",
+        rightLabel: "voor 5 personen",
+        rows: [
+          ["Appelsap (ml)", 1000, null],
+          ["Limoensap (ml)", 50, null],
+          ["Spuitwater (ml)", 1500, null],
+        ]
+      },
+      [500, 25, 750],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 10 → 5 is ÷2." }
+    ),
+
+    // 3 -> 6 (×2)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 3 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 3 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 300, null],
+          ["Spuitwater (ml)", 450, null],
+          ["Citroensap (ml)", 15, null],
+        ]
+      },
+      [600, 900, 30],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 3 → 6 is ×2." }
+    ),
+
+    // 6 -> 2 (÷3)
+    () => qRatioFill("inhoud","ratio_easy",
+      "Mocktailrecept: van 6 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Spuitwater (ml)", 600, null],
+          ["Appelsap (ml)", 300, null],
+          ["Grenadine (ml)", 12, null],
+        ]
+      },
+      [200, 100, 4],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 6 → 2 is ÷3." }
     ),
   ],
 
   normal: [
     // 4 -> 6 (×1,5)
-() => qRatioFill("inhoud","ratio_normal",
-  "Mocktailrecept: van 4 personen naar 6 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 4 personen",
-    rightLabel: "voor 6 personen",
-    rows: [
-      ["Sinaasappelsap (ml)", "400", null],
-      ["Spuitwater (ml)", "600", null],
-      ["Grenadine (ml)", "12", null],
-    ]
-  },
-  [600, 900, 18],
-  "ml",
-  svgImgSafe("sinaasappel.svg","Sinaasappel"),
-  { sub: "Tip: 4 → 6 is ×1,5.", tol: 0.05 }
-),
-
-// 2 -> 5 (×2,5)
-() => qRatioFill("inhoud","ratio_normal",
-  "Mocktailrecept: van 2 personen naar 5 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 2 personen",
-    rightLabel: "voor 5 personen",
-    rows: [
-      ["Limoensap (ml)", "20", null],
-      ["Appelsap (ml)", "200", null],
-      ["Spuitwater (ml)", "300", null],
-    ]
-  },
-  [50, 500, 750],
-  "ml",
-  svgImgSafe("cocktail.svg","Mocktail"),
-  { sub: "Tip: 2 → 5 is ×2,5.", tol: 0.05 }
-),
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 4 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 400, null],
+          ["Spuitwater (ml)", 600, null],
+          ["Grenadine (ml)", 12, null],
+        ]
+      },
+      [600, 900, 18],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 4 → 6 is ×1,5.", tol: 0.05 }
+    ),
 
     // 2 -> 5 (×2,5)
     () => qRatioFill("inhoud","ratio_normal",
@@ -672,31 +729,15 @@ ratio: {
         leftLabel: "voor 2 personen",
         rightLabel: "voor 5 personen",
         rows: [
-          ["Spuitwater (ml)", "200", null],
-          ["Limoensap (ml)", "20", null],
+          ["Limoensap (ml)", 20, null],
+          ["Appelsap (ml)", 200, null],
+          ["Spuitwater (ml)", 300, null],
         ]
       },
-      [500, 50],
+      [50, 500, 750],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 2 → 5 is ×2,5." , tol: 0.05 }
-    ),
-
-    // 4 -> 6 (×1,5)
-    () => qRatioFill("inhoud","ratio_normal",
-      "Mocktailrecept: van 4 personen naar 6 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 4 personen",
-        rightLabel: "voor 6 personen",
-        rows: [
-          ["Sinaasappelsap (ml)", "400", null],
-          ["Grenadine (ml)", "12", null],
-        ]
-      },
-      [600, 18],
-      "ml",
-      svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 4 → 6 is ×1,5." , tol: 0.05 }
+      { sub: "Tip: 2 → 5 is ×2,5.", tol: 0.05 }
     ),
 
     // 6 -> 4 (÷1,5)
@@ -706,65 +747,33 @@ ratio: {
         leftLabel: "voor 6 personen",
         rightLabel: "voor 4 personen",
         rows: [
-          ["Spuitwater (ml)", "600", null],
-          ["Citroensap (ml)", "30", null],
+          ["Spuitwater (ml)", 600, null],
+          ["Citroensap (ml)", 30, null],
+          ["Grenadine (ml)", 12, null],
         ]
       },
-      [400, 20],
+      [400, 20, 8],
       "ml",
       svgImgSafe("citroen.svg","Citroen"),
-      { sub: "Tip: 6 → 4 is ÷1,5." , tol: 0.05 }
+      { sub: "Tip: 6 → 4 is ÷1,5.", tol: 0.05 }
     ),
 
-    // dl schaal: 2 -> 6 (×3)
-    () => qRatioFill("inhoud","ratio_normal",
-      "Mocktailrecept (dl): van 2 personen naar 6 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 2 personen",
-        rightLabel: "voor 6 personen",
-        rows: [
-          ["Appelsap (dl)", "3", null],
-          ["Spuitwater (dl)", "2", null],
-        ]
-      },
-      [9, 6],
-      "dl",
-      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
-      { sub: "Tip: ×3." , tol: 0.02 }
-    ),
-
-    // 3 -> 2 (÷1,5) kleine getallen
+    // 3 -> 2 (÷1,5)
     () => qRatioFill("inhoud","ratio_normal",
       "Mocktailrecept: van 3 personen naar 2 personen.\nVul de tabel aan.",
       {
         leftLabel: "voor 3 personen",
         rightLabel: "voor 2 personen",
         rows: [
-          ["Muntsiroop (ml)", "15", null],
-          ["Limoensap (ml)", "30", null],
+          ["Muntsiroop (ml)", 15, null],
+          ["Limoensap (ml)", 30, null],
+          ["Spuitwater (ml)", 300, null],
         ]
       },
-      [10, 20],
+      [10, 20, 200],
       "ml",
       svgImgSafe("munt.svg","Munt"),
-      { sub: "Tip: 3 → 2 is ÷1,5." , tol: 0.05 }
-    ),
-
-    // 8 -> 3 (÷2,666...) maken we “net” door startwaarden te kiezen die mooi delen
-    () => qRatioFill("inhoud","ratio_normal",
-      "Mocktailrecept: van 8 personen naar 3 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 8 personen",
-        rightLabel: "voor 3 personen",
-        rows: [
-          ["Spuitwater (ml)", "800", null],
-          ["Citroensap (ml)", "40", null],
-        ]
-      },
-      [300, 15],
-      "ml",
-      svgImgSafe("spuitwater.svg","Spuitwater"),
-      { sub: "Tip: deel door 8 en vermenigvuldig met 3." , tol: 0.05 }
+      { sub: "Tip: 3 → 2 is ÷1,5.", tol: 0.05 }
     ),
 
     // 5 -> 2 (÷2,5)
@@ -774,31 +783,15 @@ ratio: {
         leftLabel: "voor 5 personen",
         rightLabel: "voor 2 personen",
         rows: [
-          ["Sinaasappelsap (ml)", "500", null],
-          ["Grenadine (ml)", "20", null],
+          ["Sinaasappelsap (ml)", 500, null],
+          ["Grenadine (ml)", 20, null],
+          ["IJsblokjes (aantal)", 10, null],
         ]
       },
-      [200, 8],
-      "ml",
-      svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 5 → 2 is ÷2,5." , tol: 0.05 }
-    ),
-
-    // cl naar ml binnen ratio (een extra laag)
-    () => qRatioFill("inhoud","ratio_normal",
-      "Mocktailrecept: van 2 personen naar 6 personen.\nVul de tabel aan (let op: cl).",
-      {
-        leftLabel: "voor 2 personen",
-        rightLabel: "voor 6 personen",
-        rows: [
-          ["Limoensap (cl)", "3", null],
-          ["Spuitwater (ml)", "200", null],
-        ]
-      },
-      [9, 600],
+      [200, 8, 4],
       " ",
-      svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: ×3. (En 1 cl = 10 ml, maar hier blijft het in cl.)", tol: 0.05 }
+      svgImgSafe("ijsblokjes.svg","IJs"),
+      { sub: "Tip: 5 → 2 is ÷2,5.", tol: 0.05 }
     ),
 
     // 4 -> 10 (×2,5)
@@ -808,154 +801,161 @@ ratio: {
         leftLabel: "voor 4 personen",
         rightLabel: "voor 10 personen",
         rows: [
-          ["Appelsap (ml)", "400", null],
-          ["IJsblokjes (aantal)", "8", null],
+          ["Appelsap (ml)", 400, null],
+          ["Spuitwater (ml)", 600, null],
+          ["IJsblokjes (aantal)", 8, null],
         ]
       },
-      [1000, 20],
+      [1000, 1500, 20],
       " ",
-      svgImgSafe("ijsblokjes.svg","Ijs"),
-      { sub: "Tip: 4 → 10 is ×2,5." , tol: 0.05 }
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 4 → 10 is ×2,5.", tol: 0.05 }
+    ),
+
+    // 8 -> 3 (deel door 8, ×3)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 8 personen naar 3 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 8 personen",
+        rightLabel: "voor 3 personen",
+        rows: [
+          ["Spuitwater (ml)", 800, null],
+          ["Citroensap (ml)", 40, null],
+          ["Grenadine (ml)", 16, null],
+        ]
+      },
+      [300, 15, 6],
+      "ml",
+      svgImgSafe("spuitwater.svg","Spuitwater"),
+      { sub: "Tip: deel door 8 en vermenigvuldig met 3.", tol: 0.05 }
+    ),
+
+    // 6 -> 9 (×1,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 6 personen naar 9 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 6 personen",
+        rightLabel: "voor 9 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 600, null],
+          ["Spuitwater (ml)", 450, null],
+          ["Limoensap (ml)", 60, null],
+        ]
+      },
+      [900, 675, 90],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: 6 → 9 is ×1,5.", tol: 0.05 }
+    ),
+
+    // dl schaal: 2 -> 6 (×3)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept (dl): van 2 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 2 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Appelsap (dl)", 3, null],
+          ["Spuitwater (dl)", 2, null],
+          ["Limoensap (dl)", 0.4, null],
+        ]
+      },
+      [9, 6, 1.2],
+      "dl",
+      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
+      { sub: "Tip: ×3.", tol: 0.02 }
+    ),
+
+    // 12 -> 8 (÷1,5)
+    () => qRatioFill("inhoud","ratio_normal",
+      "Mocktailrecept: van 12 personen naar 8 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 12 personen",
+        rightLabel: "voor 8 personen",
+        rows: [
+          ["Spuitwater (ml)", 1200, null],
+          ["Appelsap (ml)", 600, null],
+          ["Grenadine (ml)", 24, null],
+        ]
+      },
+      [800, 400, 16],
+      "ml",
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: 12 → 8 is ÷1,5.", tol: 0.05 }
     ),
   ],
 
   hard: [
     // 3 -> 8 (÷3, ×8)
-() => qRatioFill("inhoud","ratio_hard",
-  "Mocktailrecept: van 3 personen naar 8 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 3 personen",
-    rightLabel: "voor 8 personen",
-    rows: [
-      ["Spuitwater (ml)", "300", null],
-      ["Limoensap (ml)", "30", null],
-      ["Grenadine (ml)", "6", null],
-    ]
-  },
-  [800, 80, 16],
-  "ml",
-  svgImgSafe("cocktail.svg","Mocktail"),
-  { sub: "Tip: eerst naar 1 persoon (÷3), dan ×8.", tol: 0.05 }
-),
-
-// 7 -> 4 (÷7, ×4)
-() => qRatioFill("inhoud","ratio_hard",
-  "Mocktailrecept: van 7 personen naar 4 personen.\nVul de tabel aan.",
-  {
-    leftLabel: "voor 7 personen",
-    rightLabel: "voor 4 personen",
-    rows: [
-      ["Sinaasappelsap (ml)", "700", null],
-      ["Spuitwater (ml)", "350", null],
-      ["Grenadine (ml)", "21", null],
-    ]
-  },
-  [400, 200, 12],
-  "ml",
-  svgImgSafe("sinaasappel.svg","Sinaasappel"),
-  { sub: "Tip: eerst naar 1 persoon (÷7), dan ×4.", tol: 0.05 }
-),
-
-    // 3 -> 8 (×2,666...) met mooie deling
     () => qRatioFill("inhoud","ratio_hard",
       "Mocktailrecept: van 3 personen naar 8 personen.\nVul de tabel aan.",
       {
         leftLabel: "voor 3 personen",
         rightLabel: "voor 8 personen",
         rows: [
-          ["Spuitwater (ml)", "300", null],
-          ["Limoensap (ml)", "30", null],
+          ["Spuitwater (ml)", 300, null],
+          ["Limoensap (ml)", 30, null],
+          ["Grenadine (ml)", 6, null],
         ]
       },
-      [800, 80],
+      [800, 80, 16],
       "ml",
-      svgImgSafe("spuitwater.svg","Spuitwater"),
-      { sub: "Tip: eerst naar 1 persoon (÷3), dan naar 8 (×8)." , tol: 0.05 }
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: eerst naar 1 persoon (÷3), dan ×8.", tol: 0.05 }
     ),
 
-    // 7 -> 4 (÷1,75) met nette getallen
+    // 7 -> 4 (÷7, ×4)
     () => qRatioFill("inhoud","ratio_hard",
       "Mocktailrecept: van 7 personen naar 4 personen.\nVul de tabel aan.",
       {
         leftLabel: "voor 7 personen",
         rightLabel: "voor 4 personen",
         rows: [
-          ["Sinaasappelsap (ml)", "700", null],
-          ["Grenadine (ml)", "21", null],
+          ["Sinaasappelsap (ml)", 700, null],
+          ["Spuitwater (ml)", 350, null],
+          ["Grenadine (ml)", 21, null],
         ]
       },
-      [400, 12],
+      [400, 200, 12],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: eerst naar 1 persoon (÷7), dan ×4." , tol: 0.05 }
+      { sub: "Tip: eerst ÷7, dan ×4.", tol: 0.05 }
     ),
 
-    // 9 -> 2 (÷4,5) met kommagetal als uitkomst (ml blijft netjes)
-    () => qRatioFill("inhoud","ratio_hard",
-      "Mocktailrecept: van 9 personen naar 2 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 9 personen",
-        rightLabel: "voor 2 personen",
-        rows: [
-          ["Citroensap (ml)", "45", null],
-          ["Spuitwater (ml)", "900", null],
-        ]
-      },
-      [10, 200],
-      "ml",
-      svgImgSafe("citroen.svg","Citroen"),
-      { sub: "Tip: ÷9, dan ×2." , tol: 0.05 }
-    ),
-
-    // dl met kommagetallen (maar overzichtelijk)
-    () => qRatioFill("inhoud","ratio_hard",
-      "Mocktailrecept (dl): van 4 personen naar 6 personen.\nVul de tabel aan.",
-      {
-        leftLabel: "voor 4 personen",
-        rightLabel: "voor 6 personen",
-        rows: [
-          ["Appelsap (dl)", "5", null],
-          ["Spuitwater (dl)", "3", null],
-        ]
-      },
-      [7.5, 4.5],
-      "dl",
-      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
-      { sub: "Tip: ×1,5." , tol: 0.02 }
-    ),
-
-    // 5 -> 12 (×2,4)
+    // 5 -> 12 (÷5, ×12) (×2,4)
     () => qRatioFill("inhoud","ratio_hard",
       "Mocktailrecept: van 5 personen naar 12 personen.\nVul de tabel aan.",
       {
         leftLabel: "voor 5 personen",
         rightLabel: "voor 12 personen",
         rows: [
-          ["Spuitwater (ml)", "500", null],
-          ["Muntsiroop (ml)", "10", null],
+          ["Spuitwater (ml)", 500, null],
+          ["Muntsiroop (ml)", 10, null],
+          ["Citroensap (ml)", 25, null],
         ]
       },
-      [1200, 24],
+      [1200, 24, 60],
       "ml",
       svgImgSafe("munt.svg","Munt"),
-      { sub: "Tip: eerst ÷5, dan ×12." , tol: 0.05 }
+      { sub: "Tip: eerst ÷5, dan ×12.", tol: 0.05 }
     ),
 
-    // 6 -> 5 (÷1,2) met nette resultaten
+    // 6 -> 5 (÷6, ×5)
     () => qRatioFill("inhoud","ratio_hard",
       "Mocktailrecept: van 6 personen naar 5 personen.\nVul de tabel aan.",
       {
         leftLabel: "voor 6 personen",
         rightLabel: "voor 5 personen",
         rows: [
-          ["Sinaasappelsap (ml)", "600", null],
-          ["Limoensap (ml)", "60", null],
+          ["Sinaasappelsap (ml)", 600, null],
+          ["Limoensap (ml)", 60, null],
+          ["Spuitwater (ml)", 900, null],
         ]
       },
-      [500, 50],
+      [500, 50, 750],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: ÷6, dan ×5." , tol: 0.05 }
+      { sub: "Tip: eerst ÷6, dan ×5.", tol: 0.05 }
     ),
 
     // 2 -> 7 (×3,5)
@@ -965,51 +965,109 @@ ratio: {
         leftLabel: "voor 2 personen",
         rightLabel: "voor 7 personen",
         rows: [
-          ["Spuitwater (ml)", "200", null],
-          ["Citroensap (ml)", "20", null],
+          ["Spuitwater (ml)", 200, null],
+          ["Citroensap (ml)", 20, null],
+          ["Grenadine (ml)", 8, null],
         ]
       },
-      [700, 70],
+      [700, 70, 28],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: ×3,5." , tol: 0.05 }
+      { sub: "Tip: 2 → 7 is ×3,5.", tol: 0.05 }
     ),
 
-    // combinatie: geef één ingrediënt rechts, vraag links (terugrekenen)
+    // 9 -> 2 (÷9, ×2)
     () => qRatioFill("inhoud","ratio_hard",
-      "Mocktailrecept: terugrekenen.\nVul de tabel aan.",
+      "Mocktailrecept: van 9 personen naar 2 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 9 personen",
+        rightLabel: "voor 2 personen",
+        rows: [
+          ["Citroensap (ml)", 45, null],
+          ["Spuitwater (ml)", 900, null],
+          ["Sinaasappelsap (ml)", 450, null],
+        ]
+      },
+      [10, 200, 100],
+      "ml",
+      svgImgSafe("citroen.svg","Citroen"),
+      { sub: "Tip: eerst ÷9, dan ×2.", tol: 0.05 }
+    ),
+
+    // dl met kommagetallen: 4 -> 6 (×1,5)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept (dl): van 4 personen naar 6 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 4 personen",
+        rightLabel: "voor 6 personen",
+        rows: [
+          ["Appelsap (dl)", 5, null],
+          ["Spuitwater (dl)", 3, null],
+          ["Limoensap (dl)", 0.6, null],
+        ]
+      },
+      [7.5, 4.5, 0.9],
+      "dl",
+      svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
+      { sub: "Tip: ×1,5.", tol: 0.02 }
+    ),
+
+    // omgekeerd: rechts gegeven, links invullen (terugrekenen)
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: terugrekenen.\nVul de lege vakjes aan.",
       {
         leftLabel: "voor 4 personen",
         rightLabel: "voor 10 personen",
         rows: [
-          ["Spuitwater (ml)", "400", null],
-          ["Grenadine (ml)", null, "25"],
+          ["Spuitwater (ml)", 400, null],
+          ["Grenadine (ml)", null, 25],
+          ["Citroensap (ml)", 20, null],
         ]
       },
-      [1000, 10],
+      [1000, 10, 50],
       "ml",
       svgImgSafe("grenadine.svg","Grenadine"),
-      { sub: "Tip: 4 → 10 is ×2,5. Dus ook terug: ÷2,5." , tol: 0.05 }
+      { sub: "Tip: 4 → 10 is ×2,5. Terug: ÷2,5.", tol: 0.05 }
     ),
 
-    // nog een “omgekeerd” voorbeeld
+    // 11 -> 6 (÷11, ×6) met nette gekozen waarden
     () => qRatioFill("inhoud","ratio_hard",
-      "Mocktailrecept: van 6 personen naar 2 personen.\nVul de tabel aan.",
+      "Mocktailrecept: van 11 personen naar 6 personen.\nVul de tabel aan.",
       {
-        leftLabel: "voor 6 personen",
-        rightLabel: "voor 2 personen",
+        leftLabel: "voor 11 personen",
+        rightLabel: "voor 6 personen",
         rows: [
-          ["Appelsap (ml)", "900", null],
-          ["Spuitwater (ml)", "600", null],
+          ["Spuitwater (ml)", 1100, null],
+          ["Appelsap (ml)", 550, null],
+          ["Grenadine (ml)", 22, null],
         ]
       },
-      [300, 200],
+      [600, 300, 12],
       "ml",
-      svgImgSafe("appel.svg","Appel"),
-      { sub: "Tip: 6 → 2 is ÷3." , tol: 0.05 }
+      svgImgSafe("cocktail.svg","Mocktail"),
+      { sub: "Tip: eerst ÷11, dan ×6.", tol: 0.05 }
+    ),
+
+    // 8 -> 5 (÷8, ×5) met nette waarden
+    () => qRatioFill("inhoud","ratio_hard",
+      "Mocktailrecept: van 8 personen naar 5 personen.\nVul de tabel aan.",
+      {
+        leftLabel: "voor 8 personen",
+        rightLabel: "voor 5 personen",
+        rows: [
+          ["Sinaasappelsap (ml)", 800, null],
+          ["Spuitwater (ml)", 400, null],
+          ["Limoensap (ml)", 80, null],
+        ]
+      },
+      [500, 250, 50],
+      "ml",
+      svgImgSafe("sinaasappel.svg","Sinaasappel"),
+      { sub: "Tip: eerst ÷8, dan ×5.", tol: 0.05 }
     ),
   ],
 },
+
 
 
     /* =========================

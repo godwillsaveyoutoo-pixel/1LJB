@@ -32,6 +32,12 @@
     overflow-x:hidden;
     overflow-y:auto;
   }
+.ratioTable .ratioLabel{
+  font-weight: 700;
+  text-align: left;
+  padding-left: 12px;
+  white-space: nowrap;
+}
 
   .visualWrap img{width:100%; height:auto; max-height: clamp(280px, 46vh, 520px); display:block}
 
