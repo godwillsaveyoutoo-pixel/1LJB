@@ -1541,3 +1541,72 @@
     user-select:none;
   }
   .gcBtn:active{ transform: translateY(1px); }
+
+  /* Mobile layout tweaks */
+  @media (max-width: 720px){
+    :root{ --pad: 12px; --hbtn: 44px; --hinput: 48px; }
+    .top{
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 20px;
+    }
+    .top .row{
+      flex-wrap: wrap !important;
+      justify-content: flex-start;
+    }
+    .brand{ width:100%; }
+    .brandTitle{ font-size: 16px; max-width: 52vw; }
+    .pill{
+      height:34px;
+      max-width: min(44vw, 180px);
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .iconBtn{ height:34px; width:40px; }
+    .lvlTop{ max-width: 100%; }
+    .map, .board, .game{ padding: 12px; gap: 12px; }
+    .mapHeader, .boardTop{ flex-wrap: wrap; }
+    .mapGrid{ grid-template-columns: repeat(2, 1fr); }
+    .tile{ min-height: 150px; }
+    .tableWrap{ max-height: calc(100vh - 220px); }
+    .drawer{ width: min(96vw, 420px); }
+  }
+
+  @media (max-width: 520px){
+    :root{ --pad: 10px; --hbtn: 42px; --hinput: 46px; }
+    .top{ padding: 8px 10px; }
+    .brand{ gap: 8px; }
+    .dot{ width:10px; height:10px; }
+    .brandTitle{ font-size: 15px; }
+    .pill{ height:32px; font-size: 13px; }
+    .iconBtn{ height:32px; width:38px; }
+    .hudLine{ padding-top: 4px; padding-bottom: 8px; }
+    .hudRow{ font-size: 12px; }
+    .card{ border-radius: 18px; padding: 14px; }
+    .panel{ border-radius: 18px; }
+    .panelBodyInner{ padding: 10px 12px; gap: 10px; }
+    .answer{ padding: 10px 12px; gap: 8px; }
+    .choices{ gap: 8px; }
+    .choice{ flex: 1 1 140px; min-width: 130px; height: 42px; }
+    .aRow{ gap: 8px; }
+    .okInline{ min-width: 110px; }
+    .unitChip{ min-width: 64px; }
+    .keypad{ gap: 8px; }
+    .key{ height: 48px; font-size: 16px; }
+    .gcBtn{ height: 42px; width: 50px; font-size: 16px; }
+    .mapGrid{ grid-template-columns: 1fr; }
+    .tileTop svg{ height: 110px; }
+    .tile{ min-height: 140px; }
+    .badgeToast{ right: 10px; top: 60px; }
+  }
+
+  @media (max-width: 420px){
+    .brandTitle{ max-width: 46vw; }
+    .pill{ max-width: 42vw; }
+    .modalBody{ padding: 12px; }
+    .modeCard{ padding: 12px; }
+    .seg{ padding: 8px; }
+    .segBtn{ height: 38px; }
+    .drawer .item{ height: 42px; }
+  }
