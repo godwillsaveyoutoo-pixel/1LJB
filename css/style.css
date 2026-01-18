@@ -1566,6 +1566,11 @@
     .iconBtn{ height:34px; width:40px; }
     .lvlTop{ max-width: 100%; }
     .map, .board, .game{ padding: 12px; gap: 12px; }
+    .game{ height: auto; grid-template-rows: auto; }
+    #rightPanel{ display:none !important; }
+    .panel{ grid-template-rows: auto auto auto; }
+    .panelBody{ overflow: auto; }
+    .panelBodyInner{ height: auto; }
     .mapHeader, .boardTop{ flex-wrap: wrap; }
     .mapGrid{ grid-template-columns: repeat(2, 1fr); }
     .tile{ min-height: 150px; }

@@ -6,6 +6,12 @@ let panelBodyFitRaf = 0;
 window.setActiveInput = (el) => {
   activeInput = el || null;
 };
+function isPhoneLayout(){
+  if (window.matchMedia) {
+    return window.matchMedia("(max-width: 720px)").matches;
+  }
+  return window.innerWidth <= 720;
+}
 /* ---------- Game state ---------- */
 let state = {
   mode: "practice",        // practice | run | test
@@ -468,14 +474,15 @@ function renderMC(q) {
   $("#mcRow").style.display = "flex";
 
   // MC: geen keypad, controls rechts
+  const phone = isPhoneLayout();
   try {
     const rp = $("#rightPanel");
     if (rp) {
-      rp.style.display = "grid";
       rp.classList.add("noKeypad");
+      rp.style.display = phone ? "none" : "grid";
     }
   } catch (_) {}
-  try { placeGameControls(true); } catch (_) {}
+  try { placeGameControls(!phone); } catch (_) {}
 }
 
 /* ---------- Render input ---------- */
@@ -535,7 +542,7 @@ function renderInput(q) {
   }
 
   // keypad: ook tonen bij inline ratio/fraction inputs (dan gaat de keypad naar activeInput)
-  const wantsKeypad =
+  let wantsKeypad =
     !clickOnly && (
       q.inputKind === "number" ||
       q.inputKind === "time" ||
@@ -543,6 +550,7 @@ function renderInput(q) {
       hasRatioInputs ||
       hasFracInputs
     );
+  if (isPhoneLayout()) wantsKeypad = false;
 
   const rp = $("#rightPanel");
   if (rp) rp.classList.remove("noKeypad");
@@ -1252,6 +1260,7 @@ function fitPanelBody(){
   if (!body || !inner) return;
 
   inner.style.transform = "scale(1)";
+  if (isPhoneLayout()) return;
 
   const availableH = body.clientHeight;
   const availableW = body.clientWidth;
