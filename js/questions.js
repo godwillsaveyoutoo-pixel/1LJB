@@ -537,7 +537,7 @@ ratio: {
       [60, 600, 900],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 2 → 6 is ×3." }
+      { sub: "Tip: 2 → 6 is ×...." }
     ),
 
     // 4 -> 2 (÷2)
@@ -555,7 +555,7 @@ ratio: {
       [200, 5, 4],
       " ",
       svgImgSafe("ijsblokjes.svg","IJs"),
-      { sub: "Tip: 4 → 2 is ÷2." }
+      { sub: "Tip: 4 → 2 is ÷...." }
     ),
 
     // 6 -> 3 (÷2)
@@ -573,7 +573,7 @@ ratio: {
       [225, 30, 150],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 6 → 3 is ÷2." }
+      { sub: "Tip: 6 → 3 is ÷...." }
     ),
 
     // 3 -> 9 (×3)
@@ -591,7 +591,7 @@ ratio: {
       [900, 45, 18],
       "ml",
       svgImgSafe("spuitwater.svg","Spuitwater"),
-      { sub: "Tip: 3 → 9 is ×3." }
+      { sub: "Tip: 3 → 9 is ×...." }
     ),
 
     // 1 -> 4 (×4)
@@ -609,7 +609,7 @@ ratio: {
       [480, 720, 40],
       "ml",
       svgImgSafe("appel.svg","Appel"),
-      { sub: "Tip: 1 → 4 is ×4." }
+      { sub: "Tip: 1 → 4 is ×...." }
     ),
 
     // 8 -> 4 (÷2)
@@ -627,7 +627,7 @@ ratio: {
       [400, 300, 8],
       " ",
       svgImgSafe("ijsblokjes.svg","IJs"),
-      { sub: "Tip: 8 → 4 is ÷2." }
+      { sub: "Tip: 8 → 4 is ÷...." }
     ),
 
     // 2 -> 8 (×4)
@@ -645,7 +645,7 @@ ratio: {
       [1000, 800, 32],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 2 → 8 is ×4." }
+      { sub: "Tip: 2 → 8 is ×...." }
     ),
 
     // 10 -> 5 (÷2)
@@ -663,7 +663,7 @@ ratio: {
       [500, 25, 750],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 10 → 5 is ÷2." }
+      { sub: "Tip: 10 → 5 is ÷...." }
     ),
 
     // 3 -> 6 (×2)
@@ -681,7 +681,7 @@ ratio: {
       [600, 900, 30],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 3 → 6 is ×2." }
+      { sub: "Tip: 3 → 6 is ×...." }
     ),
 
     // 6 -> 2 (÷3)
@@ -699,7 +699,7 @@ ratio: {
       [200, 100, 4],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 6 → 2 is ÷3." }
+      { sub: "Tip: 6 → 2 is ÷...." }
     ),
   ],
 
@@ -719,7 +719,7 @@ ratio: {
       [600, 900, 18],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 4 → 6 is ×1,5.", tol: 0.05 }
+      { sub: "Tip: 4 → 6 is ×....", tol: 0.05 }
     ),
 
     // 2 -> 5 (×2,5)
@@ -737,7 +737,7 @@ ratio: {
       [50, 500, 750],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 2 → 5 is ×2,5.", tol: 0.05 }
+      { sub: "Tip: 2 → 5 is ×....", tol: 0.05 }
     ),
 
     // 6 -> 4 (÷1,5)
@@ -755,7 +755,7 @@ ratio: {
       [400, 20, 8],
       "ml",
       svgImgSafe("citroen.svg","Citroen"),
-      { sub: "Tip: 6 → 4 is ÷1,5.", tol: 0.05 }
+      { sub: "Tip: 6 → 4 is ÷....", tol: 0.05 }
     ),
 
     // 3 -> 2 (÷1,5)
@@ -773,7 +773,7 @@ ratio: {
       [10, 20, 200],
       "ml",
       svgImgSafe("munt.svg","Munt"),
-      { sub: "Tip: 3 → 2 is ÷1,5.", tol: 0.05 }
+      { sub: "Tip: 3 → 2 is ÷....", tol: 0.05 }
     ),
 
     // 5 -> 2 (÷2,5)
@@ -791,7 +791,7 @@ ratio: {
       [200, 8, 4],
       " ",
       svgImgSafe("ijsblokjes.svg","IJs"),
-      { sub: "Tip: 5 → 2 is ÷2,5.", tol: 0.05 }
+      { sub: "Tip: 5 → 2 is ÷....", tol: 0.05 }
     ),
 
     // 4 -> 10 (×2,5)
@@ -809,7 +809,7 @@ ratio: {
       [1000, 1500, 20],
       " ",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: 4 → 10 is ×2,5.", tol: 0.05 }
+      { sub: "Tip: 4 → 10 is ×....", tol: 0.05 }
     ),
 
     // 8 -> 3 (deel door 8, ×3)
@@ -827,7 +827,7 @@ ratio: {
       [300, 15, 6],
       "ml",
       svgImgSafe("spuitwater.svg","Spuitwater"),
-      { sub: "Tip: deel door 8 en vermenigvuldig met 3.", tol: 0.05 }
+      { sub: "Tip: deel door 8 en vermenigvuldig met ....", tol: 0.05 }
     ),
 
     // 6 -> 9 (×1,5)
@@ -845,7 +845,7 @@ ratio: {
       [900, 675, 90],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: 6 → 9 is ×1,5.", tol: 0.05 }
+      { sub: "Tip: 6 → 9 is ×....", tol: 0.05 }
     ),
 
     // dl schaal: 2 -> 6 (×3)
@@ -863,7 +863,7 @@ ratio: {
       [9, 6, 1.2],
       "dl",
       svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
-      { sub: "Tip: ×3.", tol: 0.02 }
+      { sub: "Tip: ×....", tol: 0.02 }
     ),
 
     // 12 -> 8 (÷1,5)
@@ -901,7 +901,7 @@ ratio: {
       [800, 80, 16],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: eerst naar 1 persoon (÷3), dan ×8.", tol: 0.05 }
+      { sub: "Tip: eerst naar 1 persoon, dan ×....", tol: 0.05 }
     ),
 
     // 7 -> 4 (÷7, ×4)
@@ -919,7 +919,7 @@ ratio: {
       [400, 200, 12],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: eerst ÷7, dan ×4.", tol: 0.05 }
+      { sub: "Tip: eerst ÷7, dan ×....", tol: 0.05 }
     ),
 
     // 5 -> 12 (÷5, ×12) (×2,4)
@@ -937,7 +937,7 @@ ratio: {
       [1200, 24, 60],
       "ml",
       svgImgSafe("munt.svg","Munt"),
-      { sub: "Tip: eerst ÷5, dan ×12.", tol: 0.05 }
+      { sub: "Tip: eerst ÷5, dan ×....", tol: 0.05 }
     ),
 
     // 6 -> 5 (÷6, ×5)
@@ -955,7 +955,7 @@ ratio: {
       [500, 50, 750],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: eerst ÷6, dan ×5.", tol: 0.05 }
+      { sub: "Tip: eerst ÷6, dan ×....", tol: 0.05 }
     ),
 
     // 2 -> 7 (×3,5)
@@ -991,7 +991,7 @@ ratio: {
       [10, 200, 100],
       "ml",
       svgImgSafe("citroen.svg","Citroen"),
-      { sub: "Tip: eerst ÷9, dan ×2.", tol: 0.05 }
+      { sub: "Tip: eerst ÷9, dan ×....", tol: 0.05 }
     ),
 
     // dl met kommagetallen: 4 -> 6 (×1,5)
@@ -1009,7 +1009,7 @@ ratio: {
       [7.5, 4.5, 0.9],
       "dl",
       svgImgSafe("maatbeker_dl.svg","Maatbeker dl"),
-      { sub: "Tip: ×1,5.", tol: 0.02 }
+      { sub: "Tip: ×....", tol: 0.02 }
     ),
 
     // omgekeerd: rechts gegeven, links invullen (terugrekenen)
@@ -1027,7 +1027,7 @@ ratio: {
       [1000, 10, 50],
       "ml",
       svgImgSafe("grenadine.svg","Grenadine"),
-      { sub: "Tip: 4 → 10 is ×2,5. Terug: ÷2,5.", tol: 0.05 }
+      { sub: "Tip: 4 → 10 is ×....", tol: 0.05 }
     ),
 
     // 11 -> 6 (÷11, ×6) met nette gekozen waarden
@@ -1045,7 +1045,7 @@ ratio: {
       [600, 300, 12],
       "ml",
       svgImgSafe("cocktail.svg","Mocktail"),
-      { sub: "Tip: eerst ÷11, dan ×6.", tol: 0.05 }
+      { sub: "Tip: eerst ÷11, dan ×....", tol: 0.05 }
     ),
 
     // 8 -> 5 (÷8, ×5) met nette waarden
@@ -1063,7 +1063,7 @@ ratio: {
       [500, 250, 50],
       "ml",
       svgImgSafe("sinaasappel.svg","Sinaasappel"),
-      { sub: "Tip: eerst ÷8, dan ×5.", tol: 0.05 }
+      { sub: "Tip: eerst ÷8, dan ×....", tol: 0.05 }
     ),
   ],
 },
