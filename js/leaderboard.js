@@ -5,14 +5,8 @@
 
 /* ---------- Guards ---------- */
 function leaderboardReady() {
-  return (
-    typeof sb !== "undefined" &&
-    authUser &&
-    profile?.name &&
-    profile?.class
-  );
+  return (typeof sb !== "undefined" && authUser);
 }
-
 /* ---------- Topic selector ---------- */
 function populateBoardTopicSel() {
   const sel = $("#boardTopicSel");
@@ -145,48 +139,61 @@ async function hasActiveSession() {
   }
 }
 
-async function postScore({ mode, topic, score, acc, duration_ms }) {
+async function postScore({ mode, topic, score, acc, duration_ms, name, className, class: klass } = {}) {
   if (!leaderboardReady()) return;
   if (!canPostNow()) return;
+
   window.lastScoreAttempted = true;
   window.lastScoreStatus = "bezig";
   window.lastScoreError = null;
-  if (!(await hasActiveSession())) {
-    window.lastScoreError = "Geen actieve sessie. Log opnieuw in.";
-    window.lastScoreStatus = "blocked";
-    console.warn("Score post blocked: no active session");
-    return;
-  }
+
+  const nm = String((name || profile?.name || profile?.username || "leerling")).trim() || "leerling";
+  const cls = String((className || klass || profile?.class || "1B")).trim() || "1B";
 
   const payload = {
     user_id: authUser.id,
     day: todayKey(),
     mode,
     topic,
-    name: profile.name,
-    class: profile.class,
+    name: nm,
+    class: cls,
     score,
     acc,
     duration_ms: duration_ms ?? null,
   };
 
-  // 1) altijd raw log (scores)
+  // Dedupe binnen de cooldown window (zodat offline niet alles dubbel queued)
+  const dedupeKey = [payload.user_id, payload.day, payload.mode, payload.topic, payload.score, payload.acc, payload.duration_ms ?? ""].join("|");
+
+  // 1) Eerst veilig in outbox bewaren
+  const queued = window.WQ_OUTBOX?.enqueue?.("scores", payload, { dedupeKey });
+  if (queued) {
+    window.lastScoreStatus = "queued";
+    window.lastScoreError = null;
+    markPosted();
+    window.WQ_OUTBOX?.flushSoon?.(250);
+    return;
+  }
+
+  // 2) Fallback: direct insert (als localStorage faalt)
+  let ok = false;
   try {
     const { error } = await sb.from("scores").insert(payload);
     if (error) throw error;
+    ok = true;
     window.lastScoreStatus = "ok";
     window.lastScoreError = null;
   } catch (e) {
-    // niet blokkeren als deze tabel/beleid ontbreekt
     window.lastScoreStatus = "fout";
     window.lastScoreError = e?.message || String(e);
     console.warn("scores insert failed", e?.message || e);
   }
 
-  markPosted();
+  if (ok) markPosted();
 }
 
 /* ---------- Refresh ---------- */
+
 async function refreshBoards() {
   try {
     populateBoardTopicSel();
@@ -238,8 +245,8 @@ window.refreshAllLB = refreshAllLB;
 ========================= */
 
 async function logTestRun(summary) {
-  if (!authUser || !sb) {
-    window.lastTestRunError = "Geen Supabase of niet ingelogd.";
+  if (!authUser) {
+    window.lastTestRunError = "Niet ingelogd.";
     window.lastTestRunStatus = "geen sessie";
     window.lastTestRunAttempted = true;
     return;
@@ -249,6 +256,7 @@ async function logTestRun(summary) {
     window.lastTestRunAttempted = true;
     window.lastTestRunStatus = "bezig";
     window.lastTestRunError = null;
+
     const mode = (summary?.mode || "").toString().toLowerCase();
     const topic = summary?.topicId || summary?.topic || null;
 
@@ -272,8 +280,8 @@ async function logTestRun(summary) {
       mode: mode || null,
       topic: topic || null,
 
-      learner_name: summary?.name || profile?.name || profile?.username || null,
-      learner_class: summary?.class || profile?.class || "1B",
+      learner_name: String(summary?.name || profile?.name || profile?.username || "leerling").trim() || "leerling",
+      learner_class: String(summary?.class || profile?.class || "1B").trim() || "1B",
 
       score: Number.isFinite(Number(summary?.score)) ? Number(summary.score) : null,
       total: total,
@@ -290,6 +298,23 @@ async function logTestRun(summary) {
       payload: summary || null,
     };
 
+    const dedupeKey = [row.user_id, row.created_at, row.mode, row.topic].join("|");
+
+    const queued = window.WQ_OUTBOX?.enqueue?.("test_runs", row, { dedupeKey });
+    if (queued) {
+      window.lastTestRunError = null;
+      window.lastTestRunStatus = "queued";
+      window.WQ_OUTBOX?.flushSoon?.(300);
+      return;
+    }
+
+    // Fallback direct insert
+    if (!sb) {
+      window.lastTestRunError = "Geen Supabase client.";
+      window.lastTestRunStatus = "fout";
+      return;
+    }
+
     const { error } = await sb.from("test_runs").insert(row);
     if (error) {
       window.lastTestRunError = error?.message || String(error);
@@ -297,6 +322,7 @@ async function logTestRun(summary) {
       console.warn("logTestRun failed:", error?.message || error);
       return;
     }
+
     window.lastTestRunError = null;
     window.lastTestRunStatus = "ok";
   } catch (e) {

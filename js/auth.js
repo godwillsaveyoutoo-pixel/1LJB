@@ -38,7 +38,19 @@ function cleanUsername(u) {
 }
 
 function usernameToEmail(username) {
-  const u = cleanUsername(username);
+  const raw = String(username || "").trim();
+
+  // Laat ook echte e-mails toe (handig als je users in Supabase UI aanmaakt)
+  if (raw.includes("@")) {
+    const email = raw.toLowerCase();
+    const local = email.split("@")[0] || "";
+    return {
+      username: cleanUsername(local),
+      email,
+    };
+  }
+
+  const u = cleanUsername(raw);
   return {
     username: u,
     email: u ? `${u}@wiskundequest.example` : "",
@@ -170,14 +182,52 @@ async function onAuthReady() {
   // profiel ophalen / syncen
   if (typeof ensureProfileRow === "function") {
     try {
-      const row = await ensureProfileRow();
+      // Seed username vanuit e-mail (voor accounts die buiten de app zijn aangemaakt)
+      const seed = {};
+      try {
+        const em = String(authUser?.email || "").toLowerCase();
+        if (em && em.includes("@") && !(window.profile?.username || "").trim()) {
+          const local = em.split("@")[0] || "";
+          const u = cleanUsername(local);
+          if (u) seed.username = u;
+        }
+        // Klas: default
+        seed.class = '1B';
+      } catch (_) {}
+
+      const row = await ensureProfileRow(seed);
       if (typeof applyRemoteProfile === "function") {
         applyRemoteProfile(row);
+      }
+
+      // Als naam ontbreekt: vraag die 1x (klas staat vast)
+      try {
+        const nm = (window.profile?.name || "").trim();
+        if (!nm && window.MR_SHARED?.askName) {
+          const res = await window.MR_SHARED.askName('taak', { fixedClass: '1B', hideClass: true });
+          const newName = (typeof res === 'string' ? res : (res?.name || '')).trim();
+          if (newName) {
+            // schrijf meteen door naar Supabase + update lokale state
+            const row2 = await ensureProfileRow({ name: newName, class: '1B' });
+            applyRemoteProfile?.(row2);
+          }
+        }
+      } catch (e) {
+        console.warn("Name prompt failed:", e?.message || e);
       }
     } catch (e) {
       console.warn("Profile sync failed:", e);
     }
   }
+
+  // Teacher-role check (veilig): via aparte tabel 'teachers' indien aanwezig
+  try {
+    if (sb && window.profile) {
+      const { data, error } = await sb.from('teachers').select('user_id').eq('user_id', authUser.id).maybeSingle();
+      if (!error && data) window.profile.role = 'teacher';
+      else if (!error) window.profile.role = 'student';
+    }
+  } catch (_) {}
 
   // UI
   updateUserPill?.();
@@ -189,6 +239,12 @@ async function onAuthReady() {
   // leaderboard verversen (non-blocking)
   try {
     refreshAllLB?.();
+  } catch (_) {}
+
+  // Outbox: queued scores/test_runs opnieuw proberen
+  try {
+    window.WQ_OUTBOX?.start?.();
+    window.WQ_OUTBOX?.flushSoon?.(250);
   } catch (_) {}
 }
 

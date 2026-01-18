@@ -893,7 +893,9 @@ function endGame() {
       // leaderboard
       const mode = topicId === "global" ? "global" : "topic";
       const topic = topicId === "global" ? "global" : topicId;
-      window.postScore?.({ mode, topic, score: state.score, acc, duration_ms });
+      const nm = state.identity?.name || window.profile?.name || window.profile?.username || "";
+      const cls = state.identity?.class || window.profile?.class || "1B";
+      window.postScore?.({ mode, topic, score: state.score, acc, duration_ms, name: nm, className: cls });
       window.refreshBoards?.();
 
       // toon status op resultaatregel (eenmalig, met vertraging)
@@ -983,7 +985,7 @@ function endGame() {
       const cls =
         state.identity?.class ||
         window.profile?.class ||
-        "";
+        "1B";
 
       const flags = (state.identity && typeof state.identity === "object" && state.identity.flags) ? state.identity.flags : {};
 
@@ -998,6 +1000,8 @@ function endGame() {
         class: cls,
         gameId: metaId,
         mode: "toets",
+        topicId: state.topic?.id || "",
+        topicTitle: state.topic?.title || "",
         seconds: elapsedSec,
         timeLimitSec: Math.round((state.timeLimitMs || 0) / 1000),
         score: state.score,

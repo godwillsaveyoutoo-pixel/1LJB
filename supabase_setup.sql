@@ -48,23 +48,34 @@ create policy "profiles_update_own"
 on public.profiles for update
 to authenticated
 using (auth.uid() = user_id)
-with check (
-  auth.uid() = user_id
-  AND role = (select p.role from public.profiles p where p.user_id = auth.uid())
+with check (auth.uid() = user_id);
+
+-- ✅ Teacher rechten: gebruik aparte tabel (voorkomt RLS-recursie)
+create table if not exists public.teachers (
+  user_id uuid primary key references auth.users(id) on delete cascade
 );
 
--- (Optioneel) teacher mag alle profiles lezen
+alter table public.teachers enable row level security;
+
+-- Helper: teacher check (veilig, geen query op profiles)
+create or replace function public.is_teacher()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.teachers t where t.user_id = auth.uid()
+  );
+$$;
+
+-- (Optioneel) teacher mag alle profiles lezen (nu zonder recursie)
 drop policy if exists "profiles_select_teacher" on public.profiles;
 create policy "profiles_select_teacher"
 on public.profiles for select
 to authenticated
-using (
-  exists (
-    select 1 from public.profiles p
-    where p.user_id = auth.uid()
-      and p.role = 'teacher'
-  )
-);
+using (public.is_teacher());
 
 -- 2) TEST RUNS (toets + run samenvattingen)
 create table if not exists public.test_runs (
@@ -137,11 +148,7 @@ create policy "test_runs_select_teacher"
 on public.test_runs for select
 to authenticated
 using (
-  exists (
-    select 1 from public.profiles p
-    where p.user_id = auth.uid()
-      and p.role = 'teacher'
-  )
+  public.is_teacher()
 );
 
 -- ==========================================

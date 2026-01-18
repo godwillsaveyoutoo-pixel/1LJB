@@ -282,9 +282,10 @@ async function ensureProfileRow(seed = {}) {
       seed.username ||
       profile.username ||
       `user_${authUser.id.slice(0, 8)}`,
-    name: seed.name || profile.name || "",
-    class: (seed.class || profile.class || "1B"),
-    role: (seed.role || profile.role || "student"),
+    name: seed.name || profile.name || (localStorage.getItem('mr_name')||"") || "",
+    class: (seed.class || profile.class || (localStorage.getItem('mr_class')||"") || "1B"),
+    // role wordt niet meer client-side beheerd (teacher-status via aparte tabel)
+    role: "student",
     settings: profile.settings,
     skills,
     prog,
@@ -309,7 +310,6 @@ async function upsertProfileRemote() {
     username: profile.username,
     name: profile.name,
     class: profile.class,
-    role: profile.role,
     settings: profile.settings,
     skills,
     prog,
